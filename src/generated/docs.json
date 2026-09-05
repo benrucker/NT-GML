@@ -1,0 +1,2637 @@
+{
+	"NaN": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"abs": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"alarm_run": {
+		"markdown": "Ticks down the specified alarm if it is set,\nand returns whether it's time to trigger the effect.\n\n$`src`",
+		"source": "API-Instances.dmd"
+	},
+	"angle_difference": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"ansi_char": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"arccos": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"arcsin": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"arctan": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"arctan2": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"array_clear": {
+		"markdown": "Replaces the contents of an array with the given value.\n```\nvar arr = [1, 2, 3];\narray_clear(arr, 4);\ntrace(arr); // [4, 4, 4]\n```",
+		"source": "API-Arrays.dmd"
+	},
+	"array_clone": {
+		"markdown": "Returns a shallow copy of the given array.\n```\nvar a = [1, 2, 3];\nvar b = array_clone(a);\na[1] = 4;\ntrace(a); // [1, 4, 3]\ntrace(b); // [1, 2, 3]\n```",
+		"source": "API-Arrays.dmd"
+	},
+	"array_filter": {
+		"markdown": "Filters an array by passing each item to the filter function\nand keeping only the ones that it returned `true` for.\n\nIf `copy` is `true`, filtered items will be added to a new array.\\\nOtherwise the array is modified in place.\n\nReturns the array (either new or the input one) in both cases.\n\nOn terms of modern GML, the function is a mix of\n$[manual](array_filter) and $[manual](array_filter_ext).",
+		"source": "API-Arrays.dmd"
+	},
+	"array_find_index": {
+		"markdown": "Returns the index of first occurrence of a value in the array.\n```\nvar arr = [\"a\", \"b\", \"c\"];\ntrace(array_find_index(arr, \"b\")); // 1\ntrace(array_find_index(arr, \"c\")); // 2\ntrace(array_find_index(arr, \"d\")); // -1\n```\nThis is the primary reason for the `native_` prefixes - in GML functions,\n`array_find_index` uses a _predicate_ to search an array\nwhile `array_get_index` searches for a value.\nA confusing one given the names of `ds_list` functions.",
+		"source": "API-Arrays.dmd"
+	},
+	"array_find_index_ext": {
+		"markdown": "Like above, but starts searching at a specific index (inclusive).",
+		"source": "API-Arrays.dmd"
+	},
+	"array_find_last_index": {
+		"markdown": "Like above, but searches from the end of an array.",
+		"source": "API-Arrays.dmd"
+	},
+	"array_find_last_index_ext": {
+		"markdown": "Like above, but searches for values before the specified index (exclusive).",
+		"source": "API-Arrays.dmd"
+	},
+	"array_join": {
+		"markdown": "Joins the contents of an array into a string, separating them as specified.\n```\nvar arr = [1, 2, 3];\ntrace(array_join(arr, \"|\")); // \"1|2|3\"\n```\n`string_split` can be considered a counterpart of this function.",
+		"source": "API-Arrays.dmd"
+	},
+	"array_length_1d": {
+		"markdown": "Same thing as array_length, here for backwards compatibility.",
+		"source": "API-Arrays.dmd"
+	},
+	"array_map": {
+		"markdown": "Modifies an array by passing all items through a mapper function.\n\nIf `copy` is `true`, resulting items will be added to a new array.\\\nOtherwise the array is modified in place.\n\nReturns the array (either new or the input one) in both cases.\n\nOn terms of modern GML, the function is a mix of\n$[manual](array_map) and $[manual](array_map_ext).",
+		"source": "API-Arrays.dmd"
+	},
+	"array_slice": {
+		"markdown": "Returns a new array with values representing a section of an array.\n\nThis is more or less a shortcut for `array_create(length)` + `array_copy`.\n```\nvar arr = [1, 2, 3, 4, 5];\ntrace(array_slice(arr, 1, 3)); // [1, 2, 3]\n```",
+		"source": "API-Arrays.dmd"
+	},
+	"array_sort_sub": {
+		"markdown": "Assuming an array of arrays,\nsorts the contents based on `sub_index`-th element of each sub-array.\n\nThese days you can pass a predicate function to `array_sort`.",
+		"source": "API-Arrays.dmd"
+	},
+	"audio_is_playing": {
+		"markdown": "Although the name doesn't suggest so,\nthe result of this function is currently _non-sync_ so you should not use it\nto do something when a sound finishes playing.",
+		"source": "API-Audio.dmd"
+	},
+	"background_get_texture": {
+		"markdown": "Texture/UV functions",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"background_get_uvs": {
+		"markdown": "Texture/UV functions",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"base64_decode": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"base64_encode": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"buffer_base64_decode_ext": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_base64_encode": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_compress": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_copy": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_copy_from_vertex_buffer": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"buffer_crc32": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_create_from_vertex_buffer": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"buffer_create_from_vertex_buffer_ext": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"buffer_decompress": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_destroy": {
+		"markdown": "Why _is_ the default one called `_delete`?",
+		"source": "API-Buffers.dmd"
+	},
+	"buffer_exists": {
+		"markdown": "Alias for above, smarter than the default `buffer_exists`.",
+		"source": "API-Buffers.dmd"
+	},
+	"buffer_fill": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_get_address": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_get_alignment": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_get_size": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_get_surface": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_get_type": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_load": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_load_ext": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_md5": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_bool": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_s16": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_s32": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_s8": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_string": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_text": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_u16": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_u32": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_u64": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_peek_u8": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_bool": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_s16": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_s32": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_s8": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_string": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_text": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_u16": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_u32": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_u64": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_poke_u8": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_bool": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_s16": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_s32": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_s8": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_string": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_text": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_u16": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_u32": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_u64": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_read_u8": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_resize": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_save": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_save_ext": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_seek": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_seek_end": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_seek_relative": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_seek_start": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_set_surface": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_set_used_size": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_sha1": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_sizeof": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_tell": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_valid": {
+		"markdown": "Same as with `_valid` functions for data structures.",
+		"source": "API-Buffers.dmd"
+	},
+	"buffer_write": {
+		"markdown": "Built-in functions",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_bool": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_s16": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_s32": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_s8": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_string": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_text": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_u16": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_u32": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_u64": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"buffer_write_u8": {
+		"markdown": "These offer a minor performance benefit in NTT.",
+		"source": "API-Buffers.dmd",
+		"group": true
+	},
+	"button_check_nonsync": {
+		"markdown": "$[nonSync](vf)",
+		"source": "NTT-Input.dmd",
+		"group": true
+	},
+	"button_pressed_nonsync": {
+		"markdown": "$[nonSync](vf)",
+		"source": "NTT-Input.dmd",
+		"group": true
+	},
+	"button_released_nonsync": {
+		"markdown": "$[nonSync](vf)",
+		"source": "NTT-Input.dmd",
+		"group": true
+	},
+	"ceil": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"chr": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"clamp": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"collision_line_point": {
+		"markdown": "Finds the closest instance going from xy1 to xy2,\nas per [blog post](https://yal.cc/gamemaker-collision-line-point/).\n\nHowever, this either populates or returns a new struct\nwith `x`, `y`, and `inst` variables.\n\n$`src`",
+		"source": "API-Collisions.dmd"
+	},
+	"collision_line_width_first": {
+		"markdown": "Similar to above, but includes width.\n\n$`src`",
+		"source": "API-Collisions.dmd"
+	},
+	"cos": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"current_frame_get_repeat": {
+		"markdown": "This is equivalent to\n```\nvar _ft = current_time_scale;\nif ((current_frame % 1) < (_ft % 1)) return ceil(_ft);\nreturn floor(_ft);\n```\nAnd I don't remember writing this function.",
+		"source": "NTT-TimeScale.dmd"
+	},
+	"current_frame_is_active": {
+		"markdown": "This is equivalent to\n```\n(current_frame % 1) < current_time_scale\n```\nand is good for effects that should happen roughly once per frame.",
+		"source": "NTT-TimeScale.dmd"
+	},
+	"darccos": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"darcsin": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"darctan": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"darctan2": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"dcos": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"degtorad": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"direction": {
+		"markdown": "The standard set assumes values at time scale of 1 (normal speed at 30fps).",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"direction_raw": {
+		"markdown": "If you need \"real\" values of these, they can be accessed using the following",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"dot_product": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"dot_product_3d": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"dot_product_3d_normalised": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"dot_product_3d_normalized": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"dot_product_normalised": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"dot_product_normalized": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"dp_player_count_active": {
+		"markdown": "Returns whether the total number of occupied player slots.\n\nIf P1 and P3 are taken, this will return `2`, for example.",
+		"source": "NTT-Players.dmd"
+	},
+	"dp_player_count_sources": {
+		"markdown": "Returns the number of input sources (physical computers)\nbeing used across all player slots.\n\nFor example,\nif P1 and P2 are playing locally on machine A\nand P3 is connected to them over the internet from machine B,\nthis will return `2`.",
+		"source": "NTT-Players.dmd"
+	},
+	"dp_player_is_viewed_nonsync": {
+		"markdown": "Returns whether the given slot is being observed by the local computer.\n\nThis is true if the player is local\nor if we're spectating the player (either in real-time or on a replay).",
+		"source": "NTT-Players.dmd"
+	},
+	"draw_background": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_background_ext": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_background_general": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_background_part": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_background_part_ext": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_background_stretched": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_background_stretched_ext": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_background_tiled": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_background_tiled_ext": {
+		"markdown": "Backgrounds aren't real in current GameMaker versions so these just draw\nthe first frame of a sprite.",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_get_visible": {
+		"markdown": "These were intended to be slightly easier to work with than\nusing [dp_player_is_viewed_nonsync](NTT-Players.html#dp_player_is_viewed_nonsync).",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_rect_ext": {
+		"markdown": "Draws a colored filled rectangle using a sprite.",
+		"source": "API-Drawing.dmd"
+	},
+	"draw_set_projection": {
+		"markdown": "Modes are as following: --{\n-\t`0`: Standard drawing\n-\t`1`: Draws relative to view.\n-\t`2`: Draws over the HUD of player `index`.\n}",
+		"source": "API-Drawing.dmd"
+	},
+	"draw_set_visible": {
+		"markdown": "These were intended to be slightly easier to work with than\nusing [dp_player_is_viewed_nonsync](NTT-Players.html#dp_player_is_viewed_nonsync).",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_set_visible_all": {
+		"markdown": "These were intended to be slightly easier to work with than\nusing [dp_player_is_viewed_nonsync](NTT-Players.html#dp_player_is_viewed_nonsync).",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"draw_set_visible_bbox": {
+		"markdown": "Enables or disables drawing based on whether the given player\ncan see any portion of the given rectangle.",
+		"source": "API-Drawing.dmd"
+	},
+	"draw_set_visible_bbox_all": {
+		"markdown": "Enables or disables drawing based on whether the local player\ncan see any portion of the given rectangle.",
+		"source": "API-Drawing.dmd"
+	},
+	"draw_text_nt": {
+		"markdown": "Draws text with tags!\n-\t`@s`: Silver\n-\t`@d`: Dark gray\n-\t`@y`: Yellow\n-\t`@r`: Red\n-\t`@b`: Blue\n-\t`@g`: Green\n-\t`@p`: Purple\n-\t`@w`: White\n-\t`@q`: Cursed/shaky text\n-\t`@(...)`, `@0(...)`, `@9(...)`:\\\n\tYou can do `@(sprAmmo)` or `@(sprAmmo:1)` to draw sprites.\n\n\t`@0` .. `@9` indicates how much space the sprite takes up in text.\n\n\tThis is also used for some special things: --{\n\t-\t`@(keysmall:action)`:\\\n\t\tDisplays the current key binding for an action.\n\n\t\tPossible actions are: --{\n\t\t-\t`fire`\n\t\t-\t`spec`\n\t\t-\t`pick`\n\t\t-\t`swap`\n\t\t-\t`nort`\n\t\t-\t`sout`\n\t\t-\t`east`\n\t\t-\t`west`\n\t\t}\n\t-\t`@(keysmall2:action)`:\\\n\t\tDisplays the alternate key binding for an action.\n\t-\t`@(butsmall:action)`:\\\n\t\tDisplays the current gamepad button binding for an action.\n\t-\t`@(butsmall2:action)`:\\\n\t\tDisplays the alternate gamepad button binding for an action.\n\t-\t`@(butbig:action)`:\\\n\t\tLike above, but for big buttons.\n\t-\t`@(butbig2:action)`:\\\n\t\tLike above, but for big buttons and alternate binding.\n\t-\t`@(color:value)`:\\\n\t\tApplies a custom color.\n\n\t\t`value` can be either a numeric BGR color in GameMaker format\n\t\t(such as from `make_color_rgb`) or a `#RrGgBb` hex.\n\t}\n}",
+		"source": "API-Drawing.dmd"
+	},
+	"draw_text_shadow": {
+		"markdown": "Draws text with a simple shadow (black text at +1,0; 0,+1; +1,+1).\n\nConverts hashtags (`#`) to new lines.",
+		"source": "API-Drawing.dmd"
+	},
+	"draw_tooltip": {
+		"markdown": "Draws a tooltip in a signature balloon above the given point.\n\nSame tag support as `draw_text_nt`.",
+		"source": "API-Drawing.dmd"
+	},
+	"ds_grid_add": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_add_disk": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_add_grid_region": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_add_region": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_clear": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_copy": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_create": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_destroy": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get_disk_max": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get_disk_mean": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get_disk_min": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get_disk_sum": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get_max": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get_mean": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get_min": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_get_sum": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_height": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_join": {
+		"markdown": "Joins the contents of a grid to a string with row/column separators.\n\nGood for quickly displaying grids, but not necessarily a valid CSV/TSV.",
+		"source": "API-DS.dmd"
+	},
+	"ds_grid_multiply": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_multiply_disk": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_multiply_grid_region": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_multiply_region": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_resize": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_set": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_set_disk": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_set_grid_region": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_set_region": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_shuffle": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_sort": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_valid": {
+		"markdown": "The following are extra",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_value_disk_exists": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_value_disk_x": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_value_disk_y": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_value_exists": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_value_x": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_value_y": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_grid_width": {
+		"markdown": "The following are unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_add": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_add_array": {
+		"markdown": "Adds contents of an array to the end of a list.",
+		"source": "API-DS.dmd"
+	},
+	"ds_list_clear": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_copy": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_create": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_delete": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_destroy": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_empty": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_find_index": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_find_value": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_insert": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_join": {
+		"markdown": "Joins the contents of a list to a string with `separator` string added between them.",
+		"source": "API-DS.dmd"
+	},
+	"ds_list_read": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_remove": {
+		"markdown": "Removes a single value from a list, returns whether it was found-removed.",
+		"source": "API-DS.dmd"
+	},
+	"ds_list_replace": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_set": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_shuffle": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_size": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_sort": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_to_array": {
+		"markdown": "Creates a new array and copies the contents of the list to it.",
+		"source": "API-DS.dmd"
+	},
+	"ds_list_valid": {
+		"markdown": "The following are extra",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_list_write": {
+		"markdown": "The following are more or less unchanged",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_add": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_clear": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_copy": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_create": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_delete": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_destroy": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_empty": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_exists": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_find_first": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_find_last": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_find_next": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_find_previous": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_find_value": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_keys": {
+		"markdown": "Deprecated, use `ds_map_keys_to_array`.",
+		"source": "API-DS.dmd"
+	},
+	"ds_map_keys_to_array": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_replace": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_set": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_size": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"ds_map_values": {
+		"markdown": "Deprecated, use `ds_map_values_to_array`.",
+		"source": "API-DS.dmd"
+	},
+	"ds_map_values_to_array": {
+		"markdown": "Nothing new over here.",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"dsin": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"dtan": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"event_perform": {
+		"markdown": "Be careful!\n\n$`manual`",
+		"source": "API-Instances.dmd"
+	},
+	"event_perform_object": {
+		"markdown": "Also be careful - executing other objects' events may leak\nvariables into the current instance.\n\n$`manual`",
+		"source": "API-Instances.dmd"
+	},
+	"exp": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"floor": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"font_get_texture": {
+		"markdown": "Texture/UV functions",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"font_get_uvs": {
+		"markdown": "Texture/UV functions",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"frac": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"friction": {
+		"markdown": "The standard set assumes values at time scale of 1 (normal speed at 30fps).",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"friction_raw": {
+		"markdown": "If you need \"real\" values of these, they can be accessed using the following",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"get_timer_nonsync": {
+		"markdown": "Returns the number of microseconds since the game has started.\n\nSee $[manual](get_timer).",
+		"source": "NTT-TimeScale.dmd"
+	},
+	"gravity": {
+		"markdown": "The standard set assumes values at time scale of 1 (normal speed at 30fps).",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"gravity_raw": {
+		"markdown": "If you need \"real\" values of these, they can be accessed using the following",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"hspeed": {
+		"markdown": "The standard set assumes values at time scale of 1 (normal speed at 30fps).",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"hspeed_raw": {
+		"markdown": "If you need \"real\" values of these, they can be accessed using the following",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"infinity": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"instance_create": {
+		"markdown": "GMS1-style, picks depth based on `object_get_depth` with depths set in project.",
+		"source": "API-Instances.dmd"
+	},
+	"instance_delete": {
+		"markdown": "This is just a `instance_destroy(inst, false)` from a time before GM added\nan optional argument to `instance_destroy`.",
+		"source": "API-Instances.dmd"
+	},
+	"instance_is": {
+		"markdown": "Returns whether an instance belongs to the given object type.\n\nThis is equivalent to\n```\nobject_index == obj || object_is_ancestor(object_index, obj)\n```",
+		"source": "API-Instances.dmd"
+	},
+	"instance_nearest_bbox": {
+		"markdown": "Like `instance_nearest`, but measures distance with `distance_to_point`.",
+		"source": "API-Instances.dmd"
+	},
+	"instance_nearest_from": {
+		"markdown": "Like `instance_nearest`, but takes an array of instances",
+		"source": "API-Instances.dmd"
+	},
+	"instance_nearest_nonself": {
+		"markdown": "Like the regular `instance_nearest`,\nbut will not return the instance calling the function.",
+		"source": "API-Instances.dmd"
+	},
+	"instances_in_circle": {
+		"markdown": "Returns an array of instances with their XY within circle",
+		"source": "API-Instances.dmd"
+	},
+	"instances_in_rectangle": {
+		"markdown": "Returns an array of instances with their XY within rectangle",
+		"source": "API-Instances.dmd"
+	},
+	"instances_matching": {
+		"markdown": "Returns an array of instances that have varname equal to any of values.",
+		"source": "API-Instances.dmd"
+	},
+	"instances_matching_ge": {
+		"markdown": "Returns an array of instances that have varname numeric and >= the set threshold",
+		"source": "API-Instances.dmd"
+	},
+	"instances_matching_gt": {
+		"markdown": "Returns an array of instances that have varname numeric and > the set threshold",
+		"source": "API-Instances.dmd"
+	},
+	"instances_matching_le": {
+		"markdown": "Returns an array of instances that have varname numeric and <= the set threshold",
+		"source": "API-Instances.dmd"
+	},
+	"instances_matching_lt": {
+		"markdown": "Returns an array of instances that have varname numeric and < the set threshold",
+		"source": "API-Instances.dmd"
+	},
+	"instances_matching_ne": {
+		"markdown": "Returns an array of instances that have varname not equal to any of values",
+		"source": "API-Instances.dmd"
+	},
+	"instances_matching_range": {
+		"markdown": "Returns an array of instances that have varname numeric and within the range",
+		"source": "API-Instances.dmd"
+	},
+	"is_builtin": {
+		"markdown": "Returns whether a value is a wrapper for a data structure/etc. and not a struct.",
+		"source": "API-Types.dmd"
+	},
+	"is_double": {
+		"markdown": "In \"legacy\" NTGML, `is_real` is an alias for `is_numeric` and this is the actual `is_real`.",
+		"source": "API-Types.dmd"
+	},
+	"is_number": {
+		"markdown": "Same as `is_numeric`.",
+		"source": "API-Types.dmd"
+	},
+	"is_object": {
+		"markdown": "Returns whether a value is a struct, but not a wrapper for a data structure/etc.",
+		"source": "API-Types.dmd"
+	},
+	"json_decode": {
+		"markdown": "This works closer to $[manual](json_parse)\nas it returns structs and arrays, not data structures.\n\nIf JSON fails to parse, it returns `json_error` (special value)\nand stores the error text in `json_error_text`.",
+		"source": "API-DS.dmd"
+	},
+	"json_encode": {
+		"markdown": "This works closer to $[manual](json_stringify)\nas it works with structs and arrays, not data structures.\n\nAlso note that it accepts an indentation string\n(or `undefined` / no argument to not pretty-print)\ninstead of a boolean flag like the built-in function does.",
+		"source": "API-DS.dmd"
+	},
+	"json_false": {
+		"markdown": "And these two used to be special values back when GM didn't have an easy way to check\nwhether something is a boolean, but now they're just aliases for `true`/`false`",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"json_true": {
+		"markdown": "And these two used to be special values back when GM didn't have an easy way to check\nwhether something is a boolean, but now they're just aliases for `true`/`false`",
+		"source": "API-DS.dmd",
+		"group": true
+	},
+	"lengthdir_x": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"lengthdir_y": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"lerp": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"ln": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"log10": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"log2": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"logn": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"lq_clone": {
+		"markdown": "Makes a shallow copy of the given struct.\n```\nvar orig = { a: 4, b: \"?\" };\nvar copy = lq_clone(orig);\ncopy.a += 4;\ntrace(orig); // { a: 4, b: \"?\" }\ntrace(copy); // { a: 8, b: \"?\" }\n```",
+		"source": "API-Structs.dmd"
+	},
+	"lq_defget": {
+		"markdown": "Like above, but with default value\nif the variable is missing.",
+		"source": "API-Structs.dmd"
+	},
+	"lq_delete": {
+		"markdown": "Equivalent to `struct_delete`.",
+		"source": "API-Structs.dmd"
+	},
+	"lq_exists": {
+		"markdown": "Equivalent to `struct_exists`.",
+		"source": "API-Structs.dmd"
+	},
+	"lq_get": {
+		"markdown": "Like `struct_get`, but returns `undefined` if value is not a struct.",
+		"source": "API-Structs.dmd"
+	},
+	"lq_get_key": {
+		"markdown": "Returns n-th field from a struct.\n\nThis used to not allocate anything, but now it's just a wrapper for\n`variable_struct_get_names` (that'll get new fields when a struct changes).",
+		"source": "API-Structs.dmd"
+	},
+	"lq_get_value": {
+		"markdown": "Returns n-th value from a struct.\n\nPair of above.",
+		"source": "API-Structs.dmd"
+	},
+	"lq_set": {
+		"markdown": "Equivalent to `struct_set`.",
+		"source": "API-Structs.dmd"
+	},
+	"lq_size": {
+		"markdown": "Equivalent to `array_length` if argument is an array (backwards compatibility),\notherwise equivalent to `struct_names_count`.",
+		"source": "API-Structs.dmd"
+	},
+	"math_get_epsilon": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"math_set_epsilon": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"max": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"mean": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"median": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"min": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"motion_add": {
+		"markdown": "To make an average mod at work relatively correctly on different framerates,\nthis function will re-calculate speed based on time scale,\nassuming an impulse (one-off applied motion).",
+		"source": "API-Movement.dmd"
+	},
+	"motion_add_ct": {
+		"markdown": "Also adjusts speed based on time scale,\nbut assumes constant motion (like nudging a missile towards target).",
+		"source": "API-Movement.dmd"
+	},
+	"motion_add_raw": {
+		"markdown": "This is the _real_ `motion_add`, without any re-calculations.",
+		"source": "API-Movement.dmd"
+	},
+	"motion_set": {
+		"markdown": "Similar to above, speed will be adjusted based on current time scale\nassuming an impulse.",
+		"source": "API-Movement.dmd"
+	},
+	"motion_set_raw": {
+		"markdown": "Similarly, the _real_ `motion_set`.",
+		"source": "API-Movement.dmd"
+	},
+	"mouse_is_locked": {
+		"markdown": "Returns whether the mouse is effectively locked\n(e.g. the mouse is never locked on the pause menu)",
+		"source": "NTT-Input.dmd"
+	},
+	"mouse_lock": {
+		"markdown": "Locks the mouse.",
+		"source": "NTT-Input.dmd"
+	},
+	"mouse_unlock": {
+		"markdown": "Unlocks the mouse.",
+		"source": "NTT-Input.dmd"
+	},
+	"mouse_x_nonsync": {
+		"markdown": "$[nonSync](vf)",
+		"source": "NTT-Input.dmd",
+		"group": true
+	},
+	"mouse_y_nonsync": {
+		"markdown": "$[nonSync](vf)",
+		"source": "NTT-Input.dmd",
+		"group": true
+	},
+	"move_and_collide": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_bounce_all": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_bounce_solid": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_contact_all": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_contact_solid": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_outside_all": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_outside_solid": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_snap": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_towards_point": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"move_wrap": {
+		"markdown": "And the following are left untouched",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"native_array_all": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_any": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_concat": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_contains": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_contains_ext": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_copy_while": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_create_ext": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_filter": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_filter_ext": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_first": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_foreach": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_intersection": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_last": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_map": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_map_ext": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_reduce": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_reverse": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_reverse_ext": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_sort": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_union": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_unique": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"native_array_unique_ext": {
+		"markdown": "NTT-specific functions use the built-in functions where appropriate\nso there is no speed penalty from using one or the other.",
+		"source": "API-Arrays.dmd",
+		"group": true
+	},
+	"object_get_depth": {
+		"markdown": "Returns the depth that `instance_create` would put instances of the object on.",
+		"source": "API-Instances.dmd"
+	},
+	"object_has_event": {
+		"markdown": "Returns whether an object has a specific event.",
+		"source": "API-Instances.dmd"
+	},
+	"ord": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"pi": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"player_count_race": {
+		"markdown": "Returns how many players have picked the given character on game start.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_find_local_nonsync": {
+		"markdown": "Returns n-th (0-based) local slot index,\nor -1 if there are no more local players.\n\nSo, if you were occupying P2 and P4, the following\n```\nfor (var i = 0; i < maxp; i++) {\n\tvar p = player_find_local_nonsync(i);\n\ttrace(i, p);\n\tif (p < 0) break;\n}\n```\nwould display\n```text\n0 1 <- P2\n1 3 <- P4\n2 -1 <- end\n```",
+		"source": "NTT-Players.dmd"
+	},
+	"player_get_alias": {
+		"markdown": "Returns the username (or locally set name for offline mode)\nof the player controlling the given slot.\n\nThis is handy for displaying leaderboards or other UI that addresses the players.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_get_color": {
+		"markdown": "Returns the chosen color for a player slot,\nas seen in chat, outlines, and player indicators.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_get_outlines": {
+		"markdown": "Returns whether the given player has character outlines enabled.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_get_race": {
+		"markdown": "Returns the current character for a player slot.\n\nThese are strings like `\"fish\"`, `\"robot\"`,\nor mod names for custom characters.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_get_race_id": {
+		"markdown": "Returns the current character index for a player slot.\n\nThese are numbers like 1 (or `char_fish`) for Fish,\n5 (or `char_robot`) for Robot,\nor `char_custom` for mods.\n\nAll mods share the race index so you'll want to use `player_get_race`\nto tell modded characters apart.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_get_race_pick": {
+		"markdown": "These are like above, but for what the player has picked on character select screen",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_get_race_pick_id": {
+		"markdown": "These are like above, but for what the player has picked on character select screen",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_get_show_cursor": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_get_show_hud": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_get_show_marker": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_get_show_prompts": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_get_show_skills": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_get_skin": {
+		"markdown": "Returns the current skin for a player slot.\n\nThis is numeric for base-game skins and strings for modded skins.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_get_uid": {
+		"markdown": "Returns the numeric \"unique ID\" of a player controlling the slot.\n\nIf two slots have the same UID, they are being controlled from the same computer.\n\nA player that joined the lobby earlier will have a lower UID\nthan a player that joined (or re-joined) the lobby later,\nbut otherwise no pattern is guaranteed for these,\nand they can have \"gaps\".",
+		"source": "NTT-Players.dmd"
+	},
+	"player_is_active": {
+		"markdown": "Returns whether the given slot is occupied.\n\nThere can be \"gaps\" in the slot list if someone leaves mid-game.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_is_local_nonsync": {
+		"markdown": "Returns whether the given slot is being controlled by the local computer.\n\nNote that spectators have no local slots.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_set_race": {
+		"markdown": "Changes the current character for a player slot.\n\nThis accepts both numeric indexes and strings.\n\nReturns whether the specified character exists and was applied.",
+		"source": "NTT-Players.dmd"
+	},
+	"player_set_race_pick": {
+		"markdown": "These are like above, but for what the player has picked on character select screen",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_set_show_cursor": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_set_show_hud": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_set_show_marker": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_set_show_prompts": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_set_show_skills": {
+		"markdown": "They are primarily handy for versus mods.",
+		"source": "NTT-Players.dmd",
+		"group": true
+	},
+	"player_set_skin": {
+		"markdown": "Changes the current skin for a player slot.\n\nReturns whether successful.",
+		"source": "NTT-Players.dmd"
+	},
+	"point_direction": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"point_distance": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"point_distance_3d": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"point_in_circle": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"point_in_rectangle": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"point_in_triangle": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"power": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"radtodeg": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"rectangle_in_circle": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"rectangle_in_rectangle": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"rectangle_in_triangle": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"round": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"sign": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"sin": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"sound_assign": {
+		"markdown": "You can replace/restore sounds if you need to, just like with sprites",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_delete": {
+		"markdown": "Only for sounds that you created!",
+		"source": "API-Audio.dmd"
+	},
+	"sound_exists": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_get_name": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_loop": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_pitch": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_play": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_play_ambient": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_play_gun": {
+		"markdown": "Playing gun sounds briefly makes non-combat sound effects quieter.",
+		"source": "API-Audio.dmd"
+	},
+	"sound_play_hit": {
+		"markdown": "Hit sounds are not allowed to repeat and use 3d audio rules when enabled.",
+		"source": "API-Audio.dmd"
+	},
+	"sound_play_hit_big": {
+		"markdown": "Same deal as above, but with slower distance fade - used for explosions and such.",
+		"source": "API-Audio.dmd"
+	},
+	"sound_play_music": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_play_pitch": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_play_pitchvol": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_replace": {
+		"markdown": "You can replace/restore sounds if you need to, just like with sprites",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_restore": {
+		"markdown": "You can replace/restore sounds if you need to, just like with sprites",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_set_track_position": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_stop": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_stop_all": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"sound_volume": {
+		"markdown": "The naming scheme of these sort of mimics GM8.",
+		"source": "API-Audio.dmd",
+		"group": true
+	},
+	"speed": {
+		"markdown": "The standard set assumes values at time scale of 1 (normal speed at 30fps).",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"speed_raw": {
+		"markdown": "If you need \"real\" values of these, they can be accessed using the following",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"sprite_add": {
+		"markdown": "The function had its `removeback` and `smooth` arguments removed\nas those have been scarcely used after GameMaker 7.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_add_base64": {
+		"markdown": "Adds a sprite from a base64 string (without the `data:image/png;base64` prefix).\n\nThis is mostly convenient if your mod consists of one code file and a few sprites\nand you'd rather pack it all into one file.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_add_weapon": {
+		"markdown": "Adds a single-frame weapon sprite and gives it a signature weapon shine animation.\n\nWeapon sprites are most often added this way.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_add_weapon_base64": {
+		"markdown": "A mix of `sprite_add_base64` and `sprite_add_weapon`.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_duplicate_ext": {
+		"markdown": "Creates a new sprite that contains copies of specific frames of another sprite.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_get_name": {
+		"markdown": "Sprites added through `sprite_add` and alike will have their name set based on file name.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_get_texture": {
+		"markdown": "Texture/UV functions",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"sprite_get_uvs": {
+		"markdown": "Texture/UV functions",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"sprite_replace": {
+		"markdown": "Similar to above, but also `xorigin` / `yorigin` arguments are now optional\nin case you are replacing a sprite with a same-sized one.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_replace_base64": {
+		"markdown": "A mix of `sprite_replace` and `sprite_add_base64`.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_replace_image": {
+		"markdown": "Replaces a single subimage of a sprite. A convenience function.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_replace_image_base64": {
+		"markdown": "A mix of `sprite_replace_image` and `sprite_replace_base64`.",
+		"source": "API-Sprites.dmd"
+	},
+	"sprite_restore": {
+		"markdown": "Undoes whatever changes made by `sprite_replace` and alike.\n\nReturns whether there was anything to undo.",
+		"source": "API-Sprites.dmd"
+	},
+	"sqr": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"sqrt": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"string_auto": {
+		"markdown": "Converts a number to a string with automatic precision\n(unlike `string_format`, which requires specifying the number of decimal places).\n```\ntrace(string_auto(0.4)); // \"0.4\"\ntrace(string_auto(0.4040)); // \"0.404\"\n```",
+		"source": "API-Strings.dmd"
+	},
+	"string_byte_at": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_byte_length": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_char_at": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_concat": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_concat_ext": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_copy": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_count": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_delete": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_digits": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_ends_with": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_ext": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_foreach": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_format": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_hash_to_newline": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_insert": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_is_real": {
+		"markdown": "Returns whether a string contains a valid number\n(signed, fractional, no exponents/infinities).",
+		"source": "API-Types.dmd"
+	},
+	"string_join": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_join_ext": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_last_pos": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_last_pos_ext": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_length": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_letters": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_lettersdigits": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_lower": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_lpad": {
+		"markdown": "Prepends `padstr` to `str` until it reaches specified length.\n```\ntrace(string_lpad(string(42), \"0\", 4)); // \"0042\"\n```",
+		"source": "API-Strings.dmd"
+	},
+	"string_ltrim": {
+		"markdown": "Removes leading spaces from a string.\n```\ntrace(string_trim(\" hi \")); // \"hi \"\n```\nSame as now-built-in `string_trim_start`.",
+		"source": "API-Strings.dmd"
+	},
+	"string_md5": {
+		"markdown": "Returns a MD5 hash of a string, assuming Unicode encoding.",
+		"source": "API-Strings.dmd"
+	},
+	"string_md5_utf8": {
+		"markdown": "Returns a MD5 hash of a string, assuming UTF-8 encoding.",
+		"source": "API-Strings.dmd"
+	},
+	"string_ord_at": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_pos": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_pos_ext": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_repeat": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_replace": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_replace_all": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_rpad": {
+		"markdown": "Appends `padstr` to `str` until it reaches specified length.\n```\ntrace(string_rpad(string(42), \"0\", 4)); // \"4200\"\n```",
+		"source": "API-Strings.dmd"
+	},
+	"string_rtrim": {
+		"markdown": "Removes trailing spaces from a string.\n```\ntrace(string_trim(\" hi \")); // \" hi\"\n```\nSame as now-built-in `string_trim_end`.",
+		"source": "API-Strings.dmd"
+	},
+	"string_set_byte_at": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_sha1": {
+		"markdown": "Returns a SHA-1 hash of a string, assuming Unicode encoding.",
+		"source": "API-Strings.dmd"
+	},
+	"string_sha1_utf8": {
+		"markdown": "Returns a SHA-1 hash of a string, assuming UTF-8 encoding.",
+		"source": "API-Strings.dmd"
+	},
+	"string_split": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_split_ext": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_split_list": {
+		"markdown": "Splits a string on delimiter into an list of strings.\n\nIf `list` is provided, clears it and adds items to it, otherwise makes a new list.\n\nReturns the list.\n\nIf the string does not contain the delimiter, returns a 1-element array with the entire string.\n```\nvar list = string_split_list(\"A|B|C\", \"|\");\ntrace(list[|1]); // \"B\"\n```",
+		"source": "API-Strings.dmd"
+	},
+	"string_starts_with": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_to_real": {
+		"markdown": "Converts a string to a number if it's valid (rules per above)\nor returns `default_value` if it isn't.\n\nIn \"legacy\" NTGML, `real(str)` is equivalent\nto `string_to_real(str, 0)` for backwards compatibility.",
+		"source": "API-Types.dmd"
+	},
+	"string_trim": {
+		"markdown": "Removes leading and trailing spaces from a string.\n```\ntrace(string_trim(\" hi \")); // \"hi\"\n```\nSame as now-built-in `string_trim`.",
+		"source": "API-Strings.dmd"
+	},
+	"string_trim_end": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_trim_start": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"string_upper": {
+		"markdown": "The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm)",
+		"source": "API-Strings.dmd",
+		"group": true
+	},
+	"surface_destroy": {
+		"markdown": "Alias for `surface_free`.",
+		"source": "API-Surfaces.dmd"
+	},
+	"surface_destroy_soft": {
+		"markdown": "Like regular `surface_destroy`, but does not throw an error if you try to destroy a non-existing\nsurface.\n\nThis is what \"legacy\" mods use instead of `surface_destroy`.",
+		"source": "API-Surfaces.dmd"
+	},
+	"surface_exists": {
+		"markdown": "Alias for above.",
+		"source": "API-Surfaces.dmd"
+	},
+	"surface_screenshot": {
+		"markdown": "Takes a screenshot to a surface.",
+		"source": "API-Surfaces.dmd"
+	},
+	"surface_valid": {
+		"markdown": "Same thing as with data structure checkers.",
+		"source": "API-Surfaces.dmd"
+	},
+	"tan": {
+		"markdown": "These come from\n[math](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Number_Functions/Number_Functions.htm)\nand\n[trigonometry](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Maths_And_Numbers/Angles_And_Distance/Angles_And_Distance.htm)\npages",
+		"source": "API-Numbers.dmd",
+		"group": true
+	},
+	"texture_get_height": {
+		"markdown": "Texture/UV functions",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"texture_get_width": {
+		"markdown": "Texture/UV functions",
+		"source": "API-Drawing.dmd",
+		"group": true
+	},
+	"trace": {
+		"markdown": "Displays the given value(s) in chat.\n\nA local alternative to GM's `show_debug_message`.\n\nValues are separated by a single space.\n\nNon-string values are converted to string prior.\n```\ntrace(1, 2); // \"1 2\"\ntrace(room_speed, \"FPS\"); // \"60 FPS\"\nvar arr = [1,2,3];\ntrace(arr); // \"[1, 2, 3]\"\nvar obj = {a:1,b:2};\ntrace(obj); // \"{ a: 1, b: 2 }\"\n```\nAdvanced users can also enable this function to log to standard output\nusing the `/stdout` chat command - this allows to get back values even if the game does\nnot survive until the next screen redraw.",
+		"source": "API-Debug.dmd"
+	},
+	"trace_color": {
+		"markdown": "Displays a message in chat with a colored line like those sent by players have.\n```\ntrace_color(\"Red!\", c_red);\ntrace_color(\"Green!\", c_lime);\ntrace_color(\"Fancy!\", make_color_rgb(250, 50, 200));\n```",
+		"source": "API-Debug.dmd"
+	},
+	"trace_time": {
+		"markdown": "Measures time (in nanoseconds) since the last call to this function, and displays it in chat if `caption` argument was specified.\n```\ntrace_time();\n// do something\ntrace_time(\"Time spent on something\"); // \"Time spent on something: #ns\"\n```",
+		"source": "API-Debug.dmd"
+	},
+	"typeof": {
+		"markdown": "Returns the type of a value as a string.\n\nThis is slower than calling the respective `is_` function or two.",
+		"source": "API-Types.dmd"
+	},
+	"variable_instance_get": {
+		"markdown": "Same as original, but you can provide the default value\nif the variable isn't in the instance.",
+		"source": "API-Structs.dmd"
+	},
+	"vertex_argb": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_begin": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_color": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_colour": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_create_buffer": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_create_buffer_ext": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_create_buffer_from_buffer": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_create_buffer_from_buffer_ext": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_delete_buffer": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_end": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_float1": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_float2": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_float3": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_float4": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_add_color": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_add_colour": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_add_custom": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_add_normal": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_add_position": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_add_position_3d": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_add_texcoord": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_begin": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_delete": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_end": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_format_valid": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_freeze": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_get_buffer_size": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_get_number": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_normal": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_position": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_position_3d": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_submit": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_texcoord": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_type_color": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_type_colour": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_type_float1": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_type_float2": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_type_float3": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_type_float4": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_type_ubyte4": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_ubyte4": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_binormal": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_blendindices": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_blendweight": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_color": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_colour": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_depth": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_fog": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_normal": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_position": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_psize": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_sample": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_tangent": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_texcoord": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_usage_textcoord": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vertex_valid": {
+		"markdown": "All the usual stuff (with addition of `_valid`).",
+		"source": "API-Vertex-Buffers.dmd",
+		"group": true
+	},
+	"vspeed": {
+		"markdown": "The standard set assumes values at time scale of 1 (normal speed at 30fps).",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"vspeed_raw": {
+		"markdown": "If you need \"real\" values of these, they can be accessed using the following",
+		"source": "API-Movement.dmd",
+		"group": true
+	},
+	"weapon_get_area": {
+		"markdown": "Returns the difficulty tier that determines when the weapon should start dropping.\n\nTier of `-1` means that a weapon doesn't drop \"naturally\".",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_auto": {
+		"markdown": "Returns whether a weapon is automatic.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_cost": {
+		"markdown": "Returns the weapon's ammo cost per shot.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_gold": {
+		"markdown": "Returns whether a weapon is a gold weapon.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_laser_sight": {
+		"markdown": "Returns whether a weapon should display a laser sight.\n\nBy default, only bolt weapons (except for Disc Gun) do.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_load": {
+		"markdown": "Returns reload time of the given weapon (in frames at 30fps).",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_name": {
+		"markdown": "Returns display name of a weapon.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_rads": {
+		"markdown": "Returns the weapon's rad cost per shot.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_sprite": {
+		"markdown": "Returns the sprite for the given weapon.\n\n`weapon_get_sprt` is an alias for this function.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_sprite_hud": {
+		"markdown": "Returns the HUD sprite of a weapon.\n\n`weapon_get_sprt_hud` is an alias for this function.\n\nThere is no setter function for this one because only modded weapons\ncan have a separate HUD sprite.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_swap": {
+		"markdown": "Returns the sound that plays when a weapon is swapped to.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_text": {
+		"markdown": "Returns a weapon's loading screen tooltip.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_get_type": {
+		"markdown": "Returns the ammo type of a weapon.\nTypes are as following:\n\n```table\nIndex | Type\n0 | Melee / no ammo\n1 | Bullet\n2 | Shotgun\n3 | Bolt\n4 | Explosive\n5 | Laser\n```",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_is_melee": {
+		"markdown": "Returns whether a weapon is a melee weapon.\n\nMelee weapons are held to a side and flip on swing.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_area": {
+		"markdown": "Changes the difficulty tier of a weapon.\n\nIf you are making a mod that replaces built-in weapon(s),\nsetting their tier to `-1` is a good way to prevent the original weapons from dropping.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_auto": {
+		"markdown": "Changes whether a weapon is automatic.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_cost": {
+		"markdown": "Changes a weapon's ammo cost per shot.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_load": {
+		"markdown": "Changes reload time of a weapon (in frames at 30fps).\n\nIf reload time is less than 1 frame at the current framerate,\nmultiple projectiles may be shot per frame.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_name": {
+		"markdown": "Changes display name of a weapon.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_rads": {
+		"markdown": "Changes a weapon's rad cost per shot.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_swap": {
+		"markdown": "Changes the sound that plays when a weapon is swapped to.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_text": {
+		"markdown": "Changes a weapon's loading screen tooltip.",
+		"source": "NTT-Weapons.dmd"
+	},
+	"weapon_set_type": {
+		"markdown": "Changes ammo type of a weapon.",
+		"source": "NTT-Weapons.dmd"
+	}
+}

@@ -1,18 +1,11 @@
 {
 	// Compiles src/, tools/ and test/ together so tests can import the parser
 	// (tools/) and the generated tables (src/) with full type checking.
-	// Output lands in out/test/{src,tools,test}; `npm test` runs out/test/test.
+	// Output lands in out/test/{src,tools,test}; `pnpm test` runs out/test/test.
+	"extends": "../tsconfig.base.json",
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2020",
-		"lib": ["es2020"],
 		"outDir": "../out/test",
 		"rootDir": "..",
-		"strict": true,
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-		"forceConsistentCasingInFileNames": true,
-		"sourceMap": true,
 		"types": ["node"]
 	},
 	"include": [

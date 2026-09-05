@@ -5,11 +5,11 @@ the docs extractor, the generated tables, and the hand-maintained tables.
 No VS Code host is involved; the runner is Node's built-in `node:test`.
 
 ```
-npm test
+pnpm test
 ```
 
-`pretest` compiles the extension (`tsc -p ./`), the generator (`tsc -p tools`)
-and this directory (`tsc -p test`). `test/tsconfig.json` compiles `src/`,
+`pnpm test` first runs `pnpm build`, which compiles the extension (`tsc -p ./`),
+the generator (`tsc -p tools`) and this directory (`tsc -p test`). `test/tsconfig.json` compiles `src/`,
 `tools/` and `test/` together into `out/test/` so tests can import both the
 parser and the generated tables with full type checking.
 
@@ -19,7 +19,7 @@ parser and the generated tables with full type checking.
 |---|---|
 | `parse-api.test.ts` | `fixtures/parse-api/api.gml` has one line per annotation form from NTGML-SPEC.md section 5. The parser's full output is the golden. Also `default.gml`, `raw-*.gml` tokenising and single `parseArg` forms. |
 | `parse-docs.test.ts` | `fixtures/parse-docs/Sample.dmd` covers both DocMark shapes (`#[name(args)]() {}` blocks and `gmblanks`/`ntblanks` fences). |
-| `generated.test.ts` | Runs the built generator on the vendored dump into a scratch directory and requires it to be byte-identical to the committed `src/generated/`. Fails on any parser, generator, override or vendored-input change until `npm run gen` is rerun, and on any loss of determinism. |
+| `generated.test.ts` | Runs the built generator on the vendored dump into a scratch directory and requires it to be byte-identical to the committed `src/generated/`. Fails on any parser, generator, override or vendored-input change until `pnpm gen` is rerun, and on any loss of determinism. |
 | `dump.test.ts` | Every name in the vendored dump's `raw-*.gml` is in the tables (scope section 5.5); the same for a local dump in `%LOCALAPPDATA%/nuclearthrone/api` when it is the same `game_version` (skipped otherwise); names unique across kinds; tables sorted; GM placeholder assets dropped; spot checks per annotation form; no Rivals-of-Aether identifiers in `src/`, `tools/`, `data/`, `package.json`. |
 | `tables.test.ts` | `src/tables`: every mod type has `init`/`cleanup`, no duplicate events, keywords disjoint from functions, unique buttons and custom-object fields, `modTypeFromFileName`. |
 
@@ -30,14 +30,14 @@ diff. The golden is the assertion, so the diff is the review.
 
 ```
 # PowerShell
-$env:UPDATE_GOLDENS = '1'; npm test; Remove-Item Env:UPDATE_GOLDENS
+$env:UPDATE_GOLDENS = '1'; pnpm test; Remove-Item Env:UPDATE_GOLDENS
 
 # bash
-UPDATE_GOLDENS=1 npm test
+UPDATE_GOLDENS=1 pnpm test
 ```
 
 `generated.test.ts` has no separate golden: `src/generated/` is the golden.
-Update it with `npm run gen` and commit the result.
+Update it with `pnpm gen` and commit the result.
 
 ## Adding a fixture line
 

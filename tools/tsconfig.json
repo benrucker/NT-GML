@@ -1,20 +1,10 @@
 {
+	// The API generator: tools/ -> out/tools. See ../tsconfig.base.json.
+	"extends": "../tsconfig.base.json",
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2020",
-		"lib": [
-			"es2020"
-		],
 		"outDir": "../out/tools",
 		"rootDir": ".",
-		"strict": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"types": [
-			"node"
-		]
+		"types": ["node"]
 	},
-	"include": [
-		"**/*.ts"
-	]
+	"include": ["**/*.ts"]
 }

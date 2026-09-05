@@ -8,10 +8,10 @@ import * as vscode from 'vscode';
 export const NTGMLProvider: vscode.CompletionItemProvider = {
 
 	provideCompletionItems(
-		document: vscode.TextDocument,
-		position: vscode.Position,
-		token: vscode.CancellationToken,
-		context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList>
+		_document: vscode.TextDocument,
+		_position: vscode.Position,
+		_token: vscode.CancellationToken,
+		_context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList>
 	{
 		return [];
 	}

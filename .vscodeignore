@@ -1,22 +1,25 @@
 .vscode/**
 .vscode-test/**
+.github/**
 .git/**
 out/test/**
 out/tools/**
-test/**
 src/**
 tools/**
 test/**
 api/**
-docs/**
+.editorconfig
+.gitattributes
 .gitignore
+.npmrc
+eslint.config.mjs
+pnpm-lock.yaml
+pnpm-workspace.yaml
 NTGML-PORT-SCOPE.md
 NTGML-SPEC.md
 NTT Modding Cheat Sheet.md
 Script for Extension Vid.md
-vsc-extension-quickstart.md
-**/tsconfig.json
-**/tslint.json
+**/tsconfig*.json
 **/*.map
 **/*.ts
 **/*.vsix

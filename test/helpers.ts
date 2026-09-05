@@ -5,8 +5,8 @@
  * the committed copy under `test/fixtures/`. Set `UPDATE_GOLDENS=1` to
  * rewrite the committed copies instead of comparing:
  *
- *   PowerShell:  $env:UPDATE_GOLDENS=1; npm test; Remove-Item env:UPDATE_GOLDENS
- *   bash:        UPDATE_GOLDENS=1 npm test
+ *   PowerShell:  $env:UPDATE_GOLDENS=1; pnpm test; Remove-Item env:UPDATE_GOLDENS
+ *   bash:        UPDATE_GOLDENS=1 pnpm test
  *
  * Review the resulting diff before committing; the golden IS the assertion.
  */

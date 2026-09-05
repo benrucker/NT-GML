@@ -282,7 +282,7 @@ Shared pattern changes vs the RoA grammar:
 
 ### 5.3 Generator script (medium, the core of "exact")
 
-`tools/generate-api.ts` (run with `npm run gen`), inputs in priority order:
+`tools/generate-api.ts` (run with `pnpm gen`), inputs in priority order:
 
 1. `%LOCALAPPDATA%\nuclearthrone\api\` if present **and** `api.gml` contains `game_version = 100000` or higher (guards against a stale pre-100 dump like the one that was on this machine before 2026-09-02). Read `raw-sprites.gml`, `raw-sounds.gml`, `raw-fonts.gml`, `raw-objects.gml` individually; do not read `raw-assets.gml` (join bug, §6.1).
 2. Else the vendored copy `api/ntt-100.034/{api.gml,raw-sprites.gml,raw-sounds.gml,raw-fonts.gml,raw-objects.gml}` copied from the fresh dump into the repo.
@@ -320,7 +320,7 @@ Outputs (checked into git so the extension builds without the game installed):
 
 ### 5.5 Docs, packaging, housekeeping (small)
 
-- `README.md`: what NTGML is, the two dialects, how to refresh the API (`/gmlapi` in NTT 100.033+, then `npm run gen`), known limitations.
+- `README.md`: what NTGML is, the two dialects, how to refresh the API (`/gmlapi` in NTT 100.033+, then `pnpm gen`), known limitations.
 - `CHANGELOG.md` entry; `LICENSE` attribution to the RoA extension author (fudgepops) and YellowAfterlife's docs.
 - `.vscodeignore`: drop `webview/**`, `audio/**`; add `tools/**`, `api/**` sources as needed.
 - Move `NTT Modding Cheat Sheet.md` to `docs/` and reference it.

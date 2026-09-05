@@ -69,7 +69,7 @@ test('dump: every raw name in the local dump is known', (t) => {
 	const model = parseApi(read(path.join(dir, 'api.gml')));
 	if (model.gameVersion !== meta.gameVersion) {
 		t.skip('local dump is game_version ' + model.gameVersion + ', tables are ' +
-			meta.gameVersion + '; vendor it under api/ and run `npm run gen` to pick it up');
+			meta.gameVersion + '; vendor it under api/ and run `pnpm gen` to pick it up');
 		return;
 	}
 	checkDump(dir);

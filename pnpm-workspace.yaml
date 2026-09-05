@@ -1,0 +1,6 @@
+# Dependencies whose install scripts we deliberately do not run.
+# Both belong to @vscode/vsce and are only needed for `vsce publish`
+# (signing, credential storage), not for `vsce package`.
+allowBuilds:
+  '@vscode/vsce-sign': false
+  keytar: false

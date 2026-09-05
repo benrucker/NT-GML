@@ -83,7 +83,7 @@ export const softKeywords: KeywordInfo[] = [
 
 export const preprocessorDirectives: KeywordInfo[] = [
 	{ name: '#define', dialect: 'both', doc: 'Declares a script. `#define name(a, b)` gives it named arguments.' },
-	{ name: '#macro', dialect: 'both', doc: 'Declares a macro. Continue over lines with a trailing `\`.' },
+	{ name: '#macro', dialect: 'both', doc: 'Declares a macro. Continue over lines with a trailing `\\`.' },
 	{ name: '#pragma', dialect: 'both', doc: 'Compiler / loader directive.' },
 	{ name: '#region', dialect: 'both', doc: 'Fold region opener.' },
 	{ name: '#endregion', dialect: 'both', doc: 'Fold region closer.' },

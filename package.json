@@ -5,10 +5,17 @@
 	"version": "0.1.0",
 	"publisher": "benrucker",
 	"repository": {
-		"url": "https://github.com/benrucker/NT-GML"
+		"type": "git",
+		"url": "https://github.com/benrucker/NT-GML.git"
 	},
+	"bugs": {
+		"url": "https://github.com/benrucker/NT-GML/issues"
+	},
+	"packageManager": "pnpm@11.12.0",
 	"engines": {
-		"vscode": "^1.75.0"
+		"vscode": "^1.75.0",
+		"node": ">=22",
+		"pnpm": ">=10"
 	},
 	"categories": [
 		"Other",
@@ -58,24 +65,27 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "npm run compile",
+		"preinstall": "npx only-allow pnpm",
+		"vscode:prepublish": "pnpm run compile",
+		"clean": "node -e \"fs.rmSync('out', { recursive: true, force: true })\"",
 		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
 		"compile:tools": "tsc -p tools",
 		"compile:test": "tsc -p test",
-		"pretest": "npm run compile && npm run compile:tools && npm run compile:test",
-		"test": "node --test \"out/test/test/**/*.test.js\"",
-		"gen": "npm run compile:tools && node out/tools/generate-api.js"
+		"build": "pnpm run compile && pnpm run compile:tools && pnpm run compile:test",
+		"watch": "tsc -watch -p ./",
+		"lint": "eslint .",
+		"typecheck": "tsc -p test --noEmit",
+		"test": "pnpm run build && node --test \"out/test/test/**/*.test.js\"",
+		"gen": "pnpm run compile:tools && node out/tools/generate-api.js",
+		"package": "vsce package --no-dependencies"
 	},
 	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^20.19.43",
+		"@eslint/js": "^10.0.1",
+		"@types/node": "^22.0.0",
 		"@types/vscode": "^1.75.0",
-		"glob": "^7.1.5",
-		"mocha": "^6.2.2",
-		"tslint": "^5.20.0",
+		"@vscode/vsce": "^3.9.2",
+		"eslint": "^10.10.0",
 		"typescript": "^5.9.3",
-		"vscode-test": "^1.2.2"
+		"typescript-eslint": "^8.69.0"
 	}
 }

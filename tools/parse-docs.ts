@@ -129,7 +129,7 @@ export function parseDocs(sources: DocSource[]): DocMap {
 			}
 			// A lead-in ends in `:` because the fence follows it; drop the
 			// colon, and drop bare section labels such as `Alarms:` entirely.
-			const desc = toMarkdown(precedingParagraph(lines, i, indent)).replace(/:[ 	]*$/, '');
+			const desc = toMarkdown(precedingParagraph(lines, i, indent)).replace(/:[ \t]*$/, '');
 			if (desc.length < 12) { continue; }
 			for (let j = i + 1; j < end; j++) {
 				const sig = lines[j].slice(indent).trim();

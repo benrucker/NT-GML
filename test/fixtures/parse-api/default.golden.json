@@ -1,0 +1,76 @@
+[
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": false,
+		"name": "argument",
+		"perPlayer": false,
+		"readOnly": false
+	},
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": false,
+		"name": "argument0",
+		"perPlayer": false,
+		"readOnly": false
+	},
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": false,
+		"name": "argument_count",
+		"perPlayer": false,
+		"readOnly": true
+	},
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": true,
+		"name": "null",
+		"perPlayer": false,
+		"readOnly": false
+	},
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": true,
+		"name": "undefined",
+		"perPlayer": false,
+		"readOnly": false
+	},
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": false,
+		"name": "x",
+		"perPlayer": false,
+		"readOnly": false
+	},
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": false,
+		"name": "y",
+		"perPlayer": false,
+		"readOnly": false
+	},
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": false,
+		"name": "image_index",
+		"perPlayer": false,
+		"readOnly": false,
+		"type": "number"
+	},
+	{
+		"builtin": true,
+		"category": "Built-in instance variables",
+		"constant": false,
+		"name": "sprite_index",
+		"perPlayer": false,
+		"readOnly": true,
+		"type": "sprite"
+	}
+]

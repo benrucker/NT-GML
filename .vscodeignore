@@ -3,8 +3,10 @@
 .git/**
 out/test/**
 out/tools/**
+test/**
 src/**
 tools/**
+test/**
 api/**
 docs/**
 .gitignore

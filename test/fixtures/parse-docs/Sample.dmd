@@ -1,0 +1,34 @@
+```set title
+Fixture for tools/parse-docs.ts
+```
+The following are [built-in](https://example.invalid/strings):
+```gmblanks
+chr(val):#
+ord(char):#
+
+string_length(str):#
+:instance_thing(x)
+${raw}raw_thing(?inst)
+```
+Some prose between fences that documents nothing.
+
+#[string_repeat(str, count)](string_repeat) {
+	Returns `str` repeated `count` times.
+	See also [string_length] and [a link](https://example.invalid/link).
+	```
+	var s = string_repeat("ab", 3); // "ababab"
+	```
+}
+#[Section Heading](section-heading) {
+	Section blocks have no argument list and are skipped as entries.
+	#[nested_fn(a, b)->](nested_fn) {
+		--{
+		Nested block body. `->` in the label is a return marker.
+		--}
+	}
+}
+Group lead-in for the NTT list:
+```ntblanks
+nt_only_fn(a)
+nt_const
+```

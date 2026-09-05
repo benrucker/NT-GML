@@ -1,0 +1,45 @@
+{
+	"chr": {
+		"group": true,
+		"markdown": "The following are [built-in](https://example.invalid/strings)",
+		"source": "Sample.dmd"
+	},
+	"instance_thing": {
+		"group": true,
+		"markdown": "The following are [built-in](https://example.invalid/strings)",
+		"source": "Sample.dmd"
+	},
+	"nested_fn": {
+		"markdown": "Nested block body. `->` in the label is a return marker.",
+		"source": "Sample.dmd"
+	},
+	"nt_const": {
+		"group": true,
+		"markdown": "Group lead-in for the NTT list",
+		"source": "Sample.dmd"
+	},
+	"nt_only_fn": {
+		"group": true,
+		"markdown": "Group lead-in for the NTT list",
+		"source": "Sample.dmd"
+	},
+	"ord": {
+		"group": true,
+		"markdown": "The following are [built-in](https://example.invalid/strings)",
+		"source": "Sample.dmd"
+	},
+	"raw_thing": {
+		"group": true,
+		"markdown": "The following are [built-in](https://example.invalid/strings)",
+		"source": "Sample.dmd"
+	},
+	"string_length": {
+		"group": true,
+		"markdown": "The following are [built-in](https://example.invalid/strings)",
+		"source": "Sample.dmd"
+	},
+	"string_repeat": {
+		"markdown": "Returns `str` repeated `count` times.\nSee also `string_length` and [a link](https://example.invalid/link).\n```\nvar s = string_repeat(\"ab\", 3); // \"ababab\"\n```",
+		"source": "Sample.dmd"
+	}
+}

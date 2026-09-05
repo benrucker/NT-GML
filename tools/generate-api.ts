@@ -4,6 +4,8 @@
  *   npm run gen                     # local dump if it is new enough, else vendored
  *   npm run gen -- --vendored       # force api/ntt-100.034
  *   npm run gen -- --api-dir <dir>  # any other dump directory
+ *   npm run gen -- --out <dir>      # write somewhere other than src/generated
+ *                                   # (the test suite uses this to diff)
  *
  * Inputs (a dump directory):
  *   api.gml           annotated declarations (NTGML-SPEC.md section 5)
@@ -89,6 +91,8 @@ function fail(message: string): never {
 interface Options {
 	vendored: boolean;
 	apiDir?: string;
+	/** Output directory; defaults to `src/generated`. */
+	outDir?: string;
 }
 
 function parseArgv(argv: string[]): Options {
@@ -103,8 +107,14 @@ function parseArgv(argv: string[]): Options {
 			opts.apiDir = path.resolve(dir);
 		} else if (a.indexOf('--api-dir=') === 0) {
 			opts.apiDir = path.resolve(a.slice('--api-dir='.length));
+		} else if (a === '--out') {
+			const dir = argv[++i];
+			if (dir === undefined) { fail('--out needs a path'); }
+			opts.outDir = path.resolve(dir);
+		} else if (a.indexOf('--out=') === 0) {
+			opts.outDir = path.resolve(a.slice('--out='.length));
 		} else if (a === '--help' || a === '-h') {
-			console.log('usage: generate-api [--vendored] [--api-dir <dir>]');
+			console.log('usage: generate-api [--vendored] [--api-dir <dir>] [--out <dir>]');
 			process.exit(0);
 		} else {
 			fail('unknown argument: ' + a);
@@ -688,6 +698,7 @@ function main(): void {
 	const opts = parseArgv(process.argv.slice(2));
 	const source = chooseSource(opts);
 	const model = source.model;
+	const outDir = opts.outDir === undefined ? OUT_DIR : opts.outDir;
 
 	console.log('source:       ' + source.dir);
 	console.log('  chosen as:  ' + source.kind);
@@ -786,7 +797,7 @@ function main(): void {
 	// `JSON.stringify` would also strip the nested `markdown`/`source` keys.
 	const sortedDocs: DocMap = {};
 	for (const name of docNames) { sortedDocs[name] = docs[name]; }
-	fs.mkdirSync(OUT_DIR, { recursive: true });
+	fs.mkdirSync(outDir, { recursive: true });
 	const written: string[][] = [
 		['functions.ts', emitFunctions(functions, head)],
 		['constants.ts', emitConstants(constants, head)],
@@ -797,7 +808,7 @@ function main(): void {
 		['docs.json', JSON.stringify(sortedDocs, null, '\t') + '\n'],
 	];
 	for (const entry of written) {
-		fs.writeFileSync(path.join(OUT_DIR, entry[0]), entry[1].replace(/\r\n/g, '\n'), 'utf8');
+		fs.writeFileSync(path.join(outDir, entry[0]), entry[1].replace(/\r\n/g, '\n'), 'utf8');
 	}
 
 	// --- summary
@@ -836,7 +847,7 @@ function main(): void {
 		(ovFunctions.added + ovConstants.added + ovVariables.added) + ' added');
 	console.log('');
 	console.log('wrote ' + written.length + ' file(s) to ' +
-		path.relative(ROOT, OUT_DIR).replace(/\\/g, '/') + '/');
+		path.relative(ROOT, outDir).replace(/\\/g, '/') + '/');
 
 	if (problems.length > 0) {
 		console.error('');
@@ -847,4 +858,4 @@ function main(): void {
 	console.log('self-checks:  ok');
 }
 
-main();
+if (require.main === module) { main(); }

@@ -1,0 +1,763 @@
+{
+	"constants": [
+		{
+			"category": "",
+			"deprecated": false,
+			"name": "game_version",
+			"spelling": null,
+			"value": 100034
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "plain_const",
+			"spelling": null,
+			"value": 1
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "string_const",
+			"spelling": null,
+			"value": "\"text\""
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "negative_const",
+			"spelling": null,
+			"value": -3.5
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "hex_const",
+			"spelling": null,
+			"value": "$FF"
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "expr_const",
+			"spelling": null,
+			"value": "1 << 3"
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "flagged_const",
+			"spelling": null
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "deprecated_const",
+			"spelling": null
+		}
+	],
+	"functions": [
+		{
+			"args": [
+				{
+					"name": "a",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "b",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Plain",
+			"deprecated": false,
+			"name": "plain",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "plain(a, b)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "a",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Plain",
+			"deprecated": false,
+			"name": "returns",
+			"pure": false,
+			"raw": false,
+			"returns": true,
+			"selfCtx": 0,
+			"signature": "returns(a):",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "x",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false,
+					"type": "number"
+				},
+				{
+					"name": "y",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false,
+					"type": "number"
+				}
+			],
+			"category": "Plain",
+			"deprecated": false,
+			"name": "returns_typed",
+			"pure": false,
+			"raw": false,
+			"returnType": "number",
+			"returns": true,
+			"selfCtx": 0,
+			"signature": "returns_typed(x:number, y:number):number",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "x",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Plain",
+			"deprecated": false,
+			"name": "pure_returns",
+			"pure": true,
+			"raw": false,
+			"returns": true,
+			"selfCtx": 0,
+			"signature": "pure_returns(x):#",
+			"spelling": null
+		},
+		{
+			"args": [],
+			"category": "Plain",
+			"deprecated": false,
+			"name": "no_args",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "no_args()",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "x",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Prefixes",
+			"deprecated": false,
+			"name": "self_only",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 1,
+			"signature": ":self_only(x)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "etype",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "enumb",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Prefixes",
+			"deprecated": false,
+			"name": "self_and_other",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 2,
+			"signature": "::self_and_other(etype, enumb)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "inst",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Prefixes",
+			"deprecated": false,
+			"name": "self_maybe_other",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 3,
+			"signature": ":::self_maybe_other(inst)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "inst",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "flag",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Prefixes",
+			"deprecated": false,
+			"name": "raw_call",
+			"pure": false,
+			"raw": true,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "${raw}raw_call(?inst, ?flag)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "inst",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false,
+					"type": "instance"
+				}
+			],
+			"category": "Prefixes",
+			"deprecated": false,
+			"name": "raw_typed",
+			"pure": false,
+			"raw": true,
+			"returns": true,
+			"selfCtx": 0,
+			"signature": "${raw}raw_typed(inst:instance):",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "a",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "b",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "c",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Arguments",
+			"deprecated": false,
+			"name": "optional_q",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "optional_q(a, ?b, ?c)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "str",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "delim",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "remove_empty",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "max_splits",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Arguments",
+			"deprecated": false,
+			"name": "optional_brackets",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "optional_brackets(str, delim, [remove_empty], [max_splits])",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "a",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"default": "1",
+					"name": "b",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"default": "\"x\"",
+					"name": "c",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"default": "[]",
+					"name": "d",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Arguments",
+			"deprecated": false,
+			"name": "defaults",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "defaults(a, b=1, c=\"x\", d=[])",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "fmt",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "values",
+					"optional": false,
+					"rest": true,
+					"selfRelative": false
+				}
+			],
+			"category": "Arguments",
+			"deprecated": false,
+			"name": "rest_named",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "rest_named(fmt, ...values)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "fmt",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"name": "...",
+					"optional": true,
+					"rest": true,
+					"selfRelative": false
+				}
+			],
+			"category": "Arguments",
+			"deprecated": false,
+			"name": "rest_bare",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "rest_bare(fmt, ...)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "x",
+					"optional": false,
+					"rest": false,
+					"selfRelative": true
+				},
+				{
+					"name": "y",
+					"optional": false,
+					"rest": false,
+					"selfRelative": true
+				},
+				{
+					"name": "r",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Arguments",
+			"deprecated": false,
+			"name": "self_relative",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "self_relative(:x, :y, r)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "a",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"default": "array(1, 2)",
+					"name": "b",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				},
+				{
+					"default": "f(g(3), 4)",
+					"name": "c",
+					"optional": true,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Arguments",
+			"deprecated": false,
+			"name": "nested_default",
+			"pure": false,
+			"raw": false,
+			"returns": true,
+			"selfCtx": 0,
+			"signature": "nested_default(a, b=array(1, 2), c=f(g(3), 4)):",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "v",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false,
+					"type": "T"
+				}
+			],
+			"category": "Arguments",
+			"deprecated": false,
+			"name": "generic_name<T>",
+			"pure": false,
+			"raw": false,
+			"returnType": "T",
+			"returns": true,
+			"selfCtx": 0,
+			"signature": "generic_name<T>(v:T):T",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "x",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Flags",
+			"deprecated": true,
+			"name": "deprecated_fn",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "deprecated_fn(x)&",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "c",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Flags",
+			"deprecated": false,
+			"name": "uk_twin_colour",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "uk_twin_colour(c)£",
+			"spelling": "uk"
+		},
+		{
+			"args": [
+				{
+					"name": "c",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Flags",
+			"deprecated": false,
+			"name": "us_twin_color",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "us_twin_color(c)$",
+			"spelling": "us"
+		},
+		{
+			"args": [
+				{
+					"name": "x",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Flags",
+			"deprecated": false,
+			"name": "feature_flagged",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "feature_flagged(x)^flag",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "x",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Flags",
+			"deprecated": false,
+			"name": "commented",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "commented(x) // trailing comment is dropped",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "x",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Flags",
+			"deprecated": true,
+			"name": "flag_soup",
+			"pure": true,
+			"raw": false,
+			"returns": true,
+			"selfCtx": 0,
+			"signature": "flag_soup(x)&£#:",
+			"spelling": "uk"
+		},
+		{
+			"args": [
+				{
+					"name": "a",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Nesting",
+			"deprecated": false,
+			"name": "outer_fn",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "outer_fn(a)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "b",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "inner group",
+			"deprecated": false,
+			"name": "inner_fn",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "inner_fn(b)",
+			"spelling": null
+		},
+		{
+			"args": [
+				{
+					"name": "c",
+					"optional": false,
+					"rest": false,
+					"selfRelative": false
+				}
+			],
+			"category": "Nesting",
+			"deprecated": false,
+			"name": "after_inner",
+			"pure": false,
+			"raw": false,
+			"returns": false,
+			"selfCtx": 0,
+			"signature": "after_inner(c)",
+			"spelling": null
+		}
+	],
+	"gameVersion": 100034,
+	"generatedAt": "Generated at 1/1/2026 12:00:00 AM",
+	"variables": [
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "plain_var",
+			"perPlayer": false,
+			"readOnly": false
+		},
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "readonly_var",
+			"perPlayer": false,
+			"readOnly": true
+		},
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "typed_var",
+			"perPlayer": false,
+			"readOnly": false,
+			"type": "number"
+		},
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "readonly_typed",
+			"perPlayer": false,
+			"readOnly": true,
+			"type": "string"
+		},
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "per_player",
+			"perPlayer": true,
+			"readOnly": false
+		},
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "per_player_readonly",
+			"perPlayer": true,
+			"readOnly": true
+		},
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "uk_variable",
+			"perPlayer": false,
+			"readOnly": false
+		},
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "feature_var",
+			"perPlayer": false,
+			"readOnly": false
+		},
+		{
+			"builtin": false,
+			"category": "Variables",
+			"constant": false,
+			"name": "deprecated_var",
+			"perPlayer": false,
+			"readOnly": false
+		}
+	]
+}

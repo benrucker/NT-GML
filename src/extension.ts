@@ -1,20 +1,15 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { NTTRoAProvider } from './completionProvider';
-import RoaboxController from './roaboxController';
+import { NTGMLProvider } from './completionProvider';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+/** Language ids contributed by this extension (legacy `.gml` and modern `.ntgml`). */
+const NTGML_SELECTOR: vscode.DocumentSelector = ['ntgml', 'ntgml-legacy'];
+
+// Called the first time an NTGML document is opened.
 export function activate(context: vscode.ExtensionContext) {
+	const provider = vscode.languages.registerCompletionItemProvider(NTGML_SELECTOR, NTGMLProvider);
 
-	const provider = vscode.languages.registerCompletionItemProvider('gml-ntt-roa', NTTRoAProvider);
-
-	const controller = new RoaboxController(context);
-
-
-	context.subscriptions.push(provider, controller);
+	context.subscriptions.push(provider);
 }
 
-// this method is called when your extension is deactivated
+// Called when the extension is deactivated.
 export function deactivate() {}

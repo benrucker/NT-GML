@@ -2,19 +2,19 @@
 .vscode-test/**
 .git/**
 out/test/**
+out/tools/**
 src/**
-webview/**
+tools/**
+api/**
+docs/**
 .gitignore
+NTGML-PORT-SCOPE.md
+NTGML-SPEC.md
+NTT Modding Cheat Sheet.md
+Script for Extension Vid.md
 vsc-extension-quickstart.md
 **/tsconfig.json
 **/tslint.json
 **/*.map
 **/*.ts
 **/*.vsix
-
-!webview/public/global.css
-!webview/public/index.html
-!webview/public/build/bundle.js
-!webview/public/build/bundle.css
-!webview/public/resources/images/**
-

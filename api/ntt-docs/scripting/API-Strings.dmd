@@ -1,0 +1,120 @@
+```set title
+NTGML API: Strings, numbers, arrays
+```
+The following are [built-in](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Strings/Strings.htm):
+```gmblanks
+chr(val):#
+ansi_char(val):#
+ord(char):#
+string_format(number, total, decimal):#
+
+string_length(str):#
+string_byte_length(str):#
+string_pos(substr,str):#
+string_pos_ext(substr,str,startpos):#
+string_last_pos(substr,str):#
+string_last_pos_ext(substr,str,startpos):#
+string_copy(str,index,count):#
+string_char_at(str,index):#
+string_ord_at(str,index):#
+string_byte_at(str,index):#
+string_set_byte_at(str,index,val):#
+string_delete(str,index,count):#
+string_insert(substr,str,index):#
+string_lower(str):#
+string_upper(str):#
+string_repeat(str,count):#
+string_letters(str):#
+string_digits(str):#
+string_lettersdigits(str):#
+string_replace(str,substr,newstr):#
+string_replace_all(str,substr,newstr):#
+string_count(substr,str):#
+string_hash_to_newline(str):#
+
+string_ext(format,arg_array)
+string_trim_start(str, [substrs]):#
+string_trim_end(str, [substrs]):#
+string_trim(str, [substrs]):#
+string_starts_with(str,substr):#
+string_ends_with(str,substr):#
+string_split(str,delim,[remove_empty],[max_splits])
+string_split_ext(str,delim_array,[remove_empty],[max_splits])
+string_join(delim,arg0,arg1,...)
+string_join_ext(delim,val_array)
+string_concat(arg0,arg1,arg2,...)
+string_concat_ext(val_array)
+string_foreach(str,func,[pos],[length])
+
+base64_encode(str):#
+base64_decode(str):#
+```
+The following are NTT-specific additions:
+#[string_lpad(str, padstr, length)]() {
+	Prepends `padstr` to `str` until it reaches specified length.
+	```
+	trace(string_lpad(string(42), "0", 4)); // "0042"
+	```
+}
+#[string_rpad(str, padstr, length)]() {
+	Appends `padstr` to `str` until it reaches specified length.
+	```
+	trace(string_rpad(string(42), "0", 4)); // "4200"
+	```
+}
+#[string_auto(number)]() {
+	Converts a number to a string with automatic precision
+	(unlike `string_format`, which requires specifying the number of decimal places).
+	```
+	trace(string_auto(0.4)); // "0.4"
+	trace(string_auto(0.4040)); // "0.404"
+	```
+}
+#[string_trim(string)]() {
+	Removes leading and trailing spaces from a string.
+	```
+	trace(string_trim(" hi ")); // "hi"
+	```
+	Same as now-built-in `string_trim`.
+}
+#[string_ltrim(string)]() {
+	Removes leading spaces from a string.
+	```
+	trace(string_trim(" hi ")); // "hi "
+	```
+	Same as now-built-in `string_trim_start`.
+}
+#[string_rtrim(string)]() {
+	Removes trailing spaces from a string.
+	```
+	trace(string_trim(" hi ")); // " hi"
+	```
+	Same as now-built-in `string_trim_end`.
+}
+#[string_split_list(string, delimiter, ?list)->]() {
+	Splits a string on delimiter into an list of strings.
+	
+	If `list` is provided, clears it and adds items to it, otherwise makes a new list.
+	
+	Returns the list.
+	
+	If the string does not contain the delimiter, returns a 1-element array with the entire string.
+	```
+	var list = string_split_list("A|B|C", "|");
+	trace(list[|1]); // "B"
+	```
+}
+#[string_sha1(string)->]() {
+	Returns a SHA-1 hash of a string, assuming Unicode encoding.
+}
+#[string_sha1_utf8(string)->]() {
+	Returns a SHA-1 hash of a string, assuming UTF-8 encoding.
+}
+#[string_md5(string)->]() {
+	Returns a MD5 hash of a string, assuming Unicode encoding.
+}
+#[string_md5_utf8(string)->]() {
+	Returns a MD5 hash of a string, assuming UTF-8 encoding.
+}
+Also see: [string_load], [string_save].
+

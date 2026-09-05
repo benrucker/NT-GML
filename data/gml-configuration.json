@@ -6,7 +6,6 @@
   "brackets": [
       ["{", "}"],
       ["[", "]"],
-      ["<", ">"],
       ["(", ")"]
   ],
   "autoClosingPairs": [
@@ -20,10 +19,16 @@
   ],
   "surroundingPairs": [
       { "open": "'", "close": "'" },
-  { "open": "\"", "close": "\"" },
-  { "open": "{", "close": "}"},
-  { "open": "[", "close": "]"},
-  { "open": "(", "close": ")" },
-      { "open": "<", "close": ">" }
-  ]
+      { "open": "\"", "close": "\"" },
+      { "open": "`", "close": "`" },
+      { "open": "{", "close": "}" },
+      { "open": "[", "close": "]" },
+      { "open": "(", "close": ")" }
+  ],
+  "folding": {
+    "markers": {
+      "start": "^\\s*(//)?\\s*#region\\b",
+      "end": "^\\s*(//)?\\s*#endregion\\b"
+    }
+  }
 }

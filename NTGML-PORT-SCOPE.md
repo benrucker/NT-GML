@@ -1,6 +1,6 @@
 # NTGML Port: API Differences, Repo Scope, and Unknowns
 
-Prepared 2026-09-02 against this repo at commit `8b080ff` (extension v2.0.0), the local API dump, the local cheat sheet, the online NTT docs, and the `bits-of-nuclear-throne` reference repo. Nothing in the extension has been changed yet. This document is the plan.
+Prepared 2026-09-02 against this repo at commit `8b080ff` (extension v2.0.0), the local API dump, the local cheat sheet, the online NTT docs, and the `bits-of-nuclear-throne` reference repo. This document is the plan; the [Progress](#progress) section below records which phases have landed and where the implementation deviates from it.
 
 ## 0. Summary
 
@@ -8,6 +8,24 @@ Prepared 2026-09-02 against this repo at commit `8b080ff` (extension v2.0.0), th
 - **NTGML is two dialects selected by file extension.** `.gml` is the legacy GMS1-style dialect (`#define` scripts only, backtick template strings, `[$]` accessor disabled). `.ntgml` is the modern dialect (`function`, `new`, `static`, `try/catch/throw`, `delete`, `$"..."` strings, structs). Both add `wait`, `fork()`, `in`/`not in`, `#pragma`, `#macro`, named `#define` arguments, `null`, and per-mod isolation. Matching NTGML "exactly" means the extension must model both.
 - **API overlap with the current RoA extension is small.** Of 1,139 identifiers the extension knows, 375 exist in NTT and 764 are RoA-only. NTT 100.034 adds 686 functions, 363 constants, and 63 variables the extension does not know, plus 3,931 asset names (sprites, sounds, music, ambience, masks, fonts, shaders, objects).
 - **The scope is a rewrite of the data, not of the plumbing.** Keep the extension skeleton (grammar + completion provider). Replace all identifier tables with files generated from `api.gml` / `default.gml` / `raw-assets.gml`, add mod-type event completions, add a second file extension, and delete the RoABox webview, the audio players, and every RoA-specific table.
+
+---
+
+## Progress
+
+Status as of 2026-09-05, from `git log`. Phases are the §5 subsections; each was done on `main` in one commit and verified with `pnpm test` before committing. Later phases build on the committed state of earlier ones, so read this table before assigning work.
+
+| Phase | Status | Commit | Notes and deviations from the plan |
+|---|---|---|---|
+| §5.1 identity, deletions | Done | `3006ae3` | Also vendored the 100.022 reference `api.gml`/`default.gml`, the docs sources (`api/ntt-docs/`) and GMEdit's `GmlParseAPI.hx` (`api/reference/`). `package.json` already points at `syntaxes/ntgml*.tmLanguage.json`, which §5.2 has not produced yet, so the extension currently loads with **no grammar**; `syntaxes/main/NTTRoA.json` is kept only as reference and is not contributed. `src/completionProvider.ts` is a placeholder that returns no items. |
+| §5.3 generator | Done | `be57fb9` | Output layout differs from the plan: the hand-maintained tables (`events`, `custom-objects`, `buttons`, `keywords`, `types`) live in `src/tables/`, not `src/generated/`; docs are emitted as both `src/generated/docs.json` and `docs.ts`; grammar emission is deferred to §5.2. Type hints from 100.022 are merged by argument position (§6.2). Counts: 984 functions, 413 constants, 90 variables (33 dump + 57 `default.gml`), 3,927 assets (3,931 minus the four §6.5 placeholders), 558 doc entries. Output is byte-identical across reruns and across the local and vendored dumps. |
+| §5.5 tests | Done | `2a04ff7` | `test/` golden-file suite on `node:test` (`pnpm test`); `src/generated/` is itself the golden for generator plus inputs. See `test/README.md`. |
+| Tooling (not in the plan) | Done | `3682fce` | pnpm-only (`packageManager` pin, `only-allow` guard), ESLint flat config replacing tslint, shared `tsconfig.base.json`, GitHub Actions CI, `pnpm package` via vsce. Never run npm in this repo. |
+| §5.2 grammar | **Not started** | | Two `tmLanguage.json` files emitted from `tools/parse-api.ts`'s model. Unblocks syntax highlighting, which has been absent since §5.1. |
+| §5.4 provider | **Not started** | | Completion, hover and signature help from `src/generated` + `src/tables`. Independent of §5.2; the two can run in parallel. |
+| §5.5 docs, packaging | **Not started** | | `README.md` and `CHANGELOG.md` still describe the RoA extension; no `LICENSE` file exists; `NTT Modding Cheat Sheet.md` and `Script for Extension Vid.md` are still at the repo root (the `.vscodeignore` half of this item is done). |
+
+Vendored inputs: `api/ntt-100.034/` (the 2026-09-02 dump, source of truth), `api/ntt-100.022-reference/` (type hints only), `api/overrides.gml` (empty hook). `NTGML-SPEC.md` supersedes this document where the two disagree (mod event lists, pragma set, keyword set).
 
 ---
 
@@ -253,6 +271,8 @@ Ordered so each step leaves the extension working.
 
 ### 5.1 Identity and file association (small)
 
+**Status: done in `3006ae3`** (see Progress). The `ntt-main` language for `main.txt` was not added.
+
 1. `package.json`: `name` → e.g. `ntgml`, `displayName` "Nuclear Throne Together GML", new `publisher`, reset `version` to 0.1.0, new `icon`.
 2. Two language contributions sharing one configuration:
    - `ntgml-legacy`: extensions `.gml`, aliases "NTGML (legacy .gml)". This claims `.gml` globally, exactly as the RoA extension does today; document that in the README.
@@ -262,6 +282,8 @@ Ordered so each step leaves the extension working.
 4. Delete `src/roaboxController.ts`, `webview/`, `audio/`, `src/play-sound.d.ts`; remove their `dependencies` and `.vscodeignore` entries; simplify `src/extension.ts` to provider registration only.
 
 ### 5.2 Grammar (medium)
+
+**Status: not started.** `package.json` already contributes both grammar paths and scope names below, so this phase only has to produce the files.
 
 Two grammar files generated from one template, differing only in the "modern" pattern block:
 
@@ -281,6 +303,8 @@ Shared pattern changes vs the RoA grammar:
 - Keep `[|`, `[?`, `[#`, `[@` operators; add `[$`.
 
 ### 5.3 Generator script (medium, the core of "exact")
+
+**Status: done in `be57fb9`**, with the layout differences listed under Progress (hand tables in `src/tables/`, `docs.json` + `docs.ts`, no grammar emission yet).
 
 `tools/generate-api.ts` (run with `pnpm gen`), inputs in priority order:
 
@@ -305,6 +329,8 @@ Outputs (checked into git so the extension builds without the game installed):
 
 ### 5.4 Completion provider (medium)
 
+**Status: not started.** `src/completionProvider.ts` is a stub registered for both language ids in `src/extension.ts`.
+
 - Build `CompletionItem`s from the generated tables at activation; snippet insert text with `${n:arg}` placeholders for required args only, optional args listed in `detail` as `?arg`.
 - `detail` shows the raw `api.gml` line (e.g. `:::weapon_get_name(wep):`), `documentation` shows category, self/other note, return type, US/UK alias, deprecation, and the docs paragraph.
 - Kinds: Function, Constant, Variable, Class (objects), Value (sprites/sounds/fonts), Event (mod events), Keyword (`wait`, `fork`, `in`, pragmas).
@@ -319,6 +345,8 @@ Outputs (checked into git so the extension builds without the game installed):
 - Provide `HoverProvider` and `SignatureHelpProvider` from the same tables (both are cheap once the tables exist and are the main "language server affordances" users notice).
 
 ### 5.5 Docs, packaging, housekeeping (small)
+
+**Status: tests done in `2a04ff7`, `.vscodeignore` done in `3006ae3`/`3682fce`; README, CHANGELOG, LICENSE and the `docs/` move are still open.**
 
 - `README.md`: what NTGML is, the two dialects, how to refresh the API (`/gmlapi` in NTT 100.033+, then `pnpm gen`), known limitations.
 - `CHANGELOG.md` entry; `LICENSE` attribution to the RoA extension author (fudgepops) and YellowAfterlife's docs.

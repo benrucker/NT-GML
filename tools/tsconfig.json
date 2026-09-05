@@ -1,10 +1,15 @@
 {
-	// The API generator: tools/ -> out/tools. See ../tsconfig.base.json.
+	// The generators. `rootDir` is the repository root so generate-grammar.ts can
+	// import the committed tables from src/; tools/ still lands in out/tools.
+	// Only the data modules are included - src/extension.ts and
+	// src/completionProvider.ts import `vscode`, which the generators must not
+	// pull in. The resulting out/src/{generated,tables} is build output only;
+	// .vscodeignore keeps it out of the .vsix.
 	"extends": "../tsconfig.base.json",
 	"compilerOptions": {
-		"outDir": "../out/tools",
-		"rootDir": ".",
+		"outDir": "../out",
+		"rootDir": "..",
 		"types": ["node"]
 	},
-	"include": ["**/*.ts"]
+	"include": ["**/*.ts", "../src/generated/**/*.ts", "../src/tables/**/*.ts"]
 }

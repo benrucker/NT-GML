@@ -1,0 +1,719 @@
+   1 | #pragma include lib/helpers.gml
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "include"  meta.preprocessor.pragma.ntgml keyword.other.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "lib/helpers.gml"  meta.preprocessor.pragma.ntgml string.unquoted.pragma.ntgml
+   2 | #pragma using other_mod.mod
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "using"  meta.preprocessor.pragma.ntgml keyword.other.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "other_mod.mod"  meta.preprocessor.pragma.ntgml string.unquoted.pragma.ntgml
+   3 | #pragma preload data/table.txt
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "preload"  meta.preprocessor.pragma.ntgml keyword.other.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "data/table.txt"  meta.preprocessor.pragma.ntgml string.unquoted.pragma.ntgml
+   4 | #pragma bogus 1
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "bogus"  meta.preprocessor.pragma.ntgml invalid.illegal.unknown-pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "1"  meta.preprocessor.pragma.ntgml string.unquoted.pragma.ntgml
+   5 | 
+   6 | #macro MAX_HP 20
+     | "#macro"  meta.preprocessor.macro.ntgml keyword.control.directive.macro.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "MAX_HP"  meta.preprocessor.macro.ntgml entity.name.constant.macro.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "20"  meta.preprocessor.macro.ntgml constant.numeric.decimal.ntgml
+   7 | #macro release:BUILD_TAG "final"
+     | "#macro"  meta.preprocessor.macro.ntgml keyword.control.directive.macro.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "release"  meta.preprocessor.macro.ntgml entity.name.tag.config.ntgml
+     | ":"  meta.preprocessor.macro.ntgml punctuation.separator.config.ntgml
+     | "BUILD_TAG"  meta.preprocessor.macro.ntgml entity.name.constant.macro.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "\""  meta.preprocessor.macro.ntgml string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "final"  meta.preprocessor.macro.ntgml string.quoted.double.ntgml
+     | "\""  meta.preprocessor.macro.ntgml string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+   8 | #macro LONG_LIST [ \
+     | "#macro"  meta.preprocessor.macro.ntgml keyword.control.directive.macro.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "LONG_LIST"  meta.preprocessor.macro.ntgml entity.name.constant.macro.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "["  meta.preprocessor.macro.ntgml punctuation.section.brackets.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "\\"  meta.preprocessor.macro.ntgml constant.character.escape.continuation.ntgml
+   9 | 	wep_electric_guitar, \
+     | "\t"  meta.preprocessor.macro.ntgml
+     | "wep_electric_guitar"  meta.preprocessor.macro.ntgml support.constant.weapon.ntgml
+     | ","  meta.preprocessor.macro.ntgml punctuation.separator.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "\\"  meta.preprocessor.macro.ntgml constant.character.escape.continuation.ntgml
+  10 | 	wep_revolver ]
+     | "\t"  meta.preprocessor.macro.ntgml
+     | "wep_revolver"  meta.preprocessor.macro.ntgml support.constant.weapon.ntgml
+     | " "  meta.preprocessor.macro.ntgml
+     | "]"  meta.preprocessor.macro.ntgml punctuation.section.brackets.ntgml
+  11 | 
+  12 | /// A doc comment: the loader ignores it, the editor does not.
+     | "/// A doc comment: the loader ignores it, the editor does not."  comment.line.documentation.ntgml
+  13 | // A plain comment.
+     | "// A plain comment."  comment.line.double-slash.ntgml
+  14 | /* A block
+     | "/*"  comment.block.ntgml
+     | " A block"  comment.block.ntgml
+  15 |    comment. */
+     | "   comment. "  comment.block.ntgml
+     | "*/"  comment.block.ntgml
+  16 | 
+  17 | #define init
+     | "#define"  meta.preprocessor.define.ntgml keyword.control.directive.define.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "init"  meta.preprocessor.define.ntgml entity.name.function.event.ntgml
+  18 | 	#pragma fast
+     | "\t"  meta.preprocessor.pragma.ntgml
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "fast"  meta.preprocessor.pragma.ntgml keyword.other.pragma.ntgml
+  19 | 	global.hp = MAX_HP;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | " MAX_HP"  -
+     | ";"  punctuation.separator.ntgml
+  20 | 	global.tint = $ff8040;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "tint"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "$ff8040"  constant.numeric.hex.ntgml
+     | ";"  punctuation.separator.ntgml
+  21 | 	global.mask = 0xDE_AD;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "mask"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "0xDE_AD"  constant.numeric.hex.ntgml
+     | ";"  punctuation.separator.ntgml
+  22 | 	global.bits = 0b1010_0101;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "bits"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "0b1010_0101"  constant.numeric.binary.ntgml
+     | ";"  punctuation.separator.ntgml
+  23 | 	global.frac = .5;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "frac"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | ".5"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  24 | 	global.big = 1_000.25;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "big"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "1_000.25"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  25 | 	global.name = "a string";
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "name"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "a string"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | ";"  punctuation.separator.ntgml
+  26 | 	global.other = 'legacy single quotes';
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "other"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "'"  string.quoted.single.ntgml punctuation.definition.string.begin.ntgml
+     | "legacy single quotes"  string.quoted.single.ntgml
+     | "'"  string.quoted.single.ntgml punctuation.definition.string.end.ntgml
+     | ";"  punctuation.separator.ntgml
+  27 | 	global.tmpl = `hp ${global.hp + 1} of $MAX_HP`;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "tmpl"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "`"  string.template.ntgml punctuation.definition.string.begin.ntgml
+     | "hp "  string.template.ntgml
+     | "${"  string.template.ntgml meta.template.expression.ntgml punctuation.definition.template-expression.begin.ntgml
+     | "global"  string.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml variable.language.ntgml
+     | "."  string.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml punctuation.accessor.ntgml
+     | "hp"  string.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml variable.other.member.ntgml
+     | " "  string.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml
+     | "+"  string.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml keyword.operator.arithmetic.ntgml
+     | " "  string.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml
+     | "1"  string.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml constant.numeric.decimal.ntgml
+     | "}"  string.template.ntgml meta.template.expression.ntgml punctuation.definition.template-expression.end.ntgml
+     | " of "  string.template.ntgml
+     | "$"  string.template.ntgml punctuation.definition.template-expression.begin.ntgml
+     | "MAX_HP"  string.template.ntgml variable.other.ntgml
+     | "`"  string.template.ntgml punctuation.definition.string.end.ntgml
+     | ";"  punctuation.separator.ntgml
+  28 | 	global.grid = ds_grid_create(4, 4);
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "grid"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "ds_grid_create"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "4"  constant.numeric.decimal.ntgml
+     | ","  punctuation.separator.ntgml
+     | "4"  constant.numeric.decimal.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  29 | 	global.map = ds_map_create();
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "map"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "ds_map_create"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  30 | 	global.list = ds_list_create();
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "list"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "ds_list_create"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  31 | 	trace("loaded " + string(global.hp));
+     | "trace"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "loaded "  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | "+"  keyword.operator.arithmetic.ntgml
+     | "string"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  32 | 
+  33 | #define cleanup
+     | "#define"  meta.preprocessor.define.ntgml keyword.control.directive.define.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "cleanup"  meta.preprocessor.define.ntgml entity.name.function.event.ntgml
+  34 | 	ds_grid_destroy(global.grid);
+     | "ds_grid_destroy"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "grid"  variable.other.member.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  35 | 
+  36 | #define step
+     | "#define"  meta.preprocessor.define.ntgml keyword.control.directive.define.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "step"  meta.preprocessor.define.ntgml entity.name.function.event.ntgml
+  37 | 	#pragma not_fast
+     | "\t"  meta.preprocessor.pragma.ntgml
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "not_fast"  meta.preprocessor.pragma.ntgml keyword.other.pragma.ntgml
+  38 | 	if instance_exists(Player) and not (global.hp <= 0) then {
+     | "if"  keyword.control.ntgml
+     | "instance_exists"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "Player"  entity.name.object.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | "and"  keyword.operator.word.ntgml
+     | "not"  keyword.operator.word.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "<="  keyword.operator.comparison.ntgml
+     | "0"  constant.numeric.decimal.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | "then"  keyword.control.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  39 | 		global.hp = min(global.hp + 1, MAX_HP);
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "min"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "+"  keyword.operator.arithmetic.ntgml
+     | "1"  constant.numeric.decimal.ntgml
+     | ","  punctuation.separator.ntgml
+     | " MAX_HP"  -
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  40 | 	} else if global.hp <> 0 or global.hp == MAX_HP {
+     | "}"  punctuation.section.braces.ntgml
+     | "else"  keyword.control.ntgml
+     | "if"  keyword.control.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "<>"  keyword.operator.comparison.ntgml
+     | "0"  constant.numeric.decimal.ntgml
+     | "or"  keyword.operator.word.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "=="  keyword.operator.comparison.ntgml
+     | " MAX_HP "  -
+     | "{"  punctuation.section.braces.ntgml
+  41 | 		global.hp = global.hp ?? 0;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "??"  keyword.operator.nullish.ntgml
+     | "0"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  42 | 		global.hp ??= 1;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "??="  keyword.operator.nullish.ntgml
+     | "1"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  43 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  44 | 	with (Player) {
+     | "with"  keyword.control.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "Player"  entity.name.object.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  45 | 		if "wep" in self && wep = wep_electric_guitar {
+     | "if"  keyword.control.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "wep"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | "in"  keyword.operator.word.ntgml
+     | "self"  variable.language.ntgml
+     | "&&"  keyword.operator.logical.ntgml
+     | " wep "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "wep_electric_guitar"  support.constant.weapon.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  46 | 			mutation_get(mut_throne_butt);
+     | "\t\t\tmutation_get"  -
+     | "("  punctuation.section.parens.ntgml
+     | "mut_throne_butt"  support.constant.mutation.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  47 | 		}
+     | "}"  punctuation.section.braces.ntgml
+  48 | 		if not "ammo" in other {
+     | "if"  keyword.control.ntgml
+     | "not"  keyword.operator.word.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "ammo"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | "in"  keyword.operator.word.ntgml
+     | "other"  variable.language.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  49 | 			exit;
+     | "exit"  keyword.control.ntgml
+     | ";"  punctuation.separator.ntgml
+  50 | 		}
+     | "}"  punctuation.section.braces.ntgml
+  51 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  52 | 	var near = instance_nearest_nonself(x, y, Bandit);
+     | "var"  storage.type.ntgml
+     | " near "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "instance_nearest_nonself"  support.function.self.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "x"  support.variable.builtin.ntgml
+     | ","  punctuation.separator.ntgml
+     | "y"  support.variable.builtin.ntgml
+     | ","  punctuation.separator.ntgml
+     | "Bandit"  entity.name.object.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  53 | 	var pick = global.hp > 10 ? char_fish : char_crystal;
+     | "var"  storage.type.ntgml
+     | " pick "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | ">"  keyword.operator.comparison.ntgml
+     | "10"  constant.numeric.decimal.ntgml
+     | "?"  keyword.operator.ternary.ntgml
+     | "char_fish"  support.constant.character.ntgml
+     | ":"  punctuation.separator.colon.ntgml
+     | "char_crystal"  support.constant.character.ntgml
+     | ";"  punctuation.separator.ntgml
+  54 | 	var slot = global.grid[# 1, 2] + global.map[? "key"] + global.list[| 0];
+     | "var"  storage.type.ntgml
+     | " slot "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "grid"  variable.other.member.ntgml
+     | "[#"  keyword.operator.accessor.ntgml
+     | "1"  constant.numeric.decimal.ntgml
+     | ","  punctuation.separator.ntgml
+     | "2"  constant.numeric.decimal.ntgml
+     | "]"  punctuation.section.brackets.ntgml
+     | "+"  keyword.operator.arithmetic.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "map"  variable.other.member.ntgml
+     | "[?"  keyword.operator.accessor.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "key"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | "]"  punctuation.section.brackets.ntgml
+     | "+"  keyword.operator.arithmetic.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "list"  variable.other.member.ntgml
+     | "[|"  keyword.operator.accessor.ntgml
+     | "0"  constant.numeric.decimal.ntgml
+     | "]"  punctuation.section.brackets.ntgml
+     | ";"  punctuation.separator.ntgml
+  55 | 	var raw = global.arr[@ 0];
+     | "var"  storage.type.ntgml
+     | " raw "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "arr"  variable.other.member.ntgml
+     | "[@"  keyword.operator.accessor.ntgml
+     | "0"  constant.numeric.decimal.ntgml
+     | "]"  punctuation.section.brackets.ntgml
+     | ";"  punctuation.separator.ntgml
+  56 | 	repeat (3) {
+     | "repeat"  keyword.control.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "3"  constant.numeric.decimal.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  57 | 		wait 1;
+     | "wait"  keyword.control.wait.ntgml
+     | "1"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  58 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  59 | 	fork();
+     | "fork"  support.function.fork.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  60 | 	if crown_current == crwn_death and GameCont.area == area_desert {
+     | "if"  keyword.control.ntgml
+     | "crown_current"  support.variable.builtin.ntgml
+     | "=="  keyword.operator.comparison.ntgml
+     | "crwn_death"  support.constant.crown.ntgml
+     | "and"  keyword.operator.word.ntgml
+     | "GameCont"  entity.name.object.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "area"  variable.other.member.ntgml
+     | "=="  keyword.operator.comparison.ntgml
+     | "area_desert"  support.constant.area.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  61 | 		sound_play(sndAllyDead);
+     | "sound_play"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "sndAllyDead"  entity.name.sound.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  62 | 		draw_set_font(fntSmall);
+     | "draw_set_font"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "fntSmall"  entity.name.font.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  63 | 		shader_set(shd16);
+     | "shader_set"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "shd16"  entity.name.shader.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  64 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  65 | 	try {
+     | "try"  keyword.control.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  66 | 		throw "bad";
+     | "throw"  keyword.control.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "bad"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | ";"  punctuation.separator.ntgml
+  67 | 	} catch (e) {
+     | "}"  punctuation.section.braces.ntgml
+     | "catch"  keyword.control.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "e"  -
+     | ")"  punctuation.section.parens.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  68 | 		trace(e);
+     | "trace"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "e"  -
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  69 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  70 | 
+  71 | #define chat_command(cmd, arg)
+     | "#define"  meta.preprocessor.define.ntgml keyword.control.directive.define.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "chat_command"  meta.preprocessor.define.ntgml entity.name.function.event.ntgml
+     | "("  meta.preprocessor.define.ntgml punctuation.definition.parameters.begin.ntgml
+     | "cmd"  meta.preprocessor.define.ntgml variable.parameter.ntgml
+     | ","  meta.preprocessor.define.ntgml punctuation.separator.parameter.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "arg"  meta.preprocessor.define.ntgml variable.parameter.ntgml
+     | ")"  meta.preprocessor.define.ntgml punctuation.definition.parameters.end.ntgml
+  72 | 	if cmd == "hp" {
+     | "if"  keyword.control.ntgml
+     | " cmd "  -
+     | "=="  keyword.operator.comparison.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "hp"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  73 | 		global.hp = real(arg) mod 100 div 2;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "real"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "arg"  -
+     | ")"  punctuation.section.parens.ntgml
+     | "mod"  keyword.operator.word.ntgml
+     | "100"  constant.numeric.decimal.ntgml
+     | "div"  keyword.operator.word.ntgml
+     | "2"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  74 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  75 | 
+  76 | #define my_helper(a, b)
+     | "#define"  meta.preprocessor.define.ntgml keyword.control.directive.define.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "my_helper"  meta.preprocessor.define.ntgml entity.name.function.ntgml
+     | "("  meta.preprocessor.define.ntgml punctuation.definition.parameters.begin.ntgml
+     | "a"  meta.preprocessor.define.ntgml variable.parameter.ntgml
+     | ","  meta.preprocessor.define.ntgml punctuation.separator.parameter.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "b"  meta.preprocessor.define.ntgml variable.parameter.ntgml
+     | ")"  meta.preprocessor.define.ntgml punctuation.definition.parameters.end.ntgml
+  77 | 	return a + b;
+     | "return"  keyword.control.ntgml
+     | " a "  -
+     | "+"  keyword.operator.arithmetic.ntgml
+     | " b"  -
+     | ";"  punctuation.separator.ntgml
+  78 | 
+  79 | #define member_access
+     | "#define"  meta.preprocessor.define.ntgml keyword.control.directive.define.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "member_access"  meta.preprocessor.define.ntgml entity.name.function.ntgml
+  80 | 	// A name after a `.` is a field of that instance, not the built-in of the
+     | "// A name after a `.` is a field of that instance, not the built-in of the"  comment.line.double-slash.ntgml
+  81 | 	// same name - unless it is called, in which case it is an API method.
+     | "// same name - unless it is called, in which case it is an API method."  comment.line.double-slash.ntgml
+  82 | 	global.frac = 1;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "frac"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "1"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  83 | 	other.sprite_index = bak0;
+     | "other"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "sprite_index"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "bak0"  entity.name.sprite.ntgml
+     | ";"  punctuation.separator.ntgml
+  84 | 	var near = instance_nearest_nonself(x, y, Bandit);
+     | "var"  storage.type.ntgml
+     | " near "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "instance_nearest_nonself"  support.function.self.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "x"  support.variable.builtin.ntgml
+     | ","  punctuation.separator.ntgml
+     | "y"  support.variable.builtin.ntgml
+     | ","  punctuation.separator.ntgml
+     | "Bandit"  entity.name.object.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  85 | 	near.alarm_set(0, 30);
+     | "\tnear"  -
+     | "."  punctuation.accessor.ntgml
+     | "alarm_set"  support.function.self.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "0"  constant.numeric.decimal.ntgml
+     | ","  punctuation.separator.ntgml
+     | "30"  constant.numeric.decimal.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  86 | 	near.my_own_field = 1;
+     | "\tnear"  -
+     | "."  punctuation.accessor.ntgml
+     | "my_own_field"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "1"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  87 | 	global . spaced = 2;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "spaced"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "2"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  88 | 
+  89 | #define values_and_bitwise
+     | "#define"  meta.preprocessor.define.ntgml keyword.control.directive.define.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "values_and_bitwise"  meta.preprocessor.define.ntgml entity.name.function.ntgml
+  90 | 	global.ok = true;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "ok"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "true"  constant.language.ntgml
+     | ";"  punctuation.separator.ntgml
+  91 | 	global.n = undefined;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "n"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "undefined"  constant.language.ntgml
+     | ";"  punctuation.separator.ntgml
+  92 | 	global.nothing = null;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "nothing"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "null"  constant.language.ntgml
+     | ";"  punctuation.separator.ntgml
+  93 | 	global.z = pi + infinity;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "z"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "pi"  constant.language.ntgml
+     | "+"  keyword.operator.arithmetic.ntgml
+     | "infinity"  constant.language.ntgml
+     | ";"  punctuation.separator.ntgml
+  94 | 	global.bad = NaN;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "bad"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "NaN"  constant.language.ntgml
+     | ";"  punctuation.separator.ntgml
+  95 | 	global.bits = (b & c) | (d ^ e) | ~f | (g << 2) | (h >> 1);
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "bits"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "b "  -
+     | "&"  keyword.operator.bitwise.ntgml
+     | " c"  -
+     | ")"  punctuation.section.parens.ntgml
+     | "|"  keyword.operator.bitwise.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "d "  -
+     | "^"  keyword.operator.bitwise.ntgml
+     | " e"  -
+     | ")"  punctuation.section.parens.ntgml
+     | "|"  keyword.operator.bitwise.ntgml
+     | "~"  keyword.operator.bitwise.ntgml
+     | "f "  -
+     | "|"  keyword.operator.bitwise.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "g "  -
+     | "<<"  keyword.operator.bitwise.ntgml
+     | "2"  constant.numeric.decimal.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | "|"  keyword.operator.bitwise.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "h "  -
+     | ">>"  keyword.operator.bitwise.ntgml
+     | "1"  constant.numeric.decimal.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  96 | 	once trace("the first time only");
+     | "once"  support.function.once.ntgml
+     | "trace"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "the first time only"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  97 | 
+  98 | #define spawn_custom
+     | "#define"  meta.preprocessor.define.ntgml keyword.control.directive.define.ntgml
+     | " "  meta.preprocessor.define.ntgml
+     | "spawn_custom"  meta.preprocessor.define.ntgml entity.name.function.ntgml
+  99 | 	var inst = instance_create(x, y, CustomHitme);
+     | "var"  storage.type.ntgml
+     | " inst "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "instance_create"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "x"  support.variable.builtin.ntgml
+     | ","  punctuation.separator.ntgml
+     | "y"  support.variable.builtin.ntgml
+     | ","  punctuation.separator.ntgml
+     | "CustomHitme"  entity.name.object.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+ 100 | 	inst.on_death = my_helper;
+     | "\tinst"  -
+     | "."  punctuation.accessor.ntgml
+     | "on_death"  variable.other.field.custom.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | " my_helper"  -
+     | ";"  punctuation.separator.ntgml
+ 101 | 	inst.maxhealth = 10;
+     | "\tinst"  -
+     | "."  punctuation.accessor.ntgml
+     | "maxhealth"  variable.other.field.custom.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "10"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+ 102 | 	return inst;
+     | "return"  keyword.control.ntgml
+     | " inst"  -
+     | ";"  punctuation.separator.ntgml
+ 103 | 
+ 104 | #region folded
+     | "#region"  keyword.control.directive.region.ntgml
+     | "folded"  entity.name.section.ntgml
+ 105 | #endregion
+     | "#endregion"  keyword.control.directive.endregion.ntgml
+ 106 | 

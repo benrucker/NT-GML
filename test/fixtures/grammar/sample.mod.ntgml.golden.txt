@@ -1,0 +1,421 @@
+   1 | #pragma gml 2
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "gml"  meta.preprocessor.pragma.ntgml keyword.other.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "2"  meta.preprocessor.pragma.ntgml string.unquoted.pragma.ntgml
+   2 | #pragma fast_file
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "fast_file"  meta.preprocessor.pragma.ntgml keyword.other.pragma.ntgml
+   3 | 
+   4 | /// Modern dialect fixture.
+     | "/// Modern dialect fixture."  comment.line.documentation.ntgml
+   5 | function init() {
+     | "function"  meta.function.ntgml storage.type.function.ntgml
+     | " "  meta.function.ntgml
+     | "init"  meta.function.ntgml entity.name.function.event.ntgml
+     | "("  meta.function.ntgml punctuation.definition.parameters.begin.ntgml
+     | ")"  meta.function.ntgml punctuation.definition.parameters.end.ntgml
+     | "{"  punctuation.section.braces.ntgml
+   6 | 	global.hp = 20;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "hp"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "20"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+   7 | 	global.label = $"hp {global.hp} of {20 + 1}";
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "label"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "$\""  string.quoted.template.ntgml punctuation.definition.string.begin.ntgml
+     | "hp "  string.quoted.template.ntgml
+     | "{"  string.quoted.template.ntgml meta.template.expression.ntgml punctuation.definition.template-expression.begin.ntgml
+     | "global"  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml variable.language.ntgml
+     | "."  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml punctuation.accessor.ntgml
+     | "hp"  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml variable.other.member.ntgml
+     | "}"  string.quoted.template.ntgml meta.template.expression.ntgml punctuation.definition.template-expression.end.ntgml
+     | " of "  string.quoted.template.ntgml
+     | "{"  string.quoted.template.ntgml meta.template.expression.ntgml punctuation.definition.template-expression.begin.ntgml
+     | "20"  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml constant.numeric.decimal.ntgml
+     | " "  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml
+     | "+"  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml keyword.operator.arithmetic.ntgml
+     | " "  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml
+     | "1"  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml constant.numeric.decimal.ntgml
+     | "}"  string.quoted.template.ntgml meta.template.expression.ntgml punctuation.definition.template-expression.end.ntgml
+     | "\""  string.quoted.template.ntgml punctuation.definition.string.end.ntgml
+     | ";"  punctuation.separator.ntgml
+   8 | 	global.map = { hp: 1, name: "x" };
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "map"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "{"  punctuation.section.braces.ntgml
+     | " hp"  -
+     | ":"  punctuation.separator.colon.ntgml
+     | "1"  constant.numeric.decimal.ntgml
+     | ","  punctuation.separator.ntgml
+     | " name"  -
+     | ":"  punctuation.separator.colon.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "x"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | "}"  punctuation.section.braces.ntgml
+     | ";"  punctuation.separator.ntgml
+   9 | 	global.value = global.map[$ "hp"];
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "value"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "map"  variable.other.member.ntgml
+     | "[$"  keyword.operator.accessor.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "hp"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | "]"  punctuation.section.brackets.ntgml
+     | ";"  punctuation.separator.ntgml
+  10 | 	global.legacyish = 'x';
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "legacyish"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "'"  string.quoted.single.ntgml punctuation.definition.string.begin.ntgml
+     | "x"  string.quoted.single.ntgml
+     | "'"  string.quoted.single.ntgml punctuation.definition.string.end.ntgml
+     | ";"  punctuation.separator.ntgml
+  11 | 	global.bits = (a & b) | ~c;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "bits"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "a "  -
+     | "&"  keyword.operator.bitwise.ntgml
+     | " b"  -
+     | ")"  punctuation.section.parens.ntgml
+     | "|"  keyword.operator.bitwise.ntgml
+     | "~"  keyword.operator.bitwise.ntgml
+     | "c"  -
+     | ";"  punctuation.separator.ntgml
+  12 | 	global.ok = true;
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "ok"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "true"  constant.language.ntgml
+     | ";"  punctuation.separator.ntgml
+  13 | 	global.maker = new Counter(3);
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "maker"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "new"  keyword.operator.new.ntgml
+     | " Counter"  -
+     | "("  punctuation.section.parens.ntgml
+     | "3"  constant.numeric.decimal.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  14 | 	global.anon = function(a, b = 2) {
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "anon"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | "function"  meta.function.ntgml storage.type.function.ntgml
+     | "("  meta.function.ntgml punctuation.definition.parameters.begin.ntgml
+     | "a"  meta.function.ntgml variable.parameter.ntgml
+     | ","  meta.function.ntgml punctuation.separator.parameter.ntgml
+     | " "  meta.function.ntgml
+     | "b"  meta.function.ntgml variable.parameter.ntgml
+     | " "  meta.function.ntgml
+     | "="  meta.function.ntgml keyword.operator.assignment.ntgml
+     | " "  meta.function.ntgml
+     | "2"  meta.function.ntgml constant.numeric.decimal.ntgml
+     | ")"  meta.function.ntgml punctuation.definition.parameters.end.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  15 | 		return a + b;
+     | "return"  keyword.control.ntgml
+     | " a "  -
+     | "+"  keyword.operator.arithmetic.ntgml
+     | " b"  -
+     | ";"  punctuation.separator.ntgml
+  16 | 	};
+     | "}"  punctuation.section.braces.ntgml
+     | ";"  punctuation.separator.ntgml
+  17 | }
+     | "}"  punctuation.section.braces.ntgml
+  18 | 
+  19 | function Counter(start = 0) constructor {
+     | "function"  meta.function.ntgml storage.type.function.ntgml
+     | " "  meta.function.ntgml
+     | "Counter"  meta.function.ntgml entity.name.function.ntgml
+     | "("  meta.function.ntgml punctuation.definition.parameters.begin.ntgml
+     | "start"  meta.function.ntgml variable.parameter.ntgml
+     | " "  meta.function.ntgml
+     | "="  meta.function.ntgml keyword.operator.assignment.ntgml
+     | " "  meta.function.ntgml
+     | "0"  meta.function.ntgml constant.numeric.decimal.ntgml
+     | ")"  meta.function.ntgml punctuation.definition.parameters.end.ntgml
+     | "constructor"  storage.type.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  20 | 	static total = 0;
+     | "static"  storage.type.ntgml
+     | " total "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "0"  constant.numeric.decimal.ntgml
+     | ";"  punctuation.separator.ntgml
+  21 | 	self.value = start;
+     | "self"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "value"  variable.other.member.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | " start"  -
+     | ";"  punctuation.separator.ntgml
+  22 | 	static bump = function(step = 1) {
+     | "static"  storage.type.ntgml
+     | " bump "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "function"  meta.function.ntgml storage.type.function.ntgml
+     | "("  meta.function.ntgml punctuation.definition.parameters.begin.ntgml
+     | "step"  meta.function.ntgml variable.parameter.ntgml
+     | " "  meta.function.ntgml
+     | "="  meta.function.ntgml keyword.operator.assignment.ntgml
+     | " "  meta.function.ntgml
+     | "1"  meta.function.ntgml constant.numeric.decimal.ntgml
+     | ")"  meta.function.ntgml punctuation.definition.parameters.end.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  23 | 		value += step;
+     | "\t\tvalue "  -
+     | "+="  keyword.operator.assignment.ntgml
+     | " step"  -
+     | ";"  punctuation.separator.ntgml
+  24 | 		total++;
+     | "\t\ttotal"  -
+     | "++"  keyword.operator.arithmetic.ntgml
+     | ";"  punctuation.separator.ntgml
+  25 | 		return value;
+     | "return"  keyword.control.ntgml
+     | " value"  -
+     | ";"  punctuation.separator.ntgml
+  26 | 	};
+     | "}"  punctuation.section.braces.ntgml
+     | ";"  punctuation.separator.ntgml
+  27 | }
+     | "}"  punctuation.section.braces.ntgml
+  28 | 
+  29 | function step() {
+     | "function"  meta.function.ntgml storage.type.function.ntgml
+     | " "  meta.function.ntgml
+     | "step"  meta.function.ntgml entity.name.function.event.ntgml
+     | "("  meta.function.ntgml punctuation.definition.parameters.begin.ntgml
+     | ")"  meta.function.ntgml punctuation.definition.parameters.end.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  30 | 	#pragma no_using
+     | "\t"  meta.preprocessor.pragma.ntgml
+     | "#pragma"  meta.preprocessor.pragma.ntgml keyword.control.directive.pragma.ntgml
+     | " "  meta.preprocessor.pragma.ntgml
+     | "no_using"  meta.preprocessor.pragma.ntgml keyword.other.pragma.ntgml
+  31 | 	var c = global.maker;
+     | "var"  storage.type.ntgml
+     | " c "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "maker"  variable.other.member.ntgml
+     | ";"  punctuation.separator.ntgml
+  32 | 	c.bump();
+     | "\tc"  -
+     | "."  punctuation.accessor.ntgml
+     | "bump"  -
+     | "("  punctuation.section.parens.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  33 | 	if instance_exists(Player) and "hp" not in Player {
+     | "if"  keyword.control.ntgml
+     | "instance_exists"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "Player"  entity.name.object.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | "and"  keyword.operator.word.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "hp"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | "not in"  keyword.operator.word.ntgml
+     | "Player"  entity.name.object.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  34 | 		delete global.maker;
+     | "delete"  keyword.operator.delete.ntgml
+     | "global"  variable.language.ntgml
+     | "."  punctuation.accessor.ntgml
+     | "maker"  variable.other.member.ntgml
+     | ";"  punctuation.separator.ntgml
+  35 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  36 | 	try {
+     | "try"  keyword.control.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  37 | 		throw "bad";
+     | "throw"  keyword.control.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.begin.ntgml
+     | "bad"  string.quoted.double.ntgml
+     | "\""  string.quoted.double.ntgml punctuation.definition.string.end.ntgml
+     | ";"  punctuation.separator.ntgml
+  38 | 	} catch (e) {
+     | "}"  punctuation.section.braces.ntgml
+     | "catch"  keyword.control.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "e"  -
+     | ")"  punctuation.section.parens.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  39 | 		trace(e);
+     | "trace"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "e"  -
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  40 | 	} finally {
+     | "}"  punctuation.section.braces.ntgml
+     | "finally"  keyword.control.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  41 | 		trace($"done {e}");
+     | "trace"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "$\""  string.quoted.template.ntgml punctuation.definition.string.begin.ntgml
+     | "done "  string.quoted.template.ntgml
+     | "{"  string.quoted.template.ntgml meta.template.expression.ntgml punctuation.definition.template-expression.begin.ntgml
+     | "e"  string.quoted.template.ntgml meta.template.expression.ntgml meta.embedded.line.ntgml
+     | "}"  string.quoted.template.ntgml meta.template.expression.ntgml punctuation.definition.template-expression.end.ntgml
+     | "\""  string.quoted.template.ntgml punctuation.definition.string.end.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  42 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  43 | 	with (Player) {
+     | "with"  keyword.control.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "Player"  entity.name.object.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  44 | 		if wep == wep_electric_guitar {
+     | "if"  keyword.control.ntgml
+     | " wep "  -
+     | "=="  keyword.operator.comparison.ntgml
+     | "wep_electric_guitar"  support.constant.weapon.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  45 | 			sound_play(sndAllyDead);
+     | "sound_play"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "sndAllyDead"  entity.name.sound.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  46 | 		}
+     | "}"  punctuation.section.braces.ntgml
+  47 | 	}
+     | "}"  punctuation.section.braces.ntgml
+  48 | }
+     | "}"  punctuation.section.braces.ntgml
+  49 | 
+  50 | function spawn_custom() {
+     | "function"  meta.function.ntgml storage.type.function.ntgml
+     | " "  meta.function.ntgml
+     | "spawn_custom"  meta.function.ntgml entity.name.function.ntgml
+     | "("  meta.function.ntgml punctuation.definition.parameters.begin.ntgml
+     | ")"  meta.function.ntgml punctuation.definition.parameters.end.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  51 | 	var inst = instance_create(x, y, CustomHitme);
+     | "var"  storage.type.ntgml
+     | " inst "  -
+     | "="  keyword.operator.assignment.ntgml
+     | "instance_create"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "x"  support.variable.builtin.ntgml
+     | ","  punctuation.separator.ntgml
+     | "y"  support.variable.builtin.ntgml
+     | ","  punctuation.separator.ntgml
+     | "CustomHitme"  entity.name.object.ntgml
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  52 | 	inst.on_death = my_helper;
+     | "\tinst"  -
+     | "."  punctuation.accessor.ntgml
+     | "on_death"  variable.other.field.custom.ntgml
+     | "="  keyword.operator.assignment.ntgml
+     | " my_helper"  -
+     | ";"  punctuation.separator.ntgml
+  53 | 	return inst;
+     | "return"  keyword.control.ntgml
+     | " inst"  -
+     | ";"  punctuation.separator.ntgml
+  54 | }
+     | "}"  punctuation.section.braces.ntgml
+  55 | 
+  56 | function clamped(
+     | "function"  meta.function.ntgml storage.type.function.ntgml
+     | " "  meta.function.ntgml
+     | "clamped"  meta.function.ntgml entity.name.function.ntgml
+     | "("  meta.function.ntgml punctuation.definition.parameters.begin.ntgml
+  57 | 	value,
+     | "\t"  meta.function.ntgml
+     | "value"  meta.function.ntgml variable.parameter.ntgml
+     | ","  meta.function.ntgml punctuation.separator.parameter.ntgml
+  58 | 	low = 0,
+     | "\t"  meta.function.ntgml
+     | "low"  meta.function.ntgml variable.parameter.ntgml
+     | " "  meta.function.ntgml
+     | "="  meta.function.ntgml keyword.operator.assignment.ntgml
+     | " "  meta.function.ntgml
+     | "0"  meta.function.ntgml constant.numeric.decimal.ntgml
+     | ","  meta.function.ntgml punctuation.separator.parameter.ntgml
+  59 | 	high = max(10, 20)
+     | "\t"  meta.function.ntgml
+     | "high"  meta.function.ntgml variable.parameter.ntgml
+     | " "  meta.function.ntgml
+     | "="  meta.function.ntgml keyword.operator.assignment.ntgml
+     | " "  meta.function.ntgml
+     | "max"  meta.function.ntgml support.function.ntgml
+     | "("  meta.function.ntgml punctuation.section.parens.ntgml
+     | "10"  meta.function.ntgml constant.numeric.decimal.ntgml
+     | ","  meta.function.ntgml punctuation.separator.ntgml
+     | " "  meta.function.ntgml
+     | "20"  meta.function.ntgml constant.numeric.decimal.ntgml
+     | ")"  meta.function.ntgml punctuation.section.parens.ntgml
+  60 | ) {
+     | ")"  meta.function.ntgml punctuation.definition.parameters.end.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  61 | 	return clamp(value, low, high);
+     | "return"  keyword.control.ntgml
+     | "clamp"  support.function.ntgml
+     | "("  punctuation.section.parens.ntgml
+     | "value"  -
+     | ","  punctuation.separator.ntgml
+     | " low"  -
+     | ","  punctuation.separator.ntgml
+     | " high"  -
+     | ")"  punctuation.section.parens.ntgml
+     | ";"  punctuation.separator.ntgml
+  62 | }
+     | "}"  punctuation.section.braces.ntgml
+  63 | 
+  64 | function my_helper(a, b) {
+     | "function"  meta.function.ntgml storage.type.function.ntgml
+     | " "  meta.function.ntgml
+     | "my_helper"  meta.function.ntgml entity.name.function.ntgml
+     | "("  meta.function.ntgml punctuation.definition.parameters.begin.ntgml
+     | "a"  meta.function.ntgml variable.parameter.ntgml
+     | ","  meta.function.ntgml punctuation.separator.parameter.ntgml
+     | " "  meta.function.ntgml
+     | "b"  meta.function.ntgml variable.parameter.ntgml
+     | ")"  meta.function.ntgml punctuation.definition.parameters.end.ntgml
+     | "{"  punctuation.section.braces.ntgml
+  65 | 	return a + b;
+     | "return"  keyword.control.ntgml
+     | " a "  -
+     | "+"  keyword.operator.arithmetic.ntgml
+     | " b"  -
+     | ";"  punctuation.separator.ntgml
+  66 | }
+     | "}"  punctuation.section.braces.ntgml
+  67 | 

@@ -122,9 +122,7 @@ test('tables: spot checks for each annotation form', () => {
 });
 
 test('cleanup: no Rivals-of-Aether identifiers in shipped code', () => {
-	// syntaxes/ still holds the old RoA grammar until section 5.2 replaces it;
-	// add it to this list when the NTGML grammars land.
-	const roots = ['src', 'tools', 'data', 'package.json'];
+	const roots = ['src', 'tools', 'data', 'syntaxes', 'package.json'];
 	const rx = /\b(roa|roabox|rivals(?: of aether)?)\b|play-sound|vscode-languageserver/i;
 	const hits: string[] = [];
 	const walk = (p: string) => {

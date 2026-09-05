@@ -797,6 +797,14 @@ function main(): void {
 	// `JSON.stringify` would also strip the nested `markdown`/`source` keys.
 	const sortedDocs: DocMap = {};
 	for (const name of docNames) { sortedDocs[name] = docs[name]; }
+	// Bail before writing anything: half-generated tables are worse than none.
+	if (problems.length > 0) {
+		console.error('');
+		console.error('SELF-CHECK FAILED:');
+		for (const p of problems) { console.error('  ' + p); }
+		process.exit(1);
+	}
+
 	fs.mkdirSync(outDir, { recursive: true });
 	const written: string[][] = [
 		['functions.ts', emitFunctions(functions, head)],
@@ -849,12 +857,6 @@ function main(): void {
 	console.log('wrote ' + written.length + ' file(s) to ' +
 		path.relative(ROOT, outDir).replace(/\\/g, '/') + '/');
 
-	if (problems.length > 0) {
-		console.error('');
-		console.error('SELF-CHECK FAILED:');
-		for (const p of problems) { console.error('  ' + p); }
-		process.exit(1);
-	}
 	console.log('self-checks:  ok');
 }
 

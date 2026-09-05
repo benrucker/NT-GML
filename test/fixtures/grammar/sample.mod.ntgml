@@ -1,0 +1,66 @@
+#pragma gml 2
+#pragma fast_file
+
+/// Modern dialect fixture.
+function init() {
+	global.hp = 20;
+	global.label = $"hp {global.hp} of {20 + 1}";
+	global.map = { hp: 1, name: "x" };
+	global.value = global.map[$ "hp"];
+	global.legacyish = 'x';
+	global.bits = (a & b) | ~c;
+	global.ok = true;
+	global.maker = new Counter(3);
+	global.anon = function(a, b = 2) {
+		return a + b;
+	};
+}
+
+function Counter(start = 0) constructor {
+	static total = 0;
+	self.value = start;
+	static bump = function(step = 1) {
+		value += step;
+		total++;
+		return value;
+	};
+}
+
+function step() {
+	#pragma no_using
+	var c = global.maker;
+	c.bump();
+	if instance_exists(Player) and "hp" not in Player {
+		delete global.maker;
+	}
+	try {
+		throw "bad";
+	} catch (e) {
+		trace(e);
+	} finally {
+		trace($"done {e}");
+	}
+	with (Player) {
+		if wep == wep_electric_guitar {
+			sound_play(sndAllyDead);
+		}
+	}
+}
+
+function spawn_custom() {
+	var inst = instance_create(x, y, CustomHitme);
+	inst.on_death = my_helper;
+	return inst;
+}
+
+function clamped(
+	value,
+	low = 0,
+	high = max(10, 20)
+) {
+	return clamp(value, low, high);
+}
+
+function my_helper(a, b) {
+	return a + b;
+}

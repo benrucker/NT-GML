@@ -4,6 +4,7 @@
 .git/**
 out/test/**
 out/tools/**
+out/src/**
 src/**
 tools/**
 test/**

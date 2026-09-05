@@ -1,121 +1,56 @@
-## Overview Video
+# Nuclear Throne Together GML
 
-https://www.youtube.com/watch?v=DS2QaEW_BiA
+VS Code support for NTGML, the GML dialect that Nuclear Throne Together mods are written in. The target is NTT 100.034.
 
-## Features
+**WIP.** The extension is not ready to use. The progress is captured in [NTGML-PORT-SCOPE.md](NTGML-PORT-SCOPE.md#progress).
 
-### Autocompletion for RoA-specific consts, variables, and functions
+## The two dialects
 
-![demonstration of autocompletion result](./resources/autocompletion_result.png)
+NTT picks the language version by file extension, so the extension contributes two languages.
 
-### Syntax highlighting for RoA-specific consts, variables, and functions
+| Language id    | Extension | What it is                                                                                                                  |
+| -------------- | --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `ntgml-legacy` | `.gml`    | GMS1-style. `#define` scripts, backtick template strings, no `[$]` accessor. Nearly all published mods are written in this. |
+| `ntgml`        | `.ntgml`  | GM2022-style. Adds `function`, `new`, `static`, `try`/`catch`/`throw`, `delete`, structs, and `$"..."` strings.             |
 
-![demonstration of syntax highlighting](./resources/syntax_highlighting.png)
+Both dialects share the NTT-specific syntax that no other GML tooling knows about: `wait`, `fork()`, `"name" in inst`, `#macro`, `#pragma`, and `#define` with named arguments. [NTGML-SPEC.md](NTGML-SPEC.md) is the full language description.
 
-### A visualizer for RoA workshop moves.
+## What is in the repo
 
-Pull up the command palette with `Ctrl+Shift+P` and select "Open RoABox"
+| Path                                            | Contents                                                                                                                                             |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/extension.ts`, `src/completionProvider.ts` | The extension entry point and the completion provider.                                                                                               |
+| `src/generated/`                                | Identifier tables generated from the API dump: functions, constants, variables, assets, and per-function docs. Never edit by hand.                   |
+| `src/tables/`                                   | Hand-maintained tables: mod events per mod type, `Custom*` object callbacks, button names, keywords, and the shared types.                           |
+| `tools/`                                        | The generator. `parse-api.ts` reads the dump format, `parse-docs.ts` pulls prose out of the docs sources, `generate-api.ts` writes `src/generated/`. |
+| `api/ntt-100.034/`                              | The vendored `/gmlapi` dump this build is generated from. Source of truth.                                                                           |
+| `api/ntt-100.022-reference/`                    | An older, hand-annotated dump. Used only for the argument type hints the live dump does not emit.                                                    |
+| `api/ntt-docs/`                                 | A copy of the [bits-of-nuclear-throne](https://github.com/YAL-Game-Tools/bits-of-nuclear-throne) docs sources.                                       |
+| `api/overrides.gml`                             | Hand-written corrections merged last.                                                                                                                |
+| `test/`                                         | Golden-file tests. See [test/README.md](test/README.md).                                                                                             |
+| `data/gml-configuration.json`                   | Bracket pairs, comment tokens, and auto-closing for both languages.                                                                                  |
 
-![visualizer demonstration](./resources/visualizer.png)
+## Working on it
 
-**There is even projectile support!!**
-
-![projectile visualization](./resources/projectile_visualizer.png)
-
-### special visualizer variables!
-
-Use special variables to directly interact with it! Want to simulate a move with repeating windows? Now you can!
-
-```gml
-__DISPLAY_MODES = "long charge,hide hitbox 2";
-switch(__DISPLAY_MODE) {
-  case "long charge":
-    __WINDOW_SEQUENCE = "1,2x5,3";
-    break;
-  case "hide hitbox 2":
-    __HIDDEN_HITBOXES = "2";
-    break;
-}
+```
+pnpm install
+pnpm build      # extension, generator, and tests
+pnpm test       # builds, then runs the golden-file suite
+pnpm lint
+pnpm gen        # regenerate src/generated from the dump
+pnpm package    # produces a .vsix
 ```
 
-This will create a display mode on the editor:
+`pnpm gen` prefers a dump in `%LOCALAPPDATA%\nuclearthrone\api` when one is there and is new enough, and falls back to `api/ntt-100.034/` otherwise. You get a fresh dump by typing `/gmlapi` in the game's chat. Output is deterministic, and one of the tests fails if the committed tables drift from what the generator produces, so regenerate and commit together.
 
-![a demonstration of the result](./resources/display_mode.png)
+CI runs lint, test, and package on Ubuntu and Windows for every push to `main` and every pull request.
 
-## Known Issues
+## Other documents
 
-none yet!~
+- [NTGML-PORT-SCOPE.md](NTGML-PORT-SCOPE.md) is the port plan and lists what NTT adds and removes relative to the old extension.
+- [NTGML-SPEC.md](NTGML-SPEC.md) is the language spec and wins where the two disagree.
+- [NTT Modding Cheat Sheet.md](NTT%20Modding%20Cheat%20Sheet.md) is a community reference on event order, depth, and time scale.
 
-## Future Ideas
+## History
 
-- possible simulation of a small amount of gml code, allowing for `attack_update.gml`
-
-## Release Notes
-
-### 2.0.0
-
-- added the ability to directly affect the move visualizer with special variables
-- added a toggle to simulate hitlag
-- added all the functions and macros that have been missing since 2019
-
-fixed:
-- animations playing at twice the speed they should
-- projectile behavior
-- hurtbox display
-
-### 1.4.0
-
-overview
-
-features:
-- added debug scripts
-- added support for projectiles
-- added hurtbox display
-
-Quality of Life:
-- default framecount of trajectory line is now 30
-
-### 1.3.0
-
-bugfixes:
-- angles will no longer be flipped vertically (oops)
-
-features:
-- added a menu to toggle various elements.
-- added a trajectory display that will visualize the path an opponent will take
-  - this will not take DI into account
-  - the right side of the menu is for adjusting the attributes of the opponent
-
-Quality of Life:
-- added a button that will automatically fetch the required resources
-  - this will only work properly if your top workspace is structured as a workshop character
-
-### 1.2.0
-
-bugfixes:
-- using local variables with set/get_whatever_value crashed the webview
-
-features:
-- there's now an arrow that shows a hitbox's direction that scales in length with the knockback of the move
-- hitboxes with parents will inherit the properties of that parent
-
-### 1.1.2
-
-bugfixes:
-- fixed bug preventing visualizer from working if a gml file wasn't opened
-
-### 1.1.0
-
-bugfixes:
-- better syntax highlighting
-- fixed issue with the ease_back functions
-
-features:
-- **new (basic) visualizer added**!
-  - press `Ctrl + P (windows) or Cmd + P (mac)` to bring up the command palette, then
-    pick "open RoABox." You'll need to set it up by giving it the proper resources, and for now it's still in its *very*
-    early stages, but it still may be helpful to quickly see what a move might look like.
-
-### 1.0.0
-
-Initial release
+Everything before commit `33fd3de` is a Rivals of Aether GML extension, including the RoABox move visualizer. That code was removed in `3006ae3` and lives on in the git history.

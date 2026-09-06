@@ -39,7 +39,7 @@
 		"source": "Sample.dmd"
 	},
 	"string_repeat": {
-		"markdown": "Returns `str` repeated `count` times.\nSee also `string_length` and [a link](https://example.invalid/link).\n```\nvar s = string_repeat(\"ab\", 3); // \"ababab\"\n```",
+		"markdown": "Returns `str` repeated `count` times.\nSee also `string_length` and [a link](https://example.invalid/link).\nCloser to `string_repeat` (GameMaker manual) than to `string_copy` (GameMaker manual).\nSee the GameMaker manual.  $[unknownMacro](x)\nNon-sync: returns local state without network latency - useful for displaying information or previewing an action locally, but it differs between players, so it must not influence synchronised gameplay state.\n```\nvar s = string_repeat(\"ab\", 3); // \"ababab\"\n```",
 		"source": "Sample.dmd"
 	}
 }

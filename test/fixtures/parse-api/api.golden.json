@@ -61,14 +61,12 @@
 				{
 					"name": "a",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "b",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Plain",
@@ -86,8 +84,7 @@
 				{
 					"name": "a",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Plain",
@@ -106,14 +103,12 @@
 					"name": "x",
 					"optional": false,
 					"rest": false,
-					"selfRelative": false,
 					"type": "number"
 				},
 				{
 					"name": "y",
 					"optional": false,
 					"rest": false,
-					"selfRelative": false,
 					"type": "number"
 				}
 			],
@@ -133,8 +128,7 @@
 				{
 					"name": "x",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Plain",
@@ -164,8 +158,7 @@
 				{
 					"name": "x",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Prefixes",
@@ -183,14 +176,12 @@
 				{
 					"name": "etype",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "enumb",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Prefixes",
@@ -208,8 +199,7 @@
 				{
 					"name": "inst",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Prefixes",
@@ -227,14 +217,12 @@
 				{
 					"name": "inst",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "flag",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Prefixes",
@@ -253,7 +241,6 @@
 					"name": "inst",
 					"optional": false,
 					"rest": false,
-					"selfRelative": false,
 					"type": "instance"
 				}
 			],
@@ -272,20 +259,17 @@
 				{
 					"name": "a",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "b",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "c",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Arguments",
@@ -303,26 +287,22 @@
 				{
 					"name": "str",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "delim",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "remove_empty",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "max_splits",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Arguments",
@@ -340,29 +320,25 @@
 				{
 					"name": "a",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"default": "1",
 					"name": "b",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"default": "\"x\"",
 					"name": "c",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"default": "[]",
 					"name": "d",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Arguments",
@@ -380,14 +356,12 @@
 				{
 					"name": "fmt",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "values",
 					"optional": false,
-					"rest": true,
-					"selfRelative": false
+					"rest": true
 				}
 			],
 			"category": "Arguments",
@@ -405,14 +379,12 @@
 				{
 					"name": "fmt",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"name": "...",
 					"optional": true,
-					"rest": true,
-					"selfRelative": false
+					"rest": true
 				}
 			],
 			"category": "Arguments",
@@ -428,32 +400,31 @@
 		{
 			"args": [
 				{
-					"name": "x",
+					"name": "",
 					"optional": false,
 					"rest": false,
-					"selfRelative": true
+					"type": "sound"
 				},
 				{
-					"name": "y",
+					"name": "",
 					"optional": false,
 					"rest": false,
-					"selfRelative": true
+					"type": "color"
 				},
 				{
 					"name": "r",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Arguments",
 			"deprecated": false,
-			"name": "self_relative",
+			"name": "unnamed_type",
 			"pure": false,
 			"raw": false,
 			"returns": false,
 			"selfCtx": 0,
-			"signature": "self_relative(:x, :y, r)",
+			"signature": "unnamed_type(:sound, :color, r)",
 			"spelling": null
 		},
 		{
@@ -461,22 +432,19 @@
 				{
 					"name": "a",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"default": "array(1, 2)",
 					"name": "b",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				},
 				{
 					"default": "f(g(3), 4)",
 					"name": "c",
 					"optional": true,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Arguments",
@@ -495,7 +463,6 @@
 					"name": "v",
 					"optional": false,
 					"rest": false,
-					"selfRelative": false,
 					"type": "T"
 				}
 			],
@@ -515,8 +482,7 @@
 				{
 					"name": "x",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Flags",
@@ -534,8 +500,7 @@
 				{
 					"name": "c",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Flags",
@@ -553,8 +518,7 @@
 				{
 					"name": "c",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Flags",
@@ -572,8 +536,7 @@
 				{
 					"name": "x",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Flags",
@@ -591,8 +554,7 @@
 				{
 					"name": "x",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Flags",
@@ -610,8 +572,7 @@
 				{
 					"name": "x",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Flags",
@@ -629,8 +590,7 @@
 				{
 					"name": "a",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Nesting",
@@ -648,8 +608,7 @@
 				{
 					"name": "b",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "inner group",
@@ -667,8 +626,7 @@
 				{
 					"name": "c",
 					"optional": false,
-					"rest": false,
-					"selfRelative": false
+					"rest": false
 				}
 			],
 			"category": "Nesting",

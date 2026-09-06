@@ -25,7 +25,7 @@ optional_brackets(str, delim, [remove_empty], [max_splits])
 defaults(a, b=1, c="x", d=[])
 rest_named(fmt, ...values)
 rest_bare(fmt, ...)
-self_relative(:x, :y, r)
+unnamed_type(:sound, :color, r)
 nested_default(a, b=array(1, 2), c=f(g(3), 4)):
 generic_name<T>(v:T):T
 //}

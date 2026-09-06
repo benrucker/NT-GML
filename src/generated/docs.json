@@ -10,7 +10,7 @@
 		"group": true
 	},
 	"alarm_run": {
-		"markdown": "Ticks down the specified alarm if it is set,\nand returns whether it's time to trigger the effect.\n\n$`src`",
+		"markdown": "Ticks down the specified alarm if it is set,\nand returns whether it's time to trigger the effect.",
 		"source": "API-Instances.dmd"
 	},
 	"angle_difference": {
@@ -52,7 +52,7 @@
 		"source": "API-Arrays.dmd"
 	},
 	"array_filter": {
-		"markdown": "Filters an array by passing each item to the filter function\nand keeping only the ones that it returned `true` for.\n\nIf `copy` is `true`, filtered items will be added to a new array.\\\nOtherwise the array is modified in place.\n\nReturns the array (either new or the input one) in both cases.\n\nOn terms of modern GML, the function is a mix of\n$[manual](array_filter) and $[manual](array_filter_ext).",
+		"markdown": "Filters an array by passing each item to the filter function\nand keeping only the ones that it returned `true` for.\n\nIf `copy` is `true`, filtered items will be added to a new array.\\\nOtherwise the array is modified in place.\n\nReturns the array (either new or the input one) in both cases.\n\nOn terms of modern GML, the function is a mix of\n`array_filter` (GameMaker manual) and `array_filter_ext` (GameMaker manual).",
 		"source": "API-Arrays.dmd"
 	},
 	"array_find_index": {
@@ -80,7 +80,7 @@
 		"source": "API-Arrays.dmd"
 	},
 	"array_map": {
-		"markdown": "Modifies an array by passing all items through a mapper function.\n\nIf `copy` is `true`, resulting items will be added to a new array.\\\nOtherwise the array is modified in place.\n\nReturns the array (either new or the input one) in both cases.\n\nOn terms of modern GML, the function is a mix of\n$[manual](array_map) and $[manual](array_map_ext).",
+		"markdown": "Modifies an array by passing all items through a mapper function.\n\nIf `copy` is `true`, resulting items will be added to a new array.\\\nOtherwise the array is modified in place.\n\nReturns the array (either new or the input one) in both cases.\n\nOn terms of modern GML, the function is a mix of\n`array_map` (GameMaker manual) and `array_map_ext` (GameMaker manual).",
 		"source": "API-Arrays.dmd"
 	},
 	"array_slice": {
@@ -498,17 +498,17 @@
 		"group": true
 	},
 	"button_check_nonsync": {
-		"markdown": "$[nonSync](vf)",
+		"markdown": "Non-sync: returns local state without network latency - useful for displaying information or previewing an action locally, but it differs between players, so it must not influence synchronised gameplay state.",
 		"source": "NTT-Input.dmd",
 		"group": true
 	},
 	"button_pressed_nonsync": {
-		"markdown": "$[nonSync](vf)",
+		"markdown": "Non-sync: returns local state without network latency - useful for displaying information or previewing an action locally, but it differs between players, so it must not influence synchronised gameplay state.",
 		"source": "NTT-Input.dmd",
 		"group": true
 	},
 	"button_released_nonsync": {
-		"markdown": "$[nonSync](vf)",
+		"markdown": "Non-sync: returns local state without network latency - useful for displaying information or previewing an action locally, but it differs between players, so it must not influence synchronised gameplay state.",
 		"source": "NTT-Input.dmd",
 		"group": true
 	},
@@ -528,11 +528,11 @@
 		"group": true
 	},
 	"collision_line_point": {
-		"markdown": "Finds the closest instance going from xy1 to xy2,\nas per [blog post](https://yal.cc/gamemaker-collision-line-point/).\n\nHowever, this either populates or returns a new struct\nwith `x`, `y`, and `inst` variables.\n\n$`src`",
+		"markdown": "Finds the closest instance going from xy1 to xy2,\nas per [blog post](https://yal.cc/gamemaker-collision-line-point/).\n\nHowever, this either populates or returns a new struct\nwith `x`, `y`, and `inst` variables.",
 		"source": "API-Collisions.dmd"
 	},
 	"collision_line_width_first": {
-		"markdown": "Similar to above, but includes width.\n\n$`src`",
+		"markdown": "Similar to above, but includes width.",
 		"source": "API-Collisions.dmd"
 	},
 	"cos": {
@@ -1122,11 +1122,11 @@
 		"group": true
 	},
 	"event_perform": {
-		"markdown": "Be careful!\n\n$`manual`",
+		"markdown": "Be careful!\n\nSee the GameMaker manual.",
 		"source": "API-Instances.dmd"
 	},
 	"event_perform_object": {
-		"markdown": "Also be careful - executing other objects' events may leak\nvariables into the current instance.\n\n$`manual`",
+		"markdown": "Also be careful - executing other objects' events may leak\nvariables into the current instance.\n\nSee the GameMaker manual.",
 		"source": "API-Instances.dmd"
 	},
 	"exp": {
@@ -1165,7 +1165,7 @@
 		"group": true
 	},
 	"get_timer_nonsync": {
-		"markdown": "Returns the number of microseconds since the game has started.\n\nSee $[manual](get_timer).",
+		"markdown": "Returns the number of microseconds since the game has started.\n\nSee `get_timer` (GameMaker manual).",
 		"source": "NTT-TimeScale.dmd"
 	},
 	"gravity": {
@@ -1270,11 +1270,11 @@
 		"source": "API-Types.dmd"
 	},
 	"json_decode": {
-		"markdown": "This works closer to $[manual](json_parse)\nas it returns structs and arrays, not data structures.\n\nIf JSON fails to parse, it returns `json_error` (special value)\nand stores the error text in `json_error_text`.",
+		"markdown": "This works closer to `json_parse` (GameMaker manual)\nas it returns structs and arrays, not data structures.\n\nIf JSON fails to parse, it returns `json_error` (special value)\nand stores the error text in `json_error_text`.",
 		"source": "API-DS.dmd"
 	},
 	"json_encode": {
-		"markdown": "This works closer to $[manual](json_stringify)\nas it works with structs and arrays, not data structures.\n\nAlso note that it accepts an indentation string\n(or `undefined` / no argument to not pretty-print)\ninstead of a boolean flag like the built-in function does.",
+		"markdown": "This works closer to `json_stringify` (GameMaker manual)\nas it works with structs and arrays, not data structures.\n\nAlso note that it accepts an indentation string\n(or `undefined` / no argument to not pretty-print)\ninstead of a boolean flag like the built-in function does.",
 		"source": "API-DS.dmd"
 	},
 	"json_false": {
@@ -1421,12 +1421,12 @@
 		"source": "NTT-Input.dmd"
 	},
 	"mouse_x_nonsync": {
-		"markdown": "$[nonSync](vf)",
+		"markdown": "Non-sync: returns local state without network latency - useful for displaying information or previewing an action locally, but it differs between players, so it must not influence synchronised gameplay state.",
 		"source": "NTT-Input.dmd",
 		"group": true
 	},
 	"mouse_y_nonsync": {
-		"markdown": "$[nonSync](vf)",
+		"markdown": "Non-sync: returns local state without network latency - useful for displaying information or previewing an action locally, but it differs between players, so it must not influence synchronised gameplay state.",
 		"source": "NTT-Input.dmd",
 		"group": true
 	},

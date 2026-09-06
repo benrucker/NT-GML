@@ -31,7 +31,8 @@ test('events: every mod type has init and cleanup and no duplicate events', () =
 test('events: modTypeFromFileName', () => {
 	assert.equal(modTypeFromFileName('foo.mod.gml'), 'mod');
 	assert.equal(modTypeFromFileName('foo.wep.ntgml'), 'wep');
-	assert.equal(modTypeFromFileName('foo.weapon.gml'), 'wep');
+	// `.weapon` is not an accepted spelling; the loader wants `.wep`.
+	assert.equal(modTypeFromFileName('foo.weapon.gml'), null);
 	assert.equal(modTypeFromFileName('Foo.RACE.gmlbc'), 'race');
 	assert.equal(modTypeFromFileName('foo.gml'), null);
 	assert.equal(modTypeFromFileName('foo.unknown.gml'), null);

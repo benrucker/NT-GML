@@ -47,3 +47,13 @@ test('generator: committed src/generated matches a fresh run on the vendored dum
 		fs.rmSync(tmp, { recursive: true, force: true });
 	}
 });
+
+test('generator: no DocMark macro survives into src/generated/docs.ts', () => {
+	// `$[manual]`, `$[src]` and friends are expanded or dropped by
+	// `tools/parse-docs.ts`. One reaching a hover means a macro the parser has
+	// never seen - add it to `expandMacro` rather than relaxing this.
+	const docs = read(path.join(GENERATED_DIR, 'docs.ts'));
+	const macros = docs.match(/\$\[[A-Za-z_]\w*\]|\$`[^`]*`/g) ?? [];
+	assert.deepEqual([...new Set(macros)].sort(), [],
+		'unexpanded DocMark macro(s) in src/generated/docs.ts');
+});

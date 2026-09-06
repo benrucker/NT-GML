@@ -17,9 +17,12 @@ export type SelfCtx = 0 | 1 | 2 | 3;
 export type Spelling = 'us' | 'uk' | null;
 
 export interface ArgInfo {
-	/** Argument name as written in `api.gml`. */
+	/** Argument name as written in `api.gml`; `""` for the unnamed `:type` form. */
 	name: string;
-	/** Type hint (`arg:type`), if the dump or the 100.022 reference supplies one. */
+	/**
+	 * Type hint from `arg:type`, or from `:type`, which gives a type and no
+	 * name (`name` is then `""`). Also filled in from the 100.022 reference.
+	 */
 	type?: string;
 	/** `?arg` or `[arg]` or `arg=default`. */
 	optional: boolean;
@@ -27,8 +30,6 @@ export interface ArgInfo {
 	rest: boolean;
 	/** Text after `=` for `arg=default`. */
 	default?: string;
-	/** `:arg` - the argument is resolved relative to the calling instance. */
-	selfRelative: boolean;
 }
 
 export interface FunctionInfo {

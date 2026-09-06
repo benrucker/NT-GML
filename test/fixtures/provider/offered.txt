@@ -1,0 +1,108 @@
+## declaration line in a .wep file (37 items)
+10cleanup	event	cleanup	cleanup
+10init	event	init	init
+10step	event	step	step(primary)
+10weapon_area	event	weapon_area	weapon_area
+10weapon_auto	event	weapon_auto	weapon_auto
+10weapon_cost	event	weapon_cost	weapon_cost
+10weapon_fire	event	weapon_fire	weapon_fire(wep)
+10weapon_gold	event	weapon_gold	weapon_gold
+10weapon_laser_sight	event	weapon_laser_sight	weapon_laser_sight
+10weapon_load	event	weapon_load	weapon_load
+10weapon_loadout	event	weapon_loadout	weapon_loadout
+10weapon_melee	event	weapon_melee	weapon_melee
+
+## after #pragma (9 items)
+10fast	pragma	fast	fast
+10fast_file	pragma	fast_file	fast_file
+10gml	pragma	gml	gml ${1:version}
+10include	pragma	include	include ${1:path}
+10init	pragma	init	init
+10no_using	pragma	no_using	no_using
+10not_fast	pragma	not_fast	not_fast
+10preload	pragma	preload	preload ${1:file}
+10using	pragma	using	using ${1:mod.type[.ext]}
+
+## button name inside a string (25 items)
+10east	button	east	east
+10exit	button	exit	exit
+10fire	button	fire	fire
+10horn	button	horn	horn
+10key0	button	key0	key0
+10key1	button	key1	key1
+10key2	button	key2	key2
+10key3	button	key3	key3
+10key4	button	key4	key4
+10key5	button	key5	key5
+10key6	button	key6	key6
+10key7	button	key7	key7
+
+## button name outside a string (5487 items)
+10east	button	east	"east"
+10exit	button	exit	"exit"
+10fire	button	fire	"fire"
+10horn	button	horn	"horn"
+10key0	button	key0	"key0"
+10key1	button	key1	"key1"
+10key2	button	key2	"key2"
+10key3	button	key3	"key3"
+10key4	button	key4	"key4"
+10key5	button	key5	"key5"
+10key6	button	key6	"key6"
+10key7	button	key7	"key7"
+
+## object argument (5462 items)
+10AcidStreak	object	AcidStreak	AcidStreak
+10Ally	object	Ally	Ally
+10AllyBullet	object	AllyBullet	AllyBullet
+10AllyDamage	object	AllyDamage	AllyDamage
+10AmmoChest	object	AmmoChest	AmmoChest
+10AmmoChestMystery	object	AmmoChestMystery	AmmoChestMystery
+10AmmoPickup	object	AmmoPickup	AmmoPickup
+10Anchor	object	Anchor	Anchor
+10AssassinNotice	object	AssassinNotice	AssassinNotice
+10AudioMenuButton	object	AudioMenuButton	AudioMenuButton
+10BECOMETARGET	object	BECOMETARGET	BECOMETARGET
+10BUnlockScreen	object	BUnlockScreen	BUnlockScreen
+
+## with statement (5462 items)
+10AcidStreak	object	AcidStreak	AcidStreak
+10Ally	object	Ally	Ally
+10AllyBullet	object	AllyBullet	AllyBullet
+10AllyDamage	object	AllyDamage	AllyDamage
+10AmmoChest	object	AmmoChest	AmmoChest
+10AmmoChestMystery	object	AmmoChestMystery	AmmoChestMystery
+10AmmoPickup	object	AmmoPickup	AmmoPickup
+10Anchor	object	Anchor	Anchor
+10AssassinNotice	object	AssassinNotice	AssassinNotice
+10AudioMenuButton	object	AudioMenuButton	AudioMenuButton
+10BECOMETARGET	object	BECOMETARGET	BECOMETARGET
+10BUnlockScreen	object	BUnlockScreen	BUnlockScreen
+
+## exact name typed (5462 items)
+00abs	function	abs	abs(${1:x})$0
+20#define	preprocessor	#define	#define
+20#endregion	preprocessor	#endregion	#endregion
+20#macro	preprocessor	#macro	#macro
+20#pragma	preprocessor	#pragma	#pragma
+20#region	preprocessor	#region	#region
+20NaN	builtin-constant	NaN	NaN
+20alarm_get	function	alarm_get	alarm_get(${1:index})$0
+20alarm_run	function	alarm_run	alarm_run(${1:alarm_ind})$0
+20alarm_set	function	alarm_set	alarm_set(${1:index}, ${2:value})$0
+20all	builtin-constant	all	all
+20and	keyword	and	and
+
+## on_ prefix with a resolved receiver (5486 items)
+10candie	field	candie	candie
+10hitid	field	hitid	hitid
+10maxhealth	field	maxhealth	maxhealth
+10meleedamage	field	meleedamage	meleedamage
+10my_health	field	my_health	my_health
+10on_begin_step	field	on_begin_step	on_begin_step
+10on_cleanup	field	on_cleanup	on_cleanup
+10on_death	field	on_death	on_death
+10on_destroy	field	on_destroy	on_destroy
+10on_draw	field	on_draw	on_draw
+10on_end_step	field	on_end_step	on_end_step
+10on_hurt	field	on_hurt	on_hurt

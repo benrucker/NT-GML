@@ -1,0 +1,33 @@
+# One line per signature-help scenario; <> marks the cursor and a literal
+# \n is a line break, so a call can be split over several lines.
+# Lines starting with # are comments.
+
+weapon_get_name(<>
+weapon_get_name(wep<>
+instance_create(x, y, <>
+instance_create(x, y, Player, {<>
+instance_create(x, y, Player, { a: 1, b: 2 }, <>
+instances_matching(Player, "team", 1, 2, 3<>
+instances_matching(Player, "team"<>
+array_filter(arr, fn, <>
+array_join([1, 2, 3], <>
+trace(string_length("a, b")<>
+trace(string_length(<>
+draw_text(x, y, "a, (b"<>
+draw_text(x, y, "unterminated, <>
+move_and_collide(1, 2, Player, 1, 2, 3, 4, 5, 6<>
+not_a_function(<>
+trace((a + b), <>
+button_check(0, "nort") && button_pressed(<>
+x = abs(<>
+trace("a") // instance_create(<>
+
+# --- calls split over several lines ---------------------------------------
+instance_create(\n	x,\n	y,\n	<>
+trace(\n	"a, b",\n	<>
+weapon_get_name(\n	<>
+draw_text(x,\n	// y, "a",\n	<>
+
+# --- more arguments than the signature has --------------------------------
+abs(1, 2, <>
+sound_play(<>

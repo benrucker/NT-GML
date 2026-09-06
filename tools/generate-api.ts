@@ -407,7 +407,6 @@ function emitArg(a: ArgInfo): Bag {
 	if (a.optional) { o.optional = true; }
 	if (a.rest) { o.rest = true; }
 	if (a.default !== undefined) { o.default = a.default; }
-	if (a.selfRelative) { o.selfRelative = true; }
 	return o;
 }
 
@@ -445,7 +444,6 @@ const FUNCTIONS_PROLOGUE = [
 	'\t\tname: a.name,',
 	'\t\toptional: a.optional === true,',
 	'\t\trest: a.rest === true,',
-	'\t\tselfRelative: a.selfRelative === true,',
 	'\t};',
 	'\tif (a.type !== undefined) { out.type = a.type; }',
 	'\tif (a.default !== undefined) { out.default = a.default; }',

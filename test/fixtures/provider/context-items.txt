@@ -1,0 +1,449 @@
+## events .mod
+event	init	10init	init (.mod event)
+event	cleanup	10cleanup	cleanup (.mod event)
+event	game_start	10game_start	game_start (.mod event)
+event	game_end	10game_end	game_end (.mod event)
+event	mod_load	10mod_load	mod_load (.mod event)
+event	mod_unload	10mod_unload	mod_unload (.mod event)
+event	step	10step	step (.mod event)
+event	draw	10draw	draw (.mod event)
+event	draw_shadows	10draw_shadows	draw_shadows (.mod event)
+event	draw_bloom	10draw_bloom	draw_bloom (.mod event)
+event	draw_dark	10draw_dark	draw_dark (.mod event)
+event	draw_dark_begin	10draw_dark_begin	draw_dark_begin (.mod event)
+event	draw_dark_end	10draw_dark_end	draw_dark_end (.mod event)
+event	draw_gui	10draw_gui	draw_gui (.mod event)
+event	draw_gui_end	10draw_gui_end	draw_gui_end (.mod event)
+event	draw_pause	10draw_pause	draw_pause (.mod event)
+event	chat_command	10chat_command	chat_command(command, parameter, player) (.mod event)
+event	chat_message	10chat_message	chat_message(message, player) (.mod event)
+event	level_start	11level_start	level_start (.mod, mod-local)
+event	save_options	11save_options	save_options (.mod, mod-local)
+event	load_options	11load_options	load_options (.mod, mod-local)
+
+## events .wep
+event	init	10init	init (.wep event)
+event	cleanup	10cleanup	cleanup (.wep event)
+event	weapon_name	10weapon_name	weapon_name(wep) (.wep event)
+event	weapon_text	10weapon_text	weapon_text (.wep event)
+event	weapon_type	10weapon_type	weapon_type (.wep event)
+event	weapon_auto	10weapon_auto	weapon_auto (.wep event)
+event	weapon_load	10weapon_load	weapon_load (.wep event)
+event	weapon_cost	10weapon_cost	weapon_cost (.wep event)
+event	weapon_rads	10weapon_rads	weapon_rads (.wep event)
+event	weapon_swap	10weapon_swap	weapon_swap (.wep event)
+event	weapon_melee	10weapon_melee	weapon_melee (.wep event)
+event	weapon_area	10weapon_area	weapon_area (.wep event)
+event	weapon_sprt	10weapon_sprt	weapon_sprt (.wep event)
+event	weapon_sprt_hud	10weapon_sprt_hud	weapon_sprt_hud (.wep event)
+event	weapon_loadout	10weapon_loadout	weapon_loadout (.wep event)
+event	weapon_laser_sight	10weapon_laser_sight	weapon_laser_sight (.wep event)
+event	weapon_gold	10weapon_gold	weapon_gold (.wep event)
+event	weapon_pan_factor	10weapon_pan_factor	weapon_pan_factor (.wep event)
+event	weapon_fire	10weapon_fire	weapon_fire(wep) (.wep event)
+event	weapon_reloaded	10weapon_reloaded	weapon_reloaded(primary) (.wep event)
+event	step	10step	step(primary) (.wep event)
+event	weapon_avail	11weapon_avail	weapon_avail (.wep, mod-local)
+event	weapon_chrg	11weapon_chrg	weapon_chrg (.wep, mod-local)
+event	weapon_shrine	11weapon_shrine	weapon_shrine (.wep, mod-local)
+event	weapon_extra	11weapon_extra	weapon_extra (.wep, mod-local)
+event	weapon_canspec	11weapon_canspec	weapon_canspec (.wep, mod-local)
+event	weapon_cost_base	11weapon_cost_base	weapon_cost_base (.wep, mod-local)
+event	weapon_maxchrg	11weapon_maxchrg	weapon_maxchrg (.wep, mod-local)
+event	weapon_chrg_cost	11weapon_chrg_cost	weapon_chrg_cost (.wep, mod-local)
+event	weapon_fireOnRelease	11weapon_fireOnRelease	weapon_fireOnRelease (.wep, mod-local)
+event	weapon_burst	11weapon_burst	weapon_burst (.wep, mod-local)
+event	weapon_burst_time	11weapon_burst_time	weapon_burst_time (.wep, mod-local)
+event	weapon_red	11weapon_red	weapon_red (.wep, mod-local)
+event	weapon_reload	11weapon_reload	weapon_reload (.wep, mod-local)
+event	weapon_load_full	11weapon_load_full	weapon_load_full (.wep, mod-local)
+event	weapon_fire_charged	11weapon_fire_charged	weapon_fire_charged (.wep, mod-local)
+event	weapon_fire_uncharged	11weapon_fire_uncharged	weapon_fire_uncharged (.wep, mod-local)
+
+## events .race
+event	init	10init	init (.race event)
+event	cleanup	10cleanup	cleanup (.race event)
+event	race_name	10race_name	race_name (.race event)
+event	race_text	10race_text	race_text (.race event)
+event	race_swep	10race_swep	race_swep (.race event)
+event	race_mapicon	10race_mapicon	race_mapicon(player_index, skin) (.race event)
+event	race_portrait	10race_portrait	race_portrait(player_index, skin) (.race event)
+event	race_ttip	10race_ttip	race_ttip (.race event)
+event	race_menu_button	10race_menu_button	race_menu_button (.race event)
+event	race_soundbank	10race_soundbank	race_soundbank (.race event)
+event	race_menu_select	10race_menu_select	race_menu_select (.race event)
+event	race_menu_confirm	10race_menu_confirm	race_menu_confirm (.race event)
+event	game_start	10game_start	game_start (.race event)
+event	create	10create	create (.race event)
+event	step	10step	step (.race event)
+event	draw_begin	10draw_begin	draw_begin (.race event)
+event	draw	10draw	draw (.race event)
+event	draw_end	10draw_end	draw_end (.race event)
+event	race_avail	10race_avail	race_avail (.race event)
+event	race_lock	10race_lock	race_lock (.race event)
+event	race_skins	10race_skins	race_skins (.race event)
+event	race_skin_avail	10race_skin_avail	race_skin_avail(skin) (.race event)
+event	race_skin_name	10race_skin_name	race_skin_name(skin) (.race event)
+event	race_skin_button	10race_skin_button	race_skin_button(skin) (.race event)
+event	race_tb_text	10race_tb_text	race_tb_text (.race event)
+event	race_tb_take	10race_tb_take	race_tb_take(value) (.race event)
+event	race_ultra_name	10race_ultra_name	race_ultra_name(index) (.race event)
+event	race_ultra_text	10race_ultra_text	race_ultra_text(index) (.race event)
+event	race_ultra_button	10race_ultra_button	race_ultra_button(index) (.race event)
+event	race_ultra_icon	10race_ultra_icon	race_ultra_icon(index) (.race event)
+event	race_ultra_take	10race_ultra_take	race_ultra_take(index, value) (.race event)
+event	race_ultra_lose	10race_ultra_lose	race_ultra_lose(index) (.race event)
+event	race_gets_chilly	10race_gets_chilly	race_gets_chilly (.race event)
+event	race_makes_air_bubbles	10race_makes_air_bubbles	race_makes_air_bubbles (.race event)
+event	race_sprite	10race_sprite	race_sprite (.race event)
+event	race_sound	10race_sound	race_sound (.race event)
+event	race_revive_sprite	10race_revive_sprite	race_revive_sprite (.race event)
+event	race_skin_lock	11race_skin_lock	race_skin_lock (.race, mod-local)
+event	race_skin_unlock	11race_skin_unlock	race_skin_unlock (.race, mod-local)
+event	race_unlock	11race_unlock	race_unlock (.race, mod-local)
+event	race_sprite_raw	11race_sprite_raw	race_sprite_raw (.race, mod-local)
+event	level_start	11level_start	level_start (.race, mod-local)
+
+## events .skin
+event	init	10init	init (.skin event)
+event	cleanup	10cleanup	cleanup (.skin event)
+event	skin_race	10skin_race	skin_race (.skin event)
+event	game_start	10game_start	game_start (.skin event)
+event	skin_avail	10skin_avail	skin_avail (.skin event)
+event	skin_name	10skin_name	skin_name(locked) (.skin event)
+event	skin_button	10skin_button	skin_button (.skin event)
+event	skin_portrait	10skin_portrait	skin_portrait(player_index) (.skin event)
+event	skin_mapicon	10skin_mapicon	skin_mapicon(player_index) (.skin event)
+event	skin_race_name	10skin_race_name	skin_race_name (.skin event)
+event	skin_race_text	10skin_race_text	skin_race_text (.skin event)
+event	skin_race_tb_text	10skin_race_tb_text	skin_race_tb_text (.skin event)
+event	create	10create	create (.skin event)
+event	step	10step	step (.skin event)
+event	draw_begin	10draw_begin	draw_begin (.skin event)
+event	draw	10draw	draw (.skin event)
+event	draw_end	10draw_end	draw_end (.skin event)
+event	skin_sound	10skin_sound	skin_sound (.skin event)
+event	skin_sprite	10skin_sprite	skin_sprite (.skin event)
+event	skin_ttip	10skin_ttip	skin_ttip (.skin event)
+event	skin_revive_sprite	10skin_revive_sprite	skin_revive_sprite (.skin event)
+event	skin_lock	11skin_lock	skin_lock (.skin, mod-local)
+event	skin_unlock	11skin_unlock	skin_unlock (.skin, mod-local)
+event	skin_weapon_sprite	11skin_weapon_sprite	skin_weapon_sprite (.skin, mod-local)
+event	skin_weapon_sprite_hud	11skin_weapon_sprite_hud	skin_weapon_sprite_hud (.skin, mod-local)
+event	skin_weapon_swap	11skin_weapon_swap	skin_weapon_swap (.skin, mod-local)
+
+## events .skill
+event	init	10init	init (.skill event)
+event	cleanup	10cleanup	cleanup (.skill event)
+event	game_start	10game_start	game_start (.skill event)
+event	step	10step	step (.skill event)
+event	skill_name	10skill_name	skill_name (.skill event)
+event	skill_text	10skill_text	skill_text (.skill event)
+event	skill_tip	10skill_tip	skill_tip (.skill event)
+event	skill_icon	10skill_icon	skill_icon (.skill event)
+event	skill_button	10skill_button	skill_button (.skill event)
+event	skill_avail	10skill_avail	skill_avail (.skill event)
+event	skill_take	10skill_take	skill_take (.skill event)
+event	skill_lose	10skill_lose	skill_lose (.skill event)
+event	skill_wepspec	10skill_wepspec	skill_wepspec (.skill event)
+event	skill_sound	11skill_sound	skill_sound (.skill, mod-local)
+event	skill_rat	11skill_rat	skill_rat (.skill, mod-local)
+
+## events .crown
+event	init	10init	init (.crown event)
+event	cleanup	10cleanup	cleanup (.crown event)
+event	game_start	10game_start	game_start (.crown event)
+event	step	10step	step (.crown event)
+event	crown_name	10crown_name	crown_name (.crown event)
+event	crown_text	10crown_text	crown_text (.crown event)
+event	crown_tip	10crown_tip	crown_tip (.crown event)
+event	crown_avail	10crown_avail	crown_avail (.crown event)
+event	crown_button	10crown_button	crown_button (.crown event)
+event	crown_take	10crown_take	crown_take (.crown event)
+event	crown_lose	10crown_lose	crown_lose (.crown event)
+event	crown_object	10crown_object	crown_object (.crown event)
+event	crown_loadout	11crown_loadout	crown_loadout (.crown, mod-local)
+event	crown_menu_avail	11crown_menu_avail	crown_menu_avail (.crown, mod-local)
+event	crown_menu_button	11crown_menu_button	crown_menu_button (.crown, mod-local)
+event	crown_locked_text	11crown_locked_text	crown_locked_text (.crown, mod-local)
+event	crown_impact	11crown_impact	crown_impact (.crown, mod-local)
+event	crown_sound	11crown_sound	crown_sound (.crown, mod-local)
+event	crown_unlock	11crown_unlock	crown_unlock (.crown, mod-local)
+
+## events .area
+event	init	10init	init (.area event)
+event	cleanup	10cleanup	cleanup (.area event)
+event	area_name	10area_name	area_name(subarea, loops) (.area event)
+event	area_secret	10area_secret	area_secret (.area event)
+event	area_sprite	10area_sprite	area_sprite(sprite) (.area event)
+event	area_mapdata	10area_mapdata	area_mapdata(lastx, lasty, lastarea, lastsubarea, subarea, loops) (.area event)
+event	area_setup	10area_setup	area_setup (.area event)
+event	area_make_floor	10area_make_floor	area_make_floor (.area event)
+event	area_pop_enemies	10area_pop_enemies	area_pop_enemies (.area event)
+event	area_pop_props	10area_pop_props	area_pop_props (.area event)
+event	area_pop_chests	10area_pop_chests	area_pop_chests (.area event)
+event	area_pop_extras	10area_pop_extras	area_pop_extras (.area event)
+event	area_start	10area_start	area_start (.area event)
+event	area_finish	10area_finish	area_finish (.area event)
+event	area_transit	10area_transit	area_transit (.area event)
+event	area_set_music	10area_set_music	area_set_music (.area event)
+event	area_text	10area_text	area_text (.area event)
+event	area_subarea	11area_subarea	area_subarea (.area, mod-local)
+event	area_next	11area_next	area_next (.area, mod-local)
+event	area_goal	11area_goal	area_goal (.area, mod-local)
+event	area_music	11area_music	area_music (.area, mod-local)
+event	area_music_boss	11area_music_boss	area_music_boss (.area, mod-local)
+event	area_music_boss_intro	11area_music_boss_intro	area_music_boss_intro (.area, mod-local)
+event	area_ambient	11area_ambient	area_ambient (.area, mod-local)
+event	area_effect	11area_effect	area_effect (.area, mod-local)
+event	area_darkness	11area_darkness	area_darkness (.area, mod-local)
+event	area_fog	11area_fog	area_fog (.area, mod-local)
+event	area_underwater	11area_underwater	area_underwater (.area, mod-local)
+event	area_shadow_color	11area_shadow_color	area_shadow_color (.area, mod-local)
+event	area_background_color	11area_background_color	area_background_color (.area, mod-local)
+event	area_setup_floor	11area_setup_floor	area_setup_floor (.area, mod-local)
+event	area_setup_spiral	11area_setup_spiral	area_setup_spiral (.area, mod-local)
+
+## fields CustomObject
+field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	sprite_visible	10sprite_visible	available on CustomObject, CustomHitme, CustomEnemy
+
+## fields CustomHitme
+field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
+field	my_health	10my_health	available on CustomHitme, CustomEnemy
+field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_hurt	10on_hurt	available on CustomHitme, CustomEnemy
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	raddrop	10raddrop	available on CustomHitme, CustomEnemy
+field	size	10size	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_dead	10snd_dead	available on CustomHitme, CustomEnemy
+field	snd_hurt	10snd_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_dead	10spr_dead	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
+field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
+field	sprite_visible	10sprite_visible	available on CustomObject, CustomHitme, CustomEnemy
+field	team	10team	available on CustomHitme, CustomEnemy
+
+## fields CustomEnemy
+field	candie	10candie	available on CustomEnemy
+field	hitid	10hitid	available on CustomEnemy
+field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
+field	meleedamage	10meleedamage	available on CustomEnemy
+field	my_health	10my_health	available on CustomHitme, CustomEnemy
+field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_death	10on_death	available on CustomEnemy, CustomProp
+field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_hurt	10on_hurt	available on CustomHitme, CustomEnemy
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	raddrop	10raddrop	available on CustomHitme, CustomEnemy
+field	size	10size	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_dead	10snd_dead	available on CustomHitme, CustomEnemy
+field	snd_hurt	10snd_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_dead	10spr_dead	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
+field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
+field	sprite_visible	10sprite_visible	available on CustomObject, CustomHitme, CustomEnemy
+field	team	10team	available on CustomHitme, CustomEnemy
+
+## fields CustomProp
+field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
+field	on_death	10on_death	available on CustomEnemy, CustomProp
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	size	10size	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_hurt	10snd_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_dead	10spr_dead	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
+
+## fields CustomProjectile
+field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
+field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_hit	10on_hit	available on CustomProjectile, CustomSlash
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_wall	10on_wall	available on CustomProjectile, CustomSlash
+
+## fields CustomSlash
+field	candeflect	10candeflect	available on CustomSlash
+field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
+field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_grenade	10on_grenade	available on CustomSlash
+field	on_hit	10on_hit	available on CustomProjectile, CustomSlash
+field	on_projectile	10on_projectile	available on CustomSlash
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_wall	10on_wall	available on CustomProjectile, CustomSlash
+field	typ	10typ	available on CustomSlash
+
+## fields CustomChest
+field	can_hatred	10can_hatred	available on CustomChest
+field	can_shine	10can_shine	available on CustomChest
+field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
+field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_open	10on_open	available on CustomChest
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+
+## fields CustomPickup
+field	attract_speed	10attract_speed	available on CustomPickup
+field	blink	10blink	available on CustomPickup
+field	on_attract	10on_attract	available on CustomPickup
+field	on_disappear	10on_disappear	available on CustomPickup
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_find_target	10on_find_target	available on CustomPickup
+field	on_pickup	10on_pickup	available on CustomPickup
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	snd_disappear	10snd_disappear	available on CustomPickup
+field	snd_pickup	10snd_pickup	available on CustomPickup
+field	spr_fade	10spr_fade	available on CustomPickup
+field	spr_pickup	10spr_pickup	available on CustomPickup
+
+## fields CustomBeginStep
+field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+
+## fields CustomStep
+field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+
+## fields CustomEndStep
+field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+
+## fields CustomDraw
+field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+
+## fields (unresolved receiver)
+field	attract_speed	10attract_speed	available on CustomPickup
+field	blink	10blink	available on CustomPickup
+field	can_hatred	10can_hatred	available on CustomChest
+field	can_shine	10can_shine	available on CustomChest
+field	candeflect	10candeflect	available on CustomSlash
+field	candie	10candie	available on CustomEnemy
+field	hitid	10hitid	available on CustomEnemy
+field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
+field	meleedamage	10meleedamage	available on CustomEnemy
+field	my_health	10my_health	available on CustomHitme, CustomEnemy
+field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
+field	on_attract	10on_attract	available on CustomPickup
+field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_death	10on_death	available on CustomEnemy, CustomProp
+field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_disappear	10on_disappear	available on CustomPickup
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_find_target	10on_find_target	available on CustomPickup
+field	on_grenade	10on_grenade	available on CustomSlash
+field	on_hit	10on_hit	available on CustomProjectile, CustomSlash
+field	on_hurt	10on_hurt	available on CustomHitme, CustomEnemy
+field	on_open	10on_open	available on CustomChest
+field	on_pickup	10on_pickup	available on CustomPickup
+field	on_projectile	10on_projectile	available on CustomSlash
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_wall	10on_wall	available on CustomProjectile, CustomSlash
+field	raddrop	10raddrop	available on CustomHitme, CustomEnemy
+field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+field	size	10size	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_dead	10snd_dead	available on CustomHitme, CustomEnemy
+field	snd_disappear	10snd_disappear	available on CustomPickup
+field	snd_hurt	10snd_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_pickup	10snd_pickup	available on CustomPickup
+field	spr_dead	10spr_dead	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_fade	10spr_fade	available on CustomPickup
+field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_pickup	10spr_pickup	available on CustomPickup
+field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
+field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
+field	sprite_visible	10sprite_visible	available on CustomObject, CustomHitme, CustomEnemy
+field	team	10team	available on CustomHitme, CustomEnemy
+field	typ	10typ	available on CustomSlash
+
+## buttons (outside a string)
+button	nort	10nort	Move up.
+button	sout	10sout	Move down.
+button	west	10west	Move left.
+button	east	10east	Move right.
+button	fire	10fire	Fire the held weapon.
+button	spec	10spec	Use the active/special ability.
+button	swap	10swap	Swap weapons.
+button	prev	10prev	Previous menu entry.
+button	next	10next	Next menu entry.
+button	pick	10pick	Pick up / interact.
+button	paus	10paus	Pause.
+button	okay	10okay	Confirm.
+button	exit	10exit	Cancel / back.
+button	horn	10horn	Horn (co-op ping).
+button	talk	10talk	Open chat.
+button	key1	10key1	Number key 1.
+button	key2	10key2	Number key 2.
+button	key3	10key3	Number key 3.
+button	key4	10key4	Number key 4.
+button	key5	10key5	Number key 5.
+button	key6	10key6	Number key 6.
+button	key7	10key7	Number key 7.
+button	key8	10key8	Number key 8.
+button	key9	10key9	Number key 9.
+button	key0	10key0	Number key 0.
+
+## buttons (inside a string)
+button	nort	10nort	Move up.
+button	sout	10sout	Move down.
+button	west	10west	Move left.
+button	east	10east	Move right.
+button	fire	10fire	Fire the held weapon.
+button	spec	10spec	Use the active/special ability.
+button	swap	10swap	Swap weapons.
+button	prev	10prev	Previous menu entry.
+button	next	10next	Next menu entry.
+button	pick	10pick	Pick up / interact.
+button	paus	10paus	Pause.
+button	okay	10okay	Confirm.
+button	exit	10exit	Cancel / back.
+button	horn	10horn	Horn (co-op ping).
+button	talk	10talk	Open chat.
+button	key1	10key1	Number key 1.
+button	key2	10key2	Number key 2.
+button	key3	10key3	Number key 3.
+button	key4	10key4	Number key 4.
+button	key5	10key5	Number key 5.
+button	key6	10key6	Number key 6.
+button	key7	10key7	Number key 7.
+button	key8	10key8	Number key 8.
+button	key9	10key9	Number key 9.
+button	key0	10key0	Number key 0.
+
+## pragmas
+pragma	gml	10gml	#pragma gml <version> (file level)
+pragma	init	10init	#pragma init (file level)
+pragma	include	10include	#pragma include <path> (file level)
+pragma	preload	10preload	#pragma preload <file> (file level)
+pragma	using	10using	#pragma using <mod.type[.ext]> (file level)
+pragma	fast_file	10fast_file	#pragma fast_file (file level)
+pragma	fast	10fast	#pragma fast (statement)
+pragma	not_fast	10not_fast	#pragma not_fast (statement)
+pragma	no_using	10no_using	#pragma no_using (statement)

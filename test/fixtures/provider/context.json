@@ -1,0 +1,988 @@
+[
+	{
+		"case": "weapon.wep.gml | ntgml-legacy | #define <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "event",
+			"member": false,
+			"modType": "wep",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "weapon.wep.gml | ntgml-legacy | #define weapon_<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "event",
+			"member": false,
+			"modType": "wep",
+			"objectArg": false,
+			"word": "weapon_",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.ntgml | ntgml | function <>",
+		"context": {
+			"dialect": "modern",
+			"inComment": false,
+			"inString": false,
+			"kind": "event",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 9
+		}
+	},
+	{
+		"case": "thing.mod.ntgml | ntgml |     #define chat_<>",
+		"context": {
+			"dialect": "modern",
+			"inComment": false,
+			"inString": false,
+			"kind": "event",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "chat_",
+			"wordStart": 12
+		}
+	},
+	{
+		"case": "notamod.gml | ntgml-legacy | #define <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "event",
+			"member": false,
+			"modType": null,
+			"objectArg": false,
+			"word": "",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "weapon.wep.gml | ntgml-legacy | #define weapon_fire(<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "weapon_fire"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "wep",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 20
+		}
+	},
+	{
+		"case": "weapon.wep.gml | ntgml-legacy | x = #define <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "wep",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 12
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | #pragma <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "pragma",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |   #pragma fa<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "pragma",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "fa",
+			"wordStart": 10
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | #pragma gml <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "pragma-value",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 12
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | #pragma gml 2<>",
+		"context": {
+			"dialect": "modern",
+			"inComment": false,
+			"inString": false,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 13
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | if (button_check(0, \"<>",
+		"context": {
+			"call": {
+				"argIndex": 1,
+				"name": "button_check"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "button",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 21
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | if (button_pressed(p, \"no<>",
+		"context": {
+			"call": {
+				"argIndex": 1,
+				"name": "button_pressed"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "button",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "no",
+			"wordStart": 23
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | if (button_released(0, <>",
+		"context": {
+			"call": {
+				"argIndex": 1,
+				"name": "button_released"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "button",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 23
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | if (button_check_nonsync(0, \"nort\")) <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 37
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | if (button_check(\"<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "button_check"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 18
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | with (instances_matching(<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "instances_matching"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "",
+			"wordStart": 25
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | instance_create(x, y, <>",
+		"context": {
+			"call": {
+				"argIndex": 2,
+				"name": "instance_create"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "",
+			"wordStart": 22
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | instance_create(x, y, Cust<>",
+		"context": {
+			"call": {
+				"argIndex": 2,
+				"name": "instance_create"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "Cust",
+			"wordStart": 22
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | if (instance_exists(<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "instance_exists"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "",
+			"wordStart": 20
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | var v = variable_struct_filter(<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "variable_struct_filter"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 31
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | sound_play(<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "sound_play"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 11
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | instance_create(x, <>",
+		"context": {
+			"call": {
+				"argIndex": 1,
+				"name": "instance_create"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 19
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | on_<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "on_",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     on_ste<> | with (CustomEnemy) {\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomEnemy",
+			"word": "on_ste",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     on_<> | with CustomProjectile\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomProjectile",
+			"word": "on_",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | var o = instance_create(x, y, CustomChest); o.on_<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomChest",
+			"word": "on_",
+			"wordStart": 46
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | CustomEnemy.<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomEnemy",
+			"word": "",
+			"wordStart": 12
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | inst.<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "none",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 5
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | inst.on_<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "on_",
+			"wordStart": 5
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | global.frac<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "none",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "frac",
+			"wordStart": 7
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | // draw the <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": true,
+			"inString": false,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 12
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | x = 1; // <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": true,
+			"inString": false,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 10
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | /* note <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": true,
+			"inString": false,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | trace(\"hello <>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "trace"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 13
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | trace(`hp: ${<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "trace"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 13
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | trace(\"a\\\"b<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "trace"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "b",
+			"wordStart": 10
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | var a = <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.ntgml | ntgml | var a = <>",
+		"context": {
+			"dialect": "modern",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | var a = <> | #pragma gml 2\\n\\n#define init\\n",
+		"context": {
+			"dialect": "modern",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | with (<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "with"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "",
+			"wordStart": 6
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | with <>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "",
+			"wordStart": 5
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | with (Cust<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "with"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "Cust",
+			"wordStart": 6
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | if (object_exists(<>",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "object_exists"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "",
+			"wordStart": 18
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | if (object_is_ancestor(a, <>",
+		"context": {
+			"call": {
+				"argIndex": 1,
+				"name": "object_is_ancestor"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"word": "",
+			"wordStart": 26
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | var w = deal_with<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "deal_with",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | #<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "#",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | #def<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "#def",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | draw_text(x, y, \"#ff<>",
+		"context": {
+			"call": {
+				"argIndex": 2,
+				"name": "draw_text"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "ff",
+			"wordStart": 18
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | still a <> | /* note\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": true,
+			"inString": false,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | past the <> | /* note */\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 9
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | b<> | trace(\"start\\n",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "trace"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "b",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | x = ab<> | // a line comment\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "ab",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     maxh<> | with (CustomEnemy) {\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomEnemy",
+			"word": "maxh",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     candie = <> | with (CustomEnemy) {\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomEnemy",
+			"word": "",
+			"wordStart": 13
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     instance_create(x, y, <> | with (CustomEnemy) {\\n",
+		"context": {
+			"call": {
+				"argIndex": 2,
+				"name": "instance_create"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": true,
+			"objectName": "CustomEnemy",
+			"word": "",
+			"wordStart": 26
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     maxh<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "maxh",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | maxh<> | var o = instance_create(x, y, CustomChest);\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "maxh",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | o.on_<> | var o = instance_create(x, y, CustomChest);\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomChest",
+			"word": "on_",
+			"wordStart": 2
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | draw_clear(<> | /* junk\\n#define fake(a)\\n   still comment\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": true,
+			"inString": false,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 11
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | draw_clear(<> | trace(\"junk\\n#define fake(a)\\n   still string\\n",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "trace"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": true,
+			"kind": "none",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 11
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | draw_clear(<> | /* junk\\n#define fake(a)\\n*/\\n",
+		"context": {
+			"call": {
+				"argIndex": 0,
+				"name": "draw_clear"
+			},
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 11
+		}
+	}
+]

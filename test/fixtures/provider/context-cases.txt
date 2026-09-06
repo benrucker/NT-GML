@@ -1,0 +1,95 @@
+# One cursor scenario per line, for the context rules in src/provider/context.ts.
+#
+#   <file name> | <language id> | <line, with <> marking the cursor> [| <preceding lines, \n escaped>]
+#
+# The cursor marker keeps trailing spaces meaningful; the fourth field is the
+# document text before the current line (the current line prefix is appended to
+# it, exactly as the VS Code layer does).
+# Lines starting with # are comments.
+
+# --- declaration lines: reserved mod events ------------------------------
+weapon.wep.gml | ntgml-legacy | #define <>
+weapon.wep.gml | ntgml-legacy | #define weapon_<>
+thing.mod.ntgml | ntgml | function <>
+thing.mod.ntgml | ntgml |     #define chat_<>
+notamod.gml | ntgml-legacy | #define <>
+weapon.wep.gml | ntgml-legacy | #define weapon_fire(<>
+weapon.wep.gml | ntgml-legacy | x = #define <>
+
+# --- pragmas --------------------------------------------------------------
+thing.mod.gml | ntgml-legacy | #pragma <>
+thing.mod.gml | ntgml-legacy |   #pragma fa<>
+thing.mod.gml | ntgml-legacy | #pragma gml <>
+thing.mod.gml | ntgml-legacy | #pragma gml 2<>
+
+# --- button names ---------------------------------------------------------
+thing.mod.gml | ntgml-legacy | if (button_check(0, "<>
+thing.mod.gml | ntgml-legacy | if (button_pressed(p, "no<>
+thing.mod.gml | ntgml-legacy | if (button_released(0, <>
+thing.mod.gml | ntgml-legacy | if (button_check_nonsync(0, "nort")) <>
+thing.mod.gml | ntgml-legacy | if (button_check("<>
+
+# --- object arguments -----------------------------------------------------
+thing.mod.gml | ntgml-legacy | with (instances_matching(<>
+thing.mod.gml | ntgml-legacy | instance_create(x, y, <>
+thing.mod.gml | ntgml-legacy | instance_create(x, y, Cust<>
+thing.mod.gml | ntgml-legacy | if (instance_exists(<>
+thing.mod.gml | ntgml-legacy | var v = variable_struct_filter(<>
+thing.mod.gml | ntgml-legacy | sound_play(<>
+thing.mod.gml | ntgml-legacy | instance_create(x, <>
+
+# --- custom object fields -------------------------------------------------
+thing.mod.gml | ntgml-legacy | on_<>
+thing.mod.gml | ntgml-legacy |     on_ste<> | with (CustomEnemy) {\n
+thing.mod.gml | ntgml-legacy |     on_<> | with CustomProjectile\n
+thing.mod.gml | ntgml-legacy | var o = instance_create(x, y, CustomChest); o.on_<>
+thing.mod.gml | ntgml-legacy | CustomEnemy.<>
+thing.mod.gml | ntgml-legacy | inst.<>
+thing.mod.gml | ntgml-legacy | inst.on_<>
+thing.mod.gml | ntgml-legacy | global.frac<>
+
+# --- comments and strings -------------------------------------------------
+thing.mod.gml | ntgml-legacy | // draw the <>
+thing.mod.gml | ntgml-legacy | x = 1; // <>
+thing.mod.gml | ntgml-legacy | /* note <>
+thing.mod.gml | ntgml-legacy | trace("hello <>
+thing.mod.gml | ntgml-legacy | trace(`hp: ${<>
+thing.mod.gml | ntgml-legacy | trace("a\"b<>
+
+# --- dialect --------------------------------------------------------------
+thing.mod.gml | ntgml-legacy | var a = <>
+thing.mod.ntgml | ntgml | var a = <>
+thing.mod.gml | ntgml-legacy | var a = <> | #pragma gml 2\n\n#define init\n
+thing.mod.gml | ntgml-legacy | <>
+
+# --- with statements and the object_* family ------------------------------
+thing.mod.gml | ntgml-legacy | with (<>
+thing.mod.gml | ntgml-legacy | with <>
+thing.mod.gml | ntgml-legacy | with (Cust<>
+thing.mod.gml | ntgml-legacy | if (object_exists(<>
+thing.mod.gml | ntgml-legacy | if (object_is_ancestor(a, <>
+thing.mod.gml | ntgml-legacy | var w = deal_with<>
+
+# --- preprocessor words own their leading # -------------------------------
+thing.mod.gml | ntgml-legacy | #<>
+thing.mod.gml | ntgml-legacy | #def<>
+thing.mod.gml | ntgml-legacy | draw_text(x, y, "#ff<>
+
+# --- block comments and strings that opened on an earlier line ------------
+thing.mod.gml | ntgml-legacy | still a <> | /* note\n
+thing.mod.gml | ntgml-legacy | past the <> | /* note */\n
+thing.mod.gml | ntgml-legacy | b<> | trace("start\n
+thing.mod.gml | ntgml-legacy | x = ab<> | // a line comment\n
+
+# --- plain fields inside a with body, but only a with body ----------------
+thing.mod.gml | ntgml-legacy |     maxh<> | with (CustomEnemy) {\n
+thing.mod.gml | ntgml-legacy |     candie = <> | with (CustomEnemy) {\n
+thing.mod.gml | ntgml-legacy |     instance_create(x, y, <> | with (CustomEnemy) {\n
+thing.mod.gml | ntgml-legacy |     maxh<>
+thing.mod.gml | ntgml-legacy | maxh<> | var o = instance_create(x, y, CustomChest);\n
+thing.mod.gml | ntgml-legacy | o.on_<> | var o = instance_create(x, y, CustomChest);\n
+
+# --- a declaration inside a comment or string is not a script boundary ----
+thing.mod.gml | ntgml-legacy | draw_clear(<> | /* junk\n#define fake(a)\n   still comment\n
+thing.mod.gml | ntgml-legacy | draw_clear(<> | trace("junk\n#define fake(a)\n   still string\n
+thing.mod.gml | ntgml-legacy | draw_clear(<> | /* junk\n#define fake(a)\n*/\n

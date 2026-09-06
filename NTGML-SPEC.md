@@ -177,7 +177,7 @@ var a, b = 1;
 | `£` | UK spelling twin |
 | `&` | deprecated |
 
-Args: `arg` required · `?arg` / `[arg]` optional · `arg=default` · `...arg` rest · `arg:type` · `:arg` self-relative.
+Args: `arg` required · `?arg` / `[arg]` optional · `arg=default` · `...arg` rest · `arg:type` · `:type` unnamed typed argument (e.g. `sound_play(:sound)`).
 Dump emits `:#` for pure returning; reference wrote `:##`. Equivalent.
 
 ### 5.2 Variables

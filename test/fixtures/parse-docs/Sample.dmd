@@ -15,6 +15,9 @@ Some prose between fences that documents nothing.
 #[string_repeat(str, count)](string_repeat) {
 	Returns `str` repeated `count` times.
 	See also [string_length] and [a link](https://example.invalid/link).
+	Closer to $[manual](string_repeat) than to $[manual](string_copy).
+	$[manual] $[src] $[unknownMacro](x)
+	$[nonSync](fu)
 	```
 	var s = string_repeat("ab", 3); // "ababab"
 	```

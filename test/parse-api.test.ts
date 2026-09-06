@@ -54,13 +54,13 @@ test('parseRawNames: tokenises on word characters across spaces, tabs and newlin
 });
 
 test('parseArg: single-token forms', () => {
-	assert.deepEqual(parseArg('a'), { name: 'a', optional: false, rest: false, selfRelative: false });
-	assert.deepEqual(parseArg('?a'), { name: 'a', optional: true, rest: false, selfRelative: false });
-	assert.deepEqual(parseArg('[a]'), { name: 'a', optional: true, rest: false, selfRelative: false });
-	assert.deepEqual(parseArg('a=1'), { name: 'a', optional: true, rest: false, selfRelative: false, default: '1' });
+	assert.deepEqual(parseArg('a'), { name: 'a', optional: false, rest: false });
+	assert.deepEqual(parseArg('?a'), { name: 'a', optional: true, rest: false });
+	assert.deepEqual(parseArg('[a]'), { name: 'a', optional: true, rest: false });
+	assert.deepEqual(parseArg('a=1'), { name: 'a', optional: true, rest: false, default: '1' });
 	// Named rest args are not flagged optional today; only a bare `...` is.
-	assert.deepEqual(parseArg('...a'), { name: 'a', optional: false, rest: true, selfRelative: false });
-	assert.deepEqual(parseArg('...'), { name: '...', optional: true, rest: true, selfRelative: false });
-	assert.deepEqual(parseArg('a:number'), { name: 'a', optional: false, rest: false, selfRelative: false, type: 'number' });
-	assert.deepEqual(parseArg(':a'), { name: 'a', optional: false, rest: false, selfRelative: true });
+	assert.deepEqual(parseArg('...a'), { name: 'a', optional: false, rest: true });
+	assert.deepEqual(parseArg('...'), { name: '...', optional: true, rest: true });
+	assert.deepEqual(parseArg('a:number'), { name: 'a', optional: false, rest: false, type: 'number' });
+	assert.deepEqual(parseArg(':a'), { name: '', optional: false, rest: false, type: 'a' });
 });

@@ -25,7 +25,6 @@ export interface ArgInfo {
 	optional: boolean;
 	rest: boolean;
 	default?: string;
-	selfRelative: boolean;
 }
 
 export interface FunctionInfo {
@@ -169,18 +168,17 @@ function splitArgs(src: string): string[] {
 /**
  * Parse one argument token.
  * Forms (NTGML-SPEC.md §5.1): `arg` · `?arg` · `[arg]` · `arg=default` ·
- * `...arg` · a bare `...` · `arg:type` · `:arg` (self-relative).
+ * `...arg` · a bare `...` · `arg:type` · `:type` (unnamed, typed).
  */
 export function parseArg(token: string): ArgInfo {
 	let s = token.trim();
 	let optional = false;
 	let rest = false;
-	let selfRelative = false;
 	let def: string | undefined;
 	let type: string | undefined;
 
 	if (s === '...') {
-		return { name: '...', optional: true, rest: true, selfRelative: false };
+		return { name: '...', optional: true, rest: true };
 	}
 	if (s.startsWith('...')) { rest = true; s = s.slice(3).trim(); }
 	if (s.startsWith('?')) { optional = true; s = s.slice(1).trim(); }
@@ -195,18 +193,14 @@ export function parseArg(token: string): ArgInfo {
 		optional = true;
 		s = s.slice(0, eq).trim();
 	}
-	if (s.startsWith(':')) {
-		// `:arg` - resolved against the calling instance's context.
-		selfRelative = true;
-		s = s.slice(1).trim();
-	} else {
-		const colon = s.indexOf(':');
-		if (colon >= 0) {
-			type = s.slice(colon + 1).trim() || undefined;
-			s = s.slice(0, colon).trim();
-		}
+	const colon = s.indexOf(':');
+	if (colon >= 0) {
+		// `:type` writes the type with no name of its own, as in
+		// `sound_play(:sound)`; `arg:type` names it.
+		type = s.slice(colon + 1).trim() || undefined;
+		s = s.slice(0, colon).trim();
 	}
-	const arg: ArgInfo = { name: s, optional, rest, selfRelative };
+	const arg: ArgInfo = { name: s, optional, rest };
 	if (type !== undefined) { arg.type = type; }
 	if (def !== undefined) { arg.default = def; }
 	return arg;

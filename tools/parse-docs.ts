@@ -47,6 +47,39 @@ const rxDocMarkGroup = /^\s*--[{}]\s*$/;
 /** A bare `[name]` cross-reference (not a `[text](url)` link). */
 const rxBareRef = /\[([A-Za-z_]\w*)\](?!\()/g;
 
+/**
+ * DocMark macros: `$[name]` or `$[name](argument)`. The docs site expands
+ * these; nothing here does, so they are rewritten to plain Markdown.
+ *
+ * `$[manual]` says the entry is a stock GameMaker function, and
+ * `$[manual](name)` points at one by name. `$[nonSync]` is the banner the
+ * site draws above a non-sync section, and its wording is the one from
+ * `NTT-Sync.dmd`; the argument says whether the section holds variables and
+ * functions (`vf`) or only functions (`fu`), which makes no difference to a
+ * hover. `$[src]` is a "view source" link into the site and has nothing to
+ * point at here, so it goes.
+ *
+ * Anything else is left alone on purpose: a silent strip would drop real
+ * prose, and `generated.test.ts` fails on a surviving macro so a new one is
+ * noticed rather than shipped.
+ */
+const rxMacro = /\$\[([A-Za-z_]\w*)\](?:\(([^)]*)\))?/g;
+
+function expandMacro(name: string, argument: string | undefined): string | undefined {
+	if (name === 'manual') {
+		return argument === undefined
+			? 'See the GameMaker manual.'
+			: '`' + argument + '` (GameMaker manual)';
+	}
+	if (name === 'nonSync') {
+		return 'Non-sync: returns local state without network latency - useful for '
+			+ 'displaying information or previewing an action locally, but it differs '
+			+ 'between players, so it must not influence synchronised gameplay state.';
+	}
+	if (name === 'src') { return ''; }
+	return undefined;
+}
+
 function dedent(lines: string[], tabs: number): string[] {
 	const prefix = '\t'.repeat(tabs);
 	return lines.map((l) => (l.startsWith(prefix) ? l.slice(tabs) : l.replace(/^\t+/, '')));
@@ -58,6 +91,10 @@ export function toMarkdown(lines: string[]): string {
 	for (const line of lines) {
 		if (rxDocMarkGroup.test(line)) { continue; }
 		let l = line.replace(/```(?:gmblanks|ntblanks|blanks)\s*$/, '```gml');
+		l = l.replace(rxMacro, (whole, name: string, argument?: string) => {
+			const text = expandMacro(name, argument);
+			return text === undefined ? whole : text;
+		});
 		l = l.replace(rxBareRef, '`$1`');
 		out.push(l.replace(/\s+$/, ''));
 	}

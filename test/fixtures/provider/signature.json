@@ -1,0 +1,171 @@
+[
+	{
+		"case": "weapon_get_name(<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "weapon_get_name(wep) -> value"
+		}
+	},
+	{
+		"case": "weapon_get_name(wep<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "weapon_get_name(wep) -> value"
+		}
+	},
+	{
+		"case": "instance_create(x, y, <>",
+		"signature": {
+			"activeParameter": 2,
+			"label": "instance_create(x, y, obj, ?var_struct) -> value"
+		}
+	},
+	{
+		"case": "instance_create(x, y, Player, {<>",
+		"signature": {
+			"activeParameter": 3,
+			"label": "instance_create(x, y, obj, ?var_struct) -> value"
+		}
+	},
+	{
+		"case": "instance_create(x, y, Player, { a: 1, b: 2 }, <>",
+		"signature": {
+			"activeParameter": 3,
+			"label": "instance_create(x, y, obj, ?var_struct) -> value"
+		}
+	},
+	{
+		"case": "instances_matching(Player, \"team\", 1, 2, 3<>",
+		"signature": {
+			"activeParameter": 2,
+			"label": "instances_matching(object_or_array, varname: string, ...values) -> value"
+		}
+	},
+	{
+		"case": "instances_matching(Player, \"team\"<>",
+		"signature": {
+			"activeParameter": 1,
+			"label": "instances_matching(object_or_array, varname: string, ...values) -> value"
+		}
+	},
+	{
+		"case": "array_filter(arr, fn, <>",
+		"signature": {
+			"activeParameter": 2,
+			"label": "array_filter(arr: array, fn, ?copy: bool = true) -> value"
+		}
+	},
+	{
+		"case": "array_join([1, 2, 3], <>",
+		"signature": {
+			"activeParameter": 1,
+			"label": "array_join(array, string) -> value"
+		}
+	},
+	{
+		"case": "trace(string_length(\"a, b\")<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "trace(...values) -> value"
+		}
+	},
+	{
+		"case": "trace(string_length(<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "string_length(str: string) -> value"
+		}
+	},
+	{
+		"case": "draw_text(x, y, \"a, (b\"<>",
+		"signature": {
+			"activeParameter": 2,
+			"label": "draw_text(x: number, y: number, string: string)"
+		}
+	},
+	{
+		"case": "draw_text(x, y, \"unterminated, <>",
+		"signature": {
+			"activeParameter": 2,
+			"label": "draw_text(x: number, y: number, string: string)"
+		}
+	},
+	{
+		"case": "move_and_collide(1, 2, Player, 1, 2, 3, 4, 5, 6<>",
+		"signature": {
+			"activeParameter": 7,
+			"label": "move_and_collide(dx, dy, obj, ?num_iterations, ?xoff, ?yoff, ?max_x_move, ?max_y_move)"
+		}
+	},
+	{
+		"case": "not_a_function(<>",
+		"signature": null
+	},
+	{
+		"case": "trace((a + b), <>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "trace(...values) -> value"
+		}
+	},
+	{
+		"case": "button_check(0, \"nort\") && button_pressed(<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "button_pressed(player: int, button: string) -> value"
+		}
+	},
+	{
+		"case": "x = abs(<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "abs(x) -> value"
+		}
+	},
+	{
+		"case": "trace(\"a\") // instance_create(<>",
+		"signature": null
+	},
+	{
+		"case": "instance_create(\\n\tx,\\n\ty,\\n\t<>",
+		"signature": {
+			"activeParameter": 2,
+			"label": "instance_create(x, y, obj, ?var_struct) -> value"
+		}
+	},
+	{
+		"case": "trace(\\n\t\"a, b\",\\n\t<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "trace(...values) -> value"
+		}
+	},
+	{
+		"case": "weapon_get_name(\\n\t<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "weapon_get_name(wep) -> value"
+		}
+	},
+	{
+		"case": "draw_text(x,\\n\t// y, \"a\",\\n\t<>",
+		"signature": {
+			"activeParameter": 1,
+			"label": "draw_text(x: number, y: number, string: string)"
+		}
+	},
+	{
+		"case": "abs(1, 2, <>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "abs(x) -> value"
+		}
+	},
+	{
+		"case": "sound_play(<>",
+		"signature": {
+			"activeParameter": 0,
+			"label": "sound_play(sound) -> value"
+		}
+	}
+]

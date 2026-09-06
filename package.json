@@ -4,6 +4,7 @@
 	"description": "Syntax highlighting and completions for NTGML, the GML dialects used by Nuclear Throne Together mods (legacy .gml and modern .ntgml).",
 	"version": "0.1.0",
 	"publisher": "benrucker",
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/benrucker/NT-GML.git"

@@ -16,7 +16,7 @@ Generated 2026-09-02 23:13 by running `/gmlapi` in Nuclear Throne Together 100.0
 
 Not included: `fields.gml` (stale, from a 2025-07-16 pre-100 dump; `/gmlapi` no longer regenerates it) and `default.gml` (built-in instance variables; `/gmlapi` never emits it, take it from the `bits-of-nuclear-throne` repo).
 
-The dump carries no argument type hints. The 100.022 reference `api.gml` in `bits-of-nuclear-throne/GMEdit/` has 126 hand-added ones; merge by argument position.
+The dump does carry argument type hints (`array_slice(arr:array, start:int, length:int)`, `sound_play(:sound)`), but not on every function: 341 of its 984 functions have at least one typed argument. The 100.022 reference `api.gml` in `bits-of-nuclear-throne/GMEdit/` supplies 252 more argument types on 138 functions, 135 of which this dump leaves untyped entirely (the generator prints the figure as `hints merged`); merge them in by argument position, never overwriting a type the dump already gives.
 
 Placeholder names to filter: `background7`, `__newsprite2113`, `__newfont6`, `__newfont7`.
 

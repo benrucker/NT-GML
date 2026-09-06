@@ -18,8 +18,7 @@ pnpm-lock.yaml
 pnpm-workspace.yaml
 NTGML-PORT-SCOPE.md
 NTGML-SPEC.md
-NTT Modding Cheat Sheet.md
-Script for Extension Vid.md
+docs/**
 **/tsconfig*.json
 **/*.map
 **/*.ts

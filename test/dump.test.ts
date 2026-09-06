@@ -124,14 +124,16 @@ test('tables: spot checks for each annotation form', () => {
 test('cleanup: no Rivals-of-Aether identifiers in shipped code', () => {
 	// Scanned roots; a root that does not exist is skipped, so `resources/`
 	// may be absent. Deliberately NOT scanned, because they name RoA on purpose:
-	//   NTGML-PORT-SCOPE.md, NTGML-SPEC.md, NTT Modding Cheat Sheet.md and
-	//     Script for Extension Vid.md - reference documents about the port;
+	//   NTGML-PORT-SCOPE.md and NTGML-SPEC.md - reference documents about the port;
+	//   docs/ - `NTT Modding Cheat Sheet.md`, a community reference;
+	//   LICENSE - its third-party notices attribute the original extension;
 	//   api/ - vendored third-party sources;
-	//   test/ - this file and test/README.md spell out the patterns;
-	//   CHANGELOG.md - its only entry still says "rivals-of-aether-gml-support",
-	//     a historical entry that the section 5.5 docs phase rewrites.
+	//   test/ - this file and test/README.md spell out the patterns.
+	// CHANGELOG.md IS scanned, so its paragraph about the pre-NTGML history
+	// names fudgepop01 and "a different game's GML dialect" rather than the
+	// game, and leaves the name to LICENSE. That euphemism is deliberate.
 	const roots = ['src', 'tools', 'data', 'syntaxes', 'package.json', 'resources', 'README.md',
-		'.vscodeignore', '.vscode'].filter((r) => fs.existsSync(path.join(ROOT, r)));
+		'CHANGELOG.md', '.vscodeignore', '.vscode'].filter((r) => fs.existsSync(path.join(ROOT, r)));
 
 	// RoA branding, the RoA gameplay vocabulary, and the RoA API prefixes listed
 	// in NTGML-PORT-SCOPE.md section 2.4. None of these are NTGML: NTT has no
@@ -146,7 +148,7 @@ test('cleanup: no Rivals-of-Aether identifiers in shipped code', () => {
 		// README "History": records that this repo used to be the RoA extension.
 		'README.md:Everything before commit `33fd3de` is a Rivals of Aether GML extension,' +
 			' including the RoABox move visualizer. That code was removed in `3006ae3` and' +
-			' lives on in the git history.',
+			' `ca12c65`, and lives on in the git history.',
 	];
 
 	// Read as text; everything else counts as binary. Dotfiles such as

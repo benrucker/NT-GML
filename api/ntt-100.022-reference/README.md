@@ -6,3 +6,5 @@ Copied from `YAL-Game-Tools/bits-of-nuclear-throne` (`GMEdit/` directory, genera
 - `default.gml` lists the 57 built-in instance variables; `/gmlapi` does not produce it.
 - `config.json` is the GMEdit dialect config for NTT (keyword list, feature flags).
 - `raw-assets.gml` is the 100.022 asset list (clean, single file). Reference only.
+
+License: no license file in the source repository as of 2026-09-06; vendored for reference and doc-string generation only. `https://github.com/YAL-Game-Tools/bits-of-nuclear-throne` has no `LICENSE` file and GitHub reports no license for it; its `README.md` says "All rights reserved and such."

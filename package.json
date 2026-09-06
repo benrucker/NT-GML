@@ -21,6 +21,14 @@
 		"Other",
 		"Programming Languages"
 	],
+	"keywords": [
+		"nuclear throne",
+		"nuclear throne together",
+		"ntt",
+		"gml",
+		"gamemaker",
+		"modding"
+	],
 	"activationEvents": [
 		"onLanguage:ntgml",
 		"onLanguage:ntgml-legacy"

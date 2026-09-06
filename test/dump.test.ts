@@ -122,8 +122,40 @@ test('tables: spot checks for each annotation form', () => {
 });
 
 test('cleanup: no Rivals-of-Aether identifiers in shipped code', () => {
-	const roots = ['src', 'tools', 'data', 'syntaxes', 'package.json'];
-	const rx = /\b(roa|roabox|rivals(?: of aether)?)\b|play-sound|vscode-languageserver/i;
+	// Scanned roots; a root that does not exist is skipped, so `resources/`
+	// may be absent. Deliberately NOT scanned, because they name RoA on purpose:
+	//   NTGML-PORT-SCOPE.md, NTGML-SPEC.md, NTT Modding Cheat Sheet.md and
+	//     Script for Extension Vid.md - reference documents about the port;
+	//   api/ - vendored third-party sources;
+	//   test/ - this file and test/README.md spell out the patterns;
+	//   CHANGELOG.md - its only entry still says "rivals-of-aether-gml-support",
+	//     a historical entry that the section 5.5 docs phase rewrites.
+	const roots = ['src', 'tools', 'data', 'syntaxes', 'package.json', 'resources', 'README.md',
+		'.vscodeignore', '.vscode'].filter((r) => fs.existsSync(path.join(ROOT, r)));
+
+	// RoA branding, the RoA gameplay vocabulary, and the RoA API prefixes listed
+	// in NTGML-PORT-SCOPE.md section 2.4. None of these are NTGML: NTT has no
+	// hitbox/hurtbox grids and no HG_/AG_/AT_/PS_/ease_ identifiers. The
+	// boundaries are "not a letter or digit" rather than \b so that `_` joins
+	// do not hide a match: `roabox_hitbox.png` must fail, and so must `NTTRoA`.
+	const rx = /(?<![a-z0-9])(?:roa|roabox|nttroa|rivals(?: of aether)?)(?![a-z0-9])|(?<![a-z0-9])h(?:it|urt)box|(?<![a-z0-9])(?:HG_|AG_|AT_|PS_|ease_)|play-sound|vscode-languageserver/i;
+
+	// Lines that name RoA on purpose, keyed by '<path>:<trimmed line>'. Keep the
+	// list exact and short; never weaken `rx` to make room for a new entry.
+	const allowed = [
+		// README "History": records that this repo used to be the RoA extension.
+		'README.md:Everything before commit `33fd3de` is a Rivals of Aether GML extension,' +
+			' including the RoABox move visualizer. That code was removed in `3006ae3` and' +
+			' lives on in the git history.',
+	];
+
+	// Read as text; everything else counts as binary. Dotfiles such as
+	// `.vscodeignore` are text; any other extensionless file (a LICENSE dropped
+	// into resources/, say) is judged by name like a binary rather than read.
+	// `.svg` is XML so it is text too.
+	const isText = (p: string) => /\.(?:ts|js|mjs|json|md|gml|yml|yaml|svg)$/i.test(p) ||
+		path.basename(p).startsWith('.');
+
 	const hits: string[] = [];
 	const walk = (p: string) => {
 		const st = fs.statSync(p);
@@ -131,10 +163,15 @@ test('cleanup: no Rivals-of-Aether identifiers in shipped code', () => {
 			for (const f of fs.readdirSync(p)) { walk(path.join(p, f)); }
 			return;
 		}
-		if (!/\.(ts|js|json)$/.test(p)) { return; }
-		const lines = read(p).split(/\r?\n/);
-		lines.forEach((line, i) => {
-			if (rx.test(line)) { hits.push(path.relative(ROOT, p) + ':' + (i + 1) + ': ' + line.trim()); }
+		const rel = path.relative(ROOT, p).split(path.sep).join('/');
+		if (!isText(p)) {
+			// Binary (.png, .jpg, .gif, ...): judged by file name, bytes are never read.
+			if (rx.test(path.basename(p))) { hits.push(rel + ': binary file name'); }
+			return;
+		}
+		read(p).split(/\r?\n/).forEach((line, i) => {
+			if (!rx.test(line) || allowed.indexOf(rel + ':' + line.trim()) >= 0) { return; }
+			hits.push(rel + ':' + (i + 1) + ': ' + line.trim());
 		});
 	};
 	for (const r of roots) { walk(path.join(ROOT, r)); }

@@ -13,6 +13,15 @@ NTT picks the language version by file extension, so the extension contributes t
 | `ntgml-legacy` | `.gml`    | GMS1-style. `#define` scripts, backtick template strings, no `[$]` accessor. Nearly all published mods are written in this. |
 | `ntgml`        | `.ntgml`  | GM2022-style. Adds `function`, `new`, `static`, `try`/`catch`/`throw`, `delete`, structs, and `$"..."` strings.             |
 
+`.gml` is claimed globally for `ntgml-legacy`, exactly as the original extension claimed it. VS Code has no way to register a language for only some folders, so while this extension is enabled every `.gml` file gets NTT highlighting and completions — including the `.gml` files of a GameMaker Studio project, whose API this extension does not know. To opt out, either remap the extension in your settings:
+
+```jsonc
+// .vscode/settings.json, or your user settings
+"files.associations": { "*.gml": "gml" }  // or whichever language id you prefer
+```
+
+or disable this extension for that workspace (Extensions view → the extension → **Disable (Workspace)**).
+
 Both dialects share the NTT-specific syntax that no other GML tooling knows about: `wait`, `fork()`, `"name" in inst`, `#macro`, `#pragma`, and `#define` with named arguments. [NTGML-SPEC.md](NTGML-SPEC.md) is the full language description.
 
 ## What is in the repo

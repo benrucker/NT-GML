@@ -418,13 +418,13 @@ function	ds_map_find_last	30ds_map_find_last	ds_map_find_last(id):
 function	ds_map_find_next	30ds_map_find_next	ds_map_find_next(id, key):
 function	ds_map_find_previous	30ds_map_find_previous	ds_map_find_previous(id, key):
 function	ds_map_find_value	30ds_map_find_value	ds_map_find_value(id, key):
-function	ds_map_keys	30ds_map_keys	ds_map_keys(map, ?array):
+function	ds_map_keys	32ds_map_keys	ds_map_keys(map, ?array):&
 function	ds_map_keys_to_array	30ds_map_keys_to_array	ds_map_keys_to_array(map, ?array):
 function	ds_map_replace	30ds_map_replace	ds_map_replace(id, key, value):
 function	ds_map_set	30ds_map_set	ds_map_set(id, key, value)
 function	ds_map_size	30ds_map_size	ds_map_size(id):
 function	ds_map_valid	30ds_map_valid	ds_map_valid(map):
-function	ds_map_values	30ds_map_values	ds_map_values(map, ?array):
+function	ds_map_values	32ds_map_values	ds_map_values(map, ?array):&
 function	ds_map_values_to_array	30ds_map_values_to_array	ds_map_values_to_array(map, ?array):
 function	dsin	30dsin	dsin(degree_angle):#
 function	dtan	30dtan	dtan(degree_angle):#

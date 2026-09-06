@@ -260,7 +260,7 @@ export const modTypes: ModType[] = ['mod', 'wep', 'race', 'skin', 'skill', 'crow
 /**
  * Mod type from a file name's middle extension: `name.<type>.gml`,
  * `name.<type>.ntgml` or `name.<type>.gmlbc` (NTGML-SPEC.md §8). Only the
- * eight spellings in `modTypes` count - `.weapon` is not accepted, the loader
+ * seven spellings in `modTypes` count - `.weapon` is not accepted, the loader
  * wants `.wep`.
  */
 export function modTypeFromFileName(fileName: string): ModType | null {

@@ -47,6 +47,9 @@ hex_const = $FF
 expr_const = 1 << 3 // comment after value
 flagged_const#
 deprecated_const#&
+uk_twin_const#£
+us_twin_const#$
+typed_const#:int
 //}
 
 //{ Variables

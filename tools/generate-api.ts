@@ -10,7 +10,9 @@
  * Inputs (a dump directory):
  *   api.gml           annotated declarations (NTGML-SPEC.md section 5)
  *   raw-functions.gml raw-constants.gml raw-variables.gml   name lists, used
- *                     only to verify the parse is complete
+ *                     only to bound the parse: nothing in them may be missing
+ *                     from the tables, and nothing in the tables may be
+ *                     missing from them without a reason (see checkParsedList)
  *   raw-sprites.gml raw-sounds.gml raw-objects.gml raw-fonts.gml  asset names
  *
  * `raw-assets.gml` is NEVER read: the dump joins its entries without a
@@ -18,7 +20,8 @@
  *
  * Extra inputs, always taken from the repo:
  *   api/ntt-100.022-reference/api.gml      argument type hints, merged by
- *                                          position (the live dump dropped them)
+ *                                          position (100.034 types fewer
+ *                                          arguments; NTGML-SPEC.md 5.4)
  *   api/ntt-100.022-reference/default.gml  built-in instance variables
  *   api/overrides.gml                      hand-written fixes, merged last
  *   api/ntt-docs/scripting/*.dmd           prose documentation
@@ -54,6 +57,16 @@ const OUT_DIR = path.join(ROOT, 'src', 'generated');
 
 /** Minimum `game_version` for a local dump to be preferred over the vendored one. */
 const MIN_LOCAL_VERSION = 100000;
+
+/**
+ * Files a dump directory must have besides `api.gml`. `/gmlapi` writes them
+ * all in one go, so a directory holding only some of them is a partial or
+ * interrupted dump rather than an older format.
+ */
+const REQUIRED_DUMP_FILES = [
+	'raw-functions.gml', 'raw-constants.gml', 'raw-variables.gml',
+	'raw-sprites.gml', 'raw-sounds.gml', 'raw-fonts.gml', 'raw-objects.gml',
+];
 
 /**
  * Asset names the dump emits for deleted / never-used slots. They are not
@@ -139,10 +152,30 @@ function tryDump(dir: string, minVersion: number): ApiModel | null {
 	return model;
 }
 
+/**
+ * A directory that has api.gml but not the raw lists is an incomplete dump.
+ * Once a directory has been committed to, say which file is gone rather than
+ * dying on ENOENT halfway through.
+ */
+function requireCompleteDump(dir: string, model: ApiModel, remedy: string): void {
+	const missing = REQUIRED_DUMP_FILES.filter((f) => !exists(path.join(dir, f)));
+	if (missing.length > 0) {
+		fail(
+			'the dump at ' + dir + ' has api.gml (game_version ' + model.gameVersion +
+			') but is missing ' + missing.join(', ') + '.\n  ' + remedy
+		);
+	}
+}
+
 function chooseSource(opts: Options): Source {
 	if (opts.apiDir !== undefined) {
 		const model = tryDump(opts.apiDir, 0);
 		if (model === null) { fail('no api.gml in ' + opts.apiDir); }
+		requireCompleteDump(
+			opts.apiDir, model,
+			'Point `--api-dir` at a complete `/gmlapi` dump, or pass `--vendored` ' +
+			'to generate from api/ntt-100.034 instead.'
+		);
 		return { dir: opts.apiDir, kind: '--api-dir', model };
 	}
 	if (!opts.vendored) {
@@ -151,6 +184,14 @@ function chooseSource(opts: Options): Source {
 			const dir = path.join(localAppData, 'nuclearthrone', 'api');
 			const model = tryDump(dir, MIN_LOCAL_VERSION);
 			if (model !== null) {
+				// The version check already picked this directory, so a missing
+				// raw list is an incomplete dump, not a reason to fall back
+				// silently.
+				requireCompleteDump(
+					dir, model,
+					'Re-run `/gmlapi` in game to write a complete dump, or pass ' +
+					'`--vendored` to generate from api/ntt-100.034 instead.'
+				);
 				return { dir: dir, kind: 'local dump (LOCALAPPDATA/nuclearthrone/api)', model };
 			}
 		}
@@ -512,6 +553,7 @@ const CONSTANTS_EPILOGUE = [
 	'\t\tdeprecated: c.deprecated === true,',
 	'\t};',
 	'\tif (c.value !== undefined) { out.value = c.value; }',
+	'\tif (c.type !== undefined) { out.type = c.type; }',
 	'\treturn out;',
 	'});',
 	'',
@@ -530,6 +572,7 @@ function emitConstants(constants: ConstantInfo[], head: string[]): string {
 	const body = constants.map((c) => {
 		const o: Bag = { name: c.name };
 		if (c.value !== undefined) { o.value = c.value; }
+		if (c.type !== undefined) { o.type = c.type; }
 		o.category = c.category;
 		if (c.spelling !== null) { o.spelling = c.spelling; }
 		if (c.deprecated) { o.deprecated = true; }
@@ -690,6 +733,58 @@ function checkRawList(
 	}
 }
 
+/**
+ * The other direction: every parsed entry must also be in the raw list, unless
+ * the line it came from is one the dump deliberately leaves out of that list.
+ *
+ * `exempt` holds those, computed from the parsed entries themselves rather
+ * than from a hardcoded name list:
+ * - functions declared with a context prefix (`:`, `::`, `:::`, `${raw}`) -
+ *   the dump lists them only in `api.gml` (NTGML-SPEC.md section 5.1);
+ * - variables from `default.gml`, which is not part of the dump at all;
+ * - anything `api/overrides.gml` adds by hand, which is the point of that file.
+ *
+ * Without this check `raw-*.gml` only ever proves the parser did not *lose*
+ * anything, and a regex that invents names (a mis-split argument list read as
+ * a declaration, say) passes silently.
+ */
+function checkParsedList(
+	label: string,
+	parsed: { name: string }[],
+	rawNames: string[],
+	exempt: { [name: string]: true },
+	problems: string[]
+): void {
+	const raw: { [name: string]: true } = {};
+	for (const name of rawNames) { raw[name] = true; }
+	const extra: string[] = [];
+	for (const item of parsed) {
+		if (raw[item.name] || exempt[item.name]) { continue; }
+		extra.push(item.name);
+	}
+	if (extra.length > 0) {
+		problems.push(
+			label + ': ' + extra.length + ' parsed name(s) are in no raw list and have no ' +
+			'declaration form that explains it: ' + extra.join(', ')
+		);
+	}
+}
+
+/** Names of functions the dump does not repeat in `raw-functions.gml`. */
+function prefixedFunctionNames(functions: FunctionInfo[]): { [name: string]: true } {
+	const out: { [name: string]: true } = {};
+	for (const fn of functions) {
+		if (fn.raw || fn.selfCtx > 0) { out[fn.name] = true; }
+	}
+	return out;
+}
+
+function nameSet(items: { name: string }[], into?: { [name: string]: true }): { [name: string]: true } {
+	const out = into === undefined ? {} : into;
+	for (const item of items) { out[item.name] = true; }
+	return out;
+}
+
 // --- main ----------------------------------------------------------------
 
 function main(): void {
@@ -742,7 +837,7 @@ function main(): void {
 	if (exists(DOCS_DIR)) {
 		const sources: DocSource[] = fs
 			.readdirSync(DOCS_DIR)
-			.filter((f) => f.toLowerCase().indexOf('.dmd') === f.length - 4)
+			.filter((f) => f.toLowerCase().endsWith('.dmd'))
 			.sort()
 			.map((f) => ({ name: f, text: read(path.join(DOCS_DIR, f)) }));
 		docs = parseDocs(sources);
@@ -750,16 +845,25 @@ function main(): void {
 
 	// --- self-checks
 	const problems: string[] = [];
-	const fnNames: { [n: string]: true } = {};
-	for (const f of functions) { fnNames[f.name] = true; }
-	const constNames: { [n: string]: true } = {};
-	for (const c of constants) { constNames[c.name] = true; }
-	const varNames: { [n: string]: true } = {};
-	for (const v of variables) { varNames[v.name] = true; }
+	const fnNames = nameSet(functions);
+	const constNames = nameSet(constants);
+	const varNames = nameSet(variables);
 
-	checkRawList('functions', parseRawNames(read(path.join(source.dir, 'raw-functions.gml'))), fnNames, problems);
-	checkRawList('constants', parseRawNames(read(path.join(source.dir, 'raw-constants.gml'))), constNames, problems);
-	checkRawList('variables', parseRawNames(read(path.join(source.dir, 'raw-variables.gml'))), varNames, problems);
+	const rawFunctions = parseRawNames(read(path.join(source.dir, 'raw-functions.gml')));
+	const rawConstants = parseRawNames(read(path.join(source.dir, 'raw-constants.gml')));
+	const rawVariables = parseRawNames(read(path.join(source.dir, 'raw-variables.gml')));
+
+	checkRawList('functions', rawFunctions, fnNames, problems);
+	checkRawList('constants', rawConstants, constNames, problems);
+	checkRawList('variables', rawVariables, varNames, problems);
+
+	// ...and the reverse, so the raw lists bound the parse from both sides.
+	checkParsedList('functions', functions, rawFunctions,
+		nameSet(overrides.functions, prefixedFunctionNames(functions)), problems);
+	checkParsedList('constants', constants, rawConstants,
+		nameSet(overrides.constants), problems);
+	checkParsedList('variables', variables, rawVariables,
+		nameSet(overrides.variables, nameSet(defaults)), problems);
 
 	for (const name of Object.keys(fnNames)) {
 		if (constNames[name]) { problems.push('name is both a function and a constant: ' + name); }

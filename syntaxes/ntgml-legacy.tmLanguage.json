@@ -437,7 +437,7 @@
 		},
 		"custom-fields": {
 			"comment": "Callback fields of the Custom* object family, only after a `.` (spec 8.2).",
-			"match": "(\\.)(on_find_target|sprite_visible|attract_speed|on_begin_step|on_projectile|snd_disappear|on_disappear|meleedamage|on_end_step|can_hatred|candeflect|on_attract|on_cleanup|on_destroy|on_grenade|snd_pickup|spr_pickup|spr_shadow|can_shine|maxhealth|my_health|on_pickup|on_death|snd_dead|snd_hurt|spr_dead|spr_fade|spr_hurt|spr_idle|spr_walk|on_anim|on_draw|on_hurt|on_open|on_step|on_wall|raddrop|candie|on_hit|script|blink|hitid|size|team|typ)\\b",
+			"match": "(\\.)(on_find_target|sprite_visible|attract_speed|on_begin_step|on_projectile|snd_disappear|on_disappear|meleedamage|on_end_step|can_hatred|candeflect|on_attract|on_cleanup|on_destroy|on_grenade|snd_pickup|spr_pickup|spr_shadow|can_shine|maxhealth|my_health|on_pickup|nexthurt|on_death|snd_dead|snd_hurt|spr_dead|spr_fade|spr_hurt|spr_idle|spr_walk|on_anim|on_draw|on_hurt|on_open|on_step|on_wall|raddrop|candie|damage|on_hit|script|blink|force|hitid|wkick|size|team|typ)\\b",
 			"captures": {
 				"1": {
 					"name": "punctuation.accessor.ntgml"

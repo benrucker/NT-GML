@@ -431,6 +431,7 @@ export const constants: ConstantInfo[] = raw.map((c) => {
 		deprecated: c.deprecated === true,
 	};
 	if (c.value !== undefined) { out.value = c.value; }
+	if (c.type !== undefined) { out.type = c.type; }
 	return out;
 });
 

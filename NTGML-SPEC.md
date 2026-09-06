@@ -177,6 +177,9 @@ var a, b = 1;
 | `£` | UK spelling twin |
 | `&` | deprecated |
 
+GMEdit drops `&` entries outright (`GmlParseAPI.hx:179`). This port keeps them and sets a
+`deprecated` flag instead, so completion can still offer them, deranked and struck through.
+
 Args: `arg` required · `?arg` / `[arg]` optional · `arg=default` · `...arg` rest · `arg:type` · `:type` unnamed typed argument (e.g. `sound_play(:sound)`).
 Dump emits `:#` for pure returning; reference wrote `:##`. Equivalent.
 
@@ -184,13 +187,31 @@ Dump emits `:#` for pure returning; reference wrote `:##`. Equivalent.
 ```
 name[index][flags][:type]
 ```
-`*` read-only · `[player]` per-player array · `#` constant · `name = value` constant with value.
+| Flag | Meaning |
+|---|---|
+| `*` | read-only |
+| `[player]` | per-player array |
+| `#` | constant, not a variable |
+| `$` | US spelling |
+| `£` | UK spelling twin |
+| `&` | deprecated |
+| `:type` | declared type |
+
+`name = value` = constant with value.
+
+Same deviation as §5.1: `&` declarations are kept and flagged deprecated, not dropped
+(`GmlParseAPI.hx:243`). `$`/`£` are parsed into the flags by GMEdit's declaration branch
+(`GmlParseAPI.hx:235-303`) but never read back - the spelling check only exists on the function
+path (`GmlParseAPI.hx:191`). Neither dump declares one; this port records them anyway so both
+paths behave the same if a future dump does.
 
 ### 5.3 Grouping
 `//{ group` … `//}` = category.
 
 ### 5.4 Dump caveats
-- No arg type hints emitted; 126 hand-added in reference 100.022 `api.gml` (merge by position).
+- 100.034 does emit `:type` hints on many arguments (1,009 of 2,487 arg tokens) and on 2 returns;
+  reference 100.022 emits more (1,270 of 2,522), so its hints are merged in by position wherever
+  100.034 has none.
 - `default.gml` (57 built-in instance vars) not emitted; vendor.
 - `raw-assets.gml` joins sections without separator; use `raw-sprites/sounds/fonts/objects.gml`.
 - Filter placeholders: `background7 __newsprite2113 __newfont6 __newfont7`.
@@ -278,17 +299,37 @@ mod-local, not engine: `crown_loadout crown_menu_avail crown_menu_button crown_l
 mod-local (NTTE conventions), absent from binary: `area_subarea area_next area_goal area_music area_music_boss area_music_boss_intro area_ambient area_effect area_darkness area_fog area_underwater area_shadow_color area_background_color area_setup_floor area_setup_spiral`
 
 ### 8.2 Custom object callback fields
-| Object | Fields |
-|---|---|
-| `CustomObject` | `on_destroy on_step on_begin_step on_end_step on_draw on_cleanup sprite_visible` |
-| `CustomHitme` | + `on_hurt my_health maxhealth spr_idle spr_walk spr_hurt spr_dead spr_shadow snd_hurt snd_dead team size raddrop` |
-| `CustomEnemy` | + `on_death candie meleedamage hitid` |
-| `CustomProp` | `on_step on_death on_draw size maxhealth spr_* snd_hurt` |
-| `CustomProjectile` | `on_wall on_hit on_anim on_draw on_step on_begin_step on_end_step on_destroy on_cleanup` |
-| `CustomSlash` | + `typ candeflect on_grenade on_projectile` |
-| `CustomChest` | `on_anim on_draw on_step on_begin_step on_end_step on_destroy on_cleanup on_open can_hatred can_shine` |
-| `CustomPickup` | `blink spr_fade spr_pickup snd_pickup snd_disappear attract_speed on_pickup on_step on_draw on_disappear on_find_target on_attract` |
-| `CustomBeginStep/Step/EndStep/Draw` | `script` (via `script_bind_*`) |
+`+` = adds to the row above. Only `CustomSlash` and the `script_bind_*` objects inherit that way;
+the rest set `parent_index` to an engine object (`hitme`, `enemy`, `prop`, `projectile`, `chestprop`,
+`PickupBox`) and share nothing with `CustomObject` - notably not `sprite_visible`, which only
+`CustomObject`'s draw event reads. Source: `api/ntt-docs/ref/Custom*.gml`.
+
+The docs list no engine-object instance variables, so an engine parent is recorded for reference
+only and contributes no fields. A row lists an engine variable when its own reference file reads or
+assigns it **on `self`** (shown below as `+ engine …`). Three exclusions bound that rule:
+
+- Variables the dump already declares as built-in instance variables (`sprite_index`, `image_index`,
+  `speed`, `visible`, `current_frame`, …) - offered from that list instead, not repeated per row.
+- Accesses to the colliding instance, not this one: `other.*` in a collision event (`other.deflected`,
+  `other.team`, `other.typ` in `CustomSlash.gml:19-26`, `other.team` in `CustomProjectile.gml:38`) and
+  bare names inside a `with (other) { … }` block, where `self` is rebound (`deflected = 1`, `direction`,
+  `alarm[1]` in `CustomSlash.gml:38-46`; the nested `with (Player) { with (other) … }` in
+  `CustomPickup.gml:43-47`). None is ever assigned on the object's own `self`. GML's built-in `alarm[]`
+  array (`CustomPickup.gml:11`) is a language feature, not a field.
+- Internal double-underscore markers (`__maxhealth_init`, `CustomEnemy.gml:8`).
+
+| Object | Parent | Fields |
+|---|---|---|
+| `CustomObject` | `GameObject` | `on_destroy on_step on_begin_step on_end_step on_draw on_cleanup sprite_visible` |
+| `CustomHitme` | `hitme` | `on_destroy on_step on_begin_step on_end_step on_draw on_cleanup on_hurt my_health maxhealth team size raddrop spr_idle spr_walk spr_hurt spr_dead spr_shadow snd_hurt snd_dead` |
+| `CustomEnemy` | `enemy` | `on_destroy on_step on_begin_step on_end_step on_draw on_cleanup on_hurt on_death maxhealth candie meleedamage size hitid raddrop spr_idle spr_walk spr_hurt spr_dead spr_shadow` + engine `my_health team snd_hurt snd_dead wkick nexthurt` |
+| `CustomProp` | `prop` | `on_step on_death on_draw size maxhealth spr_idle spr_hurt spr_dead snd_hurt` + engine `my_health` |
+| `CustomProjectile` | `projectile` | `on_wall on_hit on_anim on_draw on_step on_begin_step on_end_step on_destroy on_cleanup` + engine `team damage force` |
+| `CustomSlash` | `CustomProjectile` | + `typ candeflect on_grenade on_projectile` |
+| `CustomChest` | `chestprop` | `on_anim on_draw on_step on_begin_step on_end_step on_destroy on_cleanup on_open can_hatred can_shine` |
+| `CustomPickup` | `PickupBox` | `blink spr_fade spr_pickup snd_pickup snd_disappear attract_speed on_pickup on_step on_draw on_disappear on_find_target on_attract` |
+| `CustomScript` | | `script` (set by `script_bind_*`) |
+| `CustomBeginStep/Step/EndStep/Draw` | `CustomScript` | + nothing |
 
 ### 8.3 Button names
 `nort sout west east fire spec swap prev next pick paus okay exit horn talk key1 … key9 key0`

@@ -93,16 +93,16 @@
 20all	builtin-constant	all	all
 20and	keyword	and	and
 
-## on_ prefix with a resolved receiver (5486 items)
+## on_ prefix with a resolved receiver (5487 items)
 10candie	field	candie	candie
 10hitid	field	hitid	hitid
 10maxhealth	field	maxhealth	maxhealth
 10meleedamage	field	meleedamage	meleedamage
 10my_health	field	my_health	my_health
+10nexthurt	field	nexthurt	nexthurt
 10on_begin_step	field	on_begin_step	on_begin_step
 10on_cleanup	field	on_cleanup	on_cleanup
 10on_death	field	on_death	on_death
 10on_destroy	field	on_destroy	on_destroy
 10on_draw	field	on_draw	on_draw
 10on_end_step	field	on_end_step	on_end_step
-10on_hurt	field	on_hurt	on_hurt

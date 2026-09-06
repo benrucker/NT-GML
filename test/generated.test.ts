@@ -41,7 +41,10 @@ test('generator: committed src/generated matches a fresh run on the vendored dum
 			assert.equal(
 				lf(read(path.join(GENERATED_DIR, name))),
 				lf(read(path.join(tmp, name))),
-				'src/generated/' + name + ' is stale: run `pnpm gen` and commit the result');
+				'src/generated/' + name + ' is stale: run `pnpm gen` and commit the result. ' +
+				'This compares against the VENDORED dump (`--vendored`, api/ntt-100.034); ' +
+				'if `pnpm gen` picked up a newer local dump from LOCALAPPDATA the two will ' +
+				'differ, and the vendored copy has to be updated too.');
 		}
 	} finally {
 		fs.rmSync(tmp, { recursive: true, force: true });

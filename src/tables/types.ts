@@ -58,8 +58,12 @@ export interface ConstantInfo {
 	name: string;
 	/** Right-hand side of `name = value`; a number when the value parses as one. */
 	value?: number | string;
+	/** `:type` annotation on a `name#:type` declaration. */
+	type?: string;
 	category: string;
+	/** `$` = US spelling twin, `£` = UK spelling twin. */
 	spelling: Spelling;
+	/** `&` flag. */
 	deprecated: boolean;
 }
 
@@ -134,8 +138,16 @@ export interface ModEventInfo {
 
 export interface CustomObjectInfo {
 	name: string;
-	/** Object this one inherits its callback fields from, if any. */
+	/** Another entry in this table whose callback fields this one inherits. */
 	extends?: string;
+	/**
+	 * `parent_index` when the parent is an engine object rather than another
+	 * custom object (`hitme`, `enemy`, `projectile`, ...). Recorded for
+	 * documentation only - it contributes no fields. The docs ship no list of
+	 * engine instance variables, so any that a mod is expected to use are
+	 * listed explicitly in the entry's own `fields`.
+	 */
+	engineParent?: string;
 	/** Fields declared by this object itself (not inherited). */
 	fields: CustomObjectField[];
 	doc?: string;

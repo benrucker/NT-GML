@@ -211,11 +211,11 @@ field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnem
 field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
 field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
-field	sprite_visible	10sprite_visible	available on CustomObject, CustomHitme, CustomEnemy
+field	sprite_visible	10sprite_visible	available on CustomObject
 
 ## fields CustomHitme
 field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
-field	my_health	10my_health	available on CustomHitme, CustomEnemy
+field	my_health	10my_health	available on CustomHitme, CustomEnemy, CustomProp
 field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
@@ -232,15 +232,15 @@ field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
 field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
-field	sprite_visible	10sprite_visible	available on CustomObject, CustomHitme, CustomEnemy
-field	team	10team	available on CustomHitme, CustomEnemy
+field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
 
 ## fields CustomEnemy
 field	candie	10candie	available on CustomEnemy
 field	hitid	10hitid	available on CustomEnemy
 field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
 field	meleedamage	10meleedamage	available on CustomEnemy
-field	my_health	10my_health	available on CustomHitme, CustomEnemy
+field	my_health	10my_health	available on CustomHitme, CustomEnemy, CustomProp
+field	nexthurt	10nexthurt	available on CustomEnemy
 field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_death	10on_death	available on CustomEnemy, CustomProp
@@ -258,11 +258,12 @@ field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
 field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
-field	sprite_visible	10sprite_visible	available on CustomObject, CustomHitme, CustomEnemy
-field	team	10team	available on CustomHitme, CustomEnemy
+field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
+field	wkick	10wkick	available on CustomEnemy
 
 ## fields CustomProp
 field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
+field	my_health	10my_health	available on CustomHitme, CustomEnemy, CustomProp
 field	on_death	10on_death	available on CustomEnemy, CustomProp
 field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
 field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
@@ -273,6 +274,8 @@ field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
 
 ## fields CustomProjectile
+field	damage	10damage	available on CustomProjectile, CustomSlash
+field	force	10force	available on CustomProjectile, CustomSlash
 field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
 field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
@@ -282,9 +285,12 @@ field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEn
 field	on_hit	10on_hit	available on CustomProjectile, CustomSlash
 field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
 field	on_wall	10on_wall	available on CustomProjectile, CustomSlash
+field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
 
 ## fields CustomSlash
 field	candeflect	10candeflect	available on CustomSlash
+field	damage	10damage	available on CustomProjectile, CustomSlash
+field	force	10force	available on CustomProjectile, CustomSlash
 field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
 field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
@@ -296,6 +302,7 @@ field	on_hit	10on_hit	available on CustomProjectile, CustomSlash
 field	on_projectile	10on_projectile	available on CustomSlash
 field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
 field	on_wall	10on_wall	available on CustomProjectile, CustomSlash
+field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
 field	typ	10typ	available on CustomSlash
 
 ## fields CustomChest
@@ -324,17 +331,20 @@ field	snd_pickup	10snd_pickup	available on CustomPickup
 field	spr_fade	10spr_fade	available on CustomPickup
 field	spr_pickup	10spr_pickup	available on CustomPickup
 
+## fields CustomScript
+field	script	10script	available on CustomScript, CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+
 ## fields CustomBeginStep
-field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+field	script	10script	available on CustomScript, CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
 
 ## fields CustomStep
-field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+field	script	10script	available on CustomScript, CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
 
 ## fields CustomEndStep
-field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+field	script	10script	available on CustomScript, CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
 
 ## fields CustomDraw
-field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+field	script	10script	available on CustomScript, CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
 
 ## fields (unresolved receiver)
 field	attract_speed	10attract_speed	available on CustomPickup
@@ -343,10 +353,13 @@ field	can_hatred	10can_hatred	available on CustomChest
 field	can_shine	10can_shine	available on CustomChest
 field	candeflect	10candeflect	available on CustomSlash
 field	candie	10candie	available on CustomEnemy
+field	damage	10damage	available on CustomProjectile, CustomSlash
+field	force	10force	available on CustomProjectile, CustomSlash
 field	hitid	10hitid	available on CustomEnemy
 field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
 field	meleedamage	10meleedamage	available on CustomEnemy
-field	my_health	10my_health	available on CustomHitme, CustomEnemy
+field	my_health	10my_health	available on CustomHitme, CustomEnemy, CustomProp
+field	nexthurt	10nexthurt	available on CustomEnemy
 field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
 field	on_attract	10on_attract	available on CustomPickup
 field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
@@ -366,7 +379,7 @@ field	on_projectile	10on_projectile	available on CustomSlash
 field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
 field	on_wall	10on_wall	available on CustomProjectile, CustomSlash
 field	raddrop	10raddrop	available on CustomHitme, CustomEnemy
-field	script	10script	available on CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+field	script	10script	available on CustomScript, CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
 field	size	10size	available on CustomHitme, CustomEnemy, CustomProp
 field	snd_dead	10snd_dead	available on CustomHitme, CustomEnemy
 field	snd_disappear	10snd_disappear	available on CustomPickup
@@ -379,9 +392,10 @@ field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_pickup	10spr_pickup	available on CustomPickup
 field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
 field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
-field	sprite_visible	10sprite_visible	available on CustomObject, CustomHitme, CustomEnemy
-field	team	10team	available on CustomHitme, CustomEnemy
+field	sprite_visible	10sprite_visible	available on CustomObject
+field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
 field	typ	10typ	available on CustomSlash
+field	wkick	10wkick	available on CustomEnemy
 
 ## buttons (outside a string)
 button	nort	10nort	Move up.
@@ -391,24 +405,24 @@ button	east	10east	Move right.
 button	fire	10fire	Fire the held weapon.
 button	spec	10spec	Use the active/special ability.
 button	swap	10swap	Swap weapons.
-button	prev	10prev	Previous menu entry.
-button	next	10next	Next menu entry.
-button	pick	10pick	Pick up / interact.
+button	prev	10prev	Mouse wheel up.
+button	next	10next	Mouse wheel down.
+button	pick	10pick	Pick up weapons.
 button	paus	10paus	Pause.
 button	okay	10okay	Confirm.
-button	exit	10exit	Cancel / back.
-button	horn	10horn	Horn (co-op ping).
-button	talk	10talk	Open chat.
-button	key1	10key1	Number key 1.
-button	key2	10key2	Number key 2.
-button	key3	10key3	Number key 3.
-button	key4	10key4	Number key 4.
-button	key5	10key5	Number key 5.
-button	key6	10key6	Number key 6.
-button	key7	10key7	Number key 7.
-button	key8	10key8	Number key 8.
-button	key9	10key9	Number key 9.
-button	key0	10key0	Number key 0.
+button	exit	10exit	Close menus.
+button	horn	10horn	Airhorn[.wav].
+button	talk	10talk	Not an actual button: returns whether the player has chat open.
+button	key1	10key1	Pick the 1st mutation; also an emote in multiplayer.
+button	key2	10key2	Pick the 2nd mutation; also an emote in multiplayer.
+button	key3	10key3	Pick the 3rd mutation; also an emote in multiplayer.
+button	key4	10key4	Pick the 4th mutation; also an emote in multiplayer.
+button	key5	10key5	Pick the 5th mutation; also an emote in multiplayer.
+button	key6	10key6	Pick the 6th mutation; also an emote in multiplayer.
+button	key7	10key7	Pick the 7th mutation.
+button	key8	10key8	Pick the 8th mutation.
+button	key9	10key9	Pick the 9th mutation.
+button	key0	10key0	Pick the 10th mutation.
 
 ## buttons (inside a string)
 button	nort	10nort	Move up.
@@ -418,24 +432,24 @@ button	east	10east	Move right.
 button	fire	10fire	Fire the held weapon.
 button	spec	10spec	Use the active/special ability.
 button	swap	10swap	Swap weapons.
-button	prev	10prev	Previous menu entry.
-button	next	10next	Next menu entry.
-button	pick	10pick	Pick up / interact.
+button	prev	10prev	Mouse wheel up.
+button	next	10next	Mouse wheel down.
+button	pick	10pick	Pick up weapons.
 button	paus	10paus	Pause.
 button	okay	10okay	Confirm.
-button	exit	10exit	Cancel / back.
-button	horn	10horn	Horn (co-op ping).
-button	talk	10talk	Open chat.
-button	key1	10key1	Number key 1.
-button	key2	10key2	Number key 2.
-button	key3	10key3	Number key 3.
-button	key4	10key4	Number key 4.
-button	key5	10key5	Number key 5.
-button	key6	10key6	Number key 6.
-button	key7	10key7	Number key 7.
-button	key8	10key8	Number key 8.
-button	key9	10key9	Number key 9.
-button	key0	10key0	Number key 0.
+button	exit	10exit	Close menus.
+button	horn	10horn	Airhorn[.wav].
+button	talk	10talk	Not an actual button: returns whether the player has chat open.
+button	key1	10key1	Pick the 1st mutation; also an emote in multiplayer.
+button	key2	10key2	Pick the 2nd mutation; also an emote in multiplayer.
+button	key3	10key3	Pick the 3rd mutation; also an emote in multiplayer.
+button	key4	10key4	Pick the 4th mutation; also an emote in multiplayer.
+button	key5	10key5	Pick the 5th mutation; also an emote in multiplayer.
+button	key6	10key6	Pick the 6th mutation; also an emote in multiplayer.
+button	key7	10key7	Pick the 7th mutation.
+button	key8	10key8	Pick the 8th mutation.
+button	key9	10key9	Pick the 9th mutation.
+button	key0	10key0	Pick the 10th mutation.
 
 ## pragmas
 pragma	gml	10gml	#pragma gml <version> (file level)

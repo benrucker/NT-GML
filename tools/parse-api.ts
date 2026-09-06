@@ -44,6 +44,7 @@ export interface FunctionInfo {
 export interface ConstantInfo {
 	name: string;
 	value?: number | string;
+	type?: string;
 	category: string;
 	spelling: Spelling;
 	deprecated: boolean;
@@ -80,12 +81,20 @@ const rsFlags = '[ ~$#*@&\u00A3!]*';
 
 /**
  * Function declaration.
- * GmlParseAPI.hx:139-145 - rxFunc is `^(:*)(\w+(?:<.*?>)?\(.+)`; GMEdit then
- * hands `$2` to `GmlFuncDoc.parse`. We inline that split and additionally
- * accept NTT's `${raw}` prefix (GMEdit's `:*` cannot match it), see
- * NTGML-SPEC.md §5.1.
+ * GmlParseAPI.hx:147-153 - rxFunc is `^(:*)(\w+(?:<.*?>)?\(.+)`; GMEdit then
+ * hands `$2` to `GmlFuncDoc.parse` (GmlParseAPI.hx:163). We inline that split
+ * and additionally accept NTT's `${raw}` prefix (GMEdit's `:*` cannot match
+ * it), see NTGML-SPEC.md §5.1.
+ *
+ * `(?:<.*?>)?` is the type-parameter list of a generic declaration
+ * (`array_create<T>(n, v:T):T`). rxFunc captures the `<T>` list inside the
+ * name group (GmlParseAPI.hx:150 sits inside group 2) and leaves it to
+ * GmlFuncDoc.parse, which is not vendored here; this port strips it so `name`
+ * is the bare identifier. Neither dump contains a generic declaration, so the
+ * fixture is the only exercise of this branch. The verbatim line survives in
+ * `signature`.
  */
-const rxFunc = /^(\$\{(\w+)\}|:{1,3})?(\w+(?:<.*?>)?)\((.*)\)(.*)$/;
+const rxFunc = /^(\$\{(\w+)\}|:{1,3})?(\w+)(?:<.*?>)?\((.*)\)(.*)$/;
 
 /**
  * Tail after the closing paren: flags, optional `:type` return, optional
@@ -261,24 +270,69 @@ export function parseFunctionLine(line: string, category: string): FunctionInfo 
 	return fn;
 }
 
-/** Try to read one `name[index][flags][:type]` declaration line. */
-export function parseVariableLine(line: string, category: string, builtin: boolean): VariableInfo | null {
+/** The pieces of one `name[index][flags][^feature][:type]` declaration line. */
+interface DeclParts {
+	name: string;
+	/** `[index]` array data, when the name is followed by one. */
+	range?: string;
+	/** Flag characters after the name - `[~*$£#@&]*` (rxVar $4). */
+	flags: string;
+	/** `:type` annotation (rxVar $6). */
+	type?: string;
+}
+
+/** Split one declaration line into its pieces, or null if it is not one. */
+function parseDeclLine(line: string): DeclParts | null {
 	const m = rxVar.exec(line);
 	if (!m) { return null; }
-	const name = m[2];
-	const range = m[3];
-	const flags = m[4] || '';
-	const type = m[6];
+	const parts: DeclParts = { name: m[2], flags: m[4] || '' };
+	if (m[3] !== undefined) { parts.range = m[3]; }
+	if (m[6]) { parts.type = m[6]; }
+	return parts;
+}
+
+function variableFrom(d: DeclParts, category: string, builtin: boolean): VariableInfo {
 	const v: VariableInfo = {
-		name,
-		readOnly: hasFlag(flags, '*'),
-		perPlayer: range !== undefined && /^\[\s*player\s*\]$/i.test(range),
-		constant: hasFlag(flags, '#'),
+		name: d.name,
+		readOnly: hasFlag(d.flags, '*'),
+		perPlayer: d.range !== undefined && /^\[\s*player\s*\]$/i.test(d.range),
+		constant: hasFlag(d.flags, '#'),
 		category,
 		builtin,
 	};
-	if (type) { v.type = type; }
+	if (d.type) { v.type = d.type; }
 	return v;
+}
+
+/**
+ * A declaration whose flags contain `#` is a constant, not a variable
+ * (GmlParseAPI.hx:251-252). The remaining flags are spelled the same way they
+ * are on a function: `&` deprecated (GmlParseAPI.hx:243), `$`/`£` spelling
+ * twin, and `:type` is the declared type (GmlParseAPI.hx:244-249).
+ *
+ * `$`/`£` is the one place this port records more than GMEdit does. The rxVar
+ * branch (GmlParseAPI.hx:235-303) parses the two characters into `flags` but
+ * never reads them back; the spelling check exists only on the function path
+ * (GmlParseAPI.hx:191). No declaration in either dump carries one, so this
+ * costs nothing today - it is recorded for consistency with functions, so that
+ * a future dump that does declare a spelling twin sorts the same way on both
+ * paths. See NTGML-SPEC.md §5.2.
+ */
+function constantFrom(d: DeclParts, category: string): ConstantInfo {
+	const c: ConstantInfo = {
+		name: d.name,
+		category,
+		spelling: spellingOf(d.flags),
+		deprecated: hasFlag(d.flags, '&'),
+	};
+	if (d.type) { c.type = d.type; }
+	return c;
+}
+
+/** Try to read one `name[index][flags][:type]` declaration line. */
+export function parseVariableLine(line: string, category: string, builtin: boolean): VariableInfo | null {
+	const d = parseDeclLine(line);
+	return d === null ? null : variableFrom(d, category, builtin);
 }
 
 // --- entry points --------------------------------------------------------
@@ -331,17 +385,12 @@ export function parseApi(src: string): ApiModel {
 			continue;
 		}
 
-		const v = parseVariableLine(line, category, false);
-		if (v) {
-			if (v.constant) {
-				constants.push({
-					name: v.name,
-					category,
-					spelling: null,
-					deprecated: false,
-				});
+		const d = parseDeclLine(line);
+		if (d) {
+			if (hasFlag(d.flags, '#')) {
+				constants.push(constantFrom(d, category));
 			} else {
-				variables.push(v);
+				variables.push(variableFrom(d, category, false));
 			}
 		}
 	}

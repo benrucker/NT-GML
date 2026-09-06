@@ -50,9 +50,28 @@
 		},
 		{
 			"category": "Constants",
-			"deprecated": false,
+			"deprecated": true,
 			"name": "deprecated_const",
 			"spelling": null
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "uk_twin_const",
+			"spelling": "uk"
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "us_twin_const",
+			"spelling": "us"
+		},
+		{
+			"category": "Constants",
+			"deprecated": false,
+			"name": "typed_const",
+			"spelling": null,
+			"type": "int"
 		}
 	],
 	"functions": [
@@ -468,7 +487,7 @@
 			],
 			"category": "Arguments",
 			"deprecated": false,
-			"name": "generic_name<T>",
+			"name": "generic_name",
 			"pure": false,
 			"raw": false,
 			"returnType": "T",

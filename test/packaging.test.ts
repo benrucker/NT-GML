@@ -17,39 +17,110 @@ import { ROOT, read } from './helpers';
 
 const exists = (rel: string) => fs.existsSync(path.join(ROOT, rel));
 
+/** `package.json`, in the shape these tests read it. */
+interface Manifest {
+	version: string;
+	license?: string;
+	icon?: string;
+	contributes?: {
+		languages?: { id: string; configuration?: string }[];
+		grammars?: { language: string; scopeName: string; path: string }[];
+	};
+}
+
+const manifest = (): Manifest => JSON.parse(read(path.join(ROOT, 'package.json'))) as Manifest;
+
 test('packaging: LICENSE exists and package.json declares MIT', () => {
 	assert.ok(exists('LICENSE'), 'no LICENSE at the repository root');
 	assert.match(read(path.join(ROOT, 'LICENSE')), /MIT License/);
 
-	const pkg = JSON.parse(read(path.join(ROOT, 'package.json'))) as { license?: string };
-	assert.equal(pkg.license, 'MIT');
+	assert.equal(manifest().license, 'MIT');
 });
 
-test('packaging: every relative link in README.md resolves', () => {
-	// Prose links only: fenced blocks and inline code spans are stripped first,
-	// so a path inside `...` or a shell snippet is not treated as a link.
-	// This is a stripper, not a Markdown parser, and does not need to become
-	// one. Forms it gets wrong, none of which the README uses today:
-	//   - reference-style links (`[a][ref]`), links broken across a line, and
-	//     angle-bracket targets `[a](<b>)` are simply not seen;
-	//   - a fence indented 1-3 spaces, and a 4-space-indented code block, are
-	//     scanned as prose, so a path in one would be a false positive;
-	//   - a line with stray backticks on both sides of a link lets the span
-	//     stripper swallow the link, so a broken link there goes unnoticed.
-	const readme = read(path.join(ROOT, 'README.md'))
-		.replace(/^```[\s\S]*?^```/gm, '')
-		.replace(/`[^`\n]*`/g, '');
+/**
+ * A Markdown file's prose, with fenced blocks and inline code spans removed,
+ * so a path inside `...` or a shell snippet is not read as a link.
+ *
+ * This is a stripper, not a Markdown parser, and does not need to become one.
+ * Forms it gets wrong, none of which these two files use today:
+ *   - reference-style links (`[a][ref]`), links broken across a line, and
+ *     angle-bracket targets `[a](<b>)` are simply not seen;
+ *   - a fence indented 1-3 spaces, and a 4-space-indented code block, are
+ *     scanned as prose, so a path in one would be a false positive;
+ *   - a line with stray backticks on both sides of a link lets the span
+ *     stripper swallow the link, so a broken link there goes unnoticed.
+ */
+const prose = (rel: string): string => read(path.join(ROOT, rel))
+	.replace(/^```[\s\S]*?^```/gm, '')
+	.replace(/`[^`\n]*`/g, '');
 
+/** Relative link targets in `rel` that do not name a file in the repo. */
+const brokenLinks = (rel: string): string[] => {
 	const missing: string[] = [];
-	for (const m of readme.matchAll(/\]\((?!https?:|#)([^)]+)\)/g)) {
+	for (const m of prose(rel).matchAll(/\]\((?!https?:|#)([^)]+)\)/g)) {
 		// `[a](b "title")`: the target ends at the first whitespace. A `#frag`
 		// suffix names a heading in the target file, so drop it.
 		const target = decodeURIComponent(m[1].split(/\s/)[0].split('#')[0]);
-		if (!exists(target)) { missing.push(target); }
+		if (!exists(target)) { missing.push(rel + ' -> ' + target); }
 	}
-	assert.deepEqual(missing, []);
+	return missing;
+};
+
+test('packaging: every relative link in README.md and CHANGELOG.md resolves', () => {
+	assert.deepEqual([...brokenLinks('README.md'), ...brokenLinks('CHANGELOG.md')], []);
 	// The cheat sheet moved to docs/ in section 5.5 and the README links it.
 	assert.ok(exists('docs/NTT Modding Cheat Sheet.md'), 'cheat sheet is not in docs/');
+});
+
+test('packaging: CHANGELOG.md has a section for the version in package.json', () => {
+	const version = manifest().version;
+	const changelog = read(path.join(ROOT, 'CHANGELOG.md'));
+	assert.ok(changelog.includes('## [' + version + ']'),
+		'CHANGELOG.md has no "## [' + version + ']" heading');
+});
+
+test('packaging: README.md does not hard-code a .vsix version', () => {
+	// `pnpm package` names the file after package.json's version, so a literal
+	// `ntgml-0.1.0.vsix` in the README goes stale the moment the version moves.
+	// A version that still matches is allowed; anything else is drift.
+	const version = manifest().version;
+	const stale = [...read(path.join(ROOT, 'README.md')).matchAll(/ntgml-\d+\.\d+\.\d+\.vsix/g)]
+		.map((m) => m[0])
+		.filter((name) => name !== 'ntgml-' + version + '.vsix');
+	assert.deepEqual(stale, []);
+});
+
+test('packaging: .gitignore keeps build output and .vsix files out of the repo', () => {
+	// Literal lines, like the .vscodeignore check below: enough to catch one
+	// being dropped by hand.
+	const lines = read(path.join(ROOT, '.gitignore')).split(/\r?\n/).map((l) => l.trim());
+	for (const ignored of ['out/', '*.vsix']) {
+		assert.ok(lines.indexOf(ignored) >= 0, '.gitignore lost the line ignoring ' + ignored);
+	}
+});
+
+test('packaging: CI regenerates and diffs, and uploads a .vsix from both runners', () => {
+	// Literal substrings, not a YAML parse: this catches the step being
+	// deleted or the artifact name losing its per-OS suffix, which is all it
+	// is here to do. The workflow itself is what actually runs on CI.
+	const ci = read(path.join(ROOT, '.github/workflows/ci.yml'));
+	assert.ok(ci.includes('pnpm gen'), 'CI no longer runs pnpm gen');
+	assert.ok(ci.includes('git diff --exit-code'),
+		'CI no longer fails on a stale committed table or grammar');
+	assert.ok(ci.includes('name: vsix-${{ matrix.os }}'),
+		'the .vsix artifact is not named per OS, so one runner overwrites the other');
+	assert.ok(!/if:.*matrix\.os/.test(ci),
+		'a step is conditional on matrix.os again; both runners should upload');
+});
+
+test('packaging: test/README.md names every test file', () => {
+	const files = fs.readdirSync(path.join(ROOT, 'test'))
+		.filter((f) => f.endsWith('.test.ts'))
+		.sort();
+	assert.ok(files.length > 0, 'no test files found');
+	const readme = read(path.join(ROOT, 'test/README.md'));
+	const undocumented = files.filter((f) => !readme.includes(f));
+	assert.deepEqual(undocumented, [], 'test/README.md has no row for these');
 });
 
 test('packaging: .vscodeignore has no line excluding a file the .vsix needs', () => {
@@ -63,21 +134,13 @@ test('packaging: .vscodeignore has no line excluding a file the .vsix needs', ()
 		'resources/**', 'resources/icon.png', 'resources/']) {
 		assert.ok(lines.indexOf(kept) < 0, '.vscodeignore has a line excluding ' + kept);
 	}
+	// `.claude/**` is not a source directory: agent worktrees can appear under
+	// it, and vsce would otherwise sweep a whole second copy of the repo in.
 	for (const dropped of ['api/**', 'src/**', 'tools/**', 'test/**', 'docs/**',
-		'out/src/**', 'out/test/**', 'out/tools/**']) {
+		'.claude/**', 'out/src/**', 'out/test/**', 'out/tools/**']) {
 		assert.ok(lines.indexOf(dropped) >= 0, '.vscodeignore lost the line excluding ' + dropped);
 	}
 });
-
-interface Manifest {
-	icon?: string;
-	contributes?: {
-		languages?: { id: string; configuration?: string }[];
-		grammars?: { language: string; scopeName: string; path: string }[];
-	};
-}
-
-const manifest = (): Manifest => JSON.parse(read(path.join(ROOT, 'package.json'))) as Manifest;
 
 test('packaging: package.json ships an icon and it is a square PNG', () => {
 	const icon = manifest().icon;

@@ -22,10 +22,22 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
+      # Before the tests, so a stale committed table fails fast and the suite
+      # then runs against a tree the diff has just proven clean. `pnpm gen`
+      # compiles tools/ itself. A runner has no %LOCALAPPDATA% dump, so the
+      # generator falls back to the vendored api/ntt-100.034/ copy - the same
+      # input generated.test.ts and grammar.test.ts use, checked here against
+      # the real working tree rather than a scratch directory.
+      - name: generated tables and grammars are up to date
+        shell: bash # windows-latest defaults to pwsh, which has no `{ …; }` group
+        run: |
+          pnpm gen
+          git diff --exit-code || { git status --porcelain; exit 1; }
       - run: pnpm test
       - run: pnpm package
+      # Both runners upload: the .vsix is built on each, and a Windows-only
+      # packaging failure is worth seeing as an artifact, not just a log.
       - uses: actions/upload-artifact@v4
-        if: matrix.os == 'ubuntu-latest'
         with:
-          name: vsix
+          name: vsix-${{ matrix.os }}
           path: '*.vsix'

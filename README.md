@@ -6,12 +6,14 @@ Every phase of the port plan has landed — see the progress table in [NTGML-POR
 
 ## Installing
 
-Build a `.vsix` yourself, or download the `vsix` artifact from a CI run on `main`, then:
+Build a `.vsix` yourself, or download the `vsix-ubuntu-latest` or `vsix-windows-latest` artifact from a CI run on `main`, then:
 
 ```
 pnpm install && pnpm package
-code --install-extension ntgml-0.1.0.vsix
+code --install-extension ntgml-<version>.vsix
 ```
+
+`pnpm package` names the file after the `version` field in `package.json`, so `<version>` is whatever that says - there is no second place to keep it in step.
 
 ## The two dialects
 
@@ -81,9 +83,9 @@ Built-in instance variables (`x`, `sprite_index`, `speed`) are deliberately **no
 | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/extension.ts`, `src/completionProvider.ts` | The extension entry point, and the thin VS Code layer that registers the completion, hover and signature-help providers. Logic lives in `src/provider/`. |
 | `src/provider/`                                 | What those providers actually do, in five modules that never import `vscode`: `model`, `format`, `items`, `context`, `signature`.                     |
-| `src/generated/`                                | Identifier tables generated from the API dump: functions, constants, variables, assets, and per-function docs. Never edit by hand.                   |
-| `src/tables/`                                   | Hand-maintained tables: mod events per mod type, `Custom*` object callbacks, button names, keywords, `ntt-names.ts` (the NTT-only families that drive the sort tier), and the shared types. |
-| `tools/`                                        | The generators. `parse-api.ts` reads the dump format, `parse-docs.ts` pulls prose out of the docs sources, `generate-api.ts` writes `src/generated/`, `generate-grammar.ts` writes the two NTGML grammars, and `render-icon.ts` draws `resources/icon.png`. |
+| `src/generated/`                                | Everything the generators write, never edited by hand: `functions.ts`, `constants.ts`, `variables.ts`, `assets.ts`, per-function prose in `docs.ts` (mirrored as `docs.json` for tools that cannot import TypeScript), per-object instance variables in `object-fields.ts`, and `meta.ts`, which records the dump's `game_version` and its generation stamp. |
+| `src/tables/`                                   | Hand-maintained tables and the lookups over the generated ones: mod events per mod type (`events.ts`), `Custom*` object callbacks (`custom-objects.ts`), button names, keywords, `ntt-names.ts` (the NTT-only families that drive the sort tier), the shared types, and `object-fields.ts`, which walks the generated object table's parent chain (`fieldsFor`, `declaringObject`, `knownFieldObject`). |
+| `tools/`                                        | The generators. `parse-api.ts` reads the dump format, `parse-docs.ts` pulls prose out of the docs sources, `parse-fields.ts` reads the per-object `fields.gml`, `parse-object-docs.ts` reads the six object pages; `generate-api.ts` merges all four into `src/generated/`, `generate-grammar.ts` writes the two NTGML grammars, and `render-icon.ts` draws `resources/icon.png`. |
 | `api/ntt-100.034/`                              | The vendored `/gmlapi` dump this build is generated from. Source of truth.                                                                           |
 | `api/ntt-100.022-reference/`                    | An older, hand-annotated dump. Fills argument-type gaps the live dump leaves, and supplies `default.gml`'s built-in instance variables.              |
 | `api/ntt-docs/`                                 | A copy of the [bits-of-nuclear-throne](https://github.com/YAL-Game-Tools/bits-of-nuclear-throne) docs sources.                                       |
@@ -119,7 +121,7 @@ You get a fresh dump by typing `/gmlapi` in the game's chat, which writes to `%L
 
 To move the repo to a newer NTT release, copy that folder into `api/` as a **new** version directory named after the game version (`api/ntt-100.035/`, alongside the existing `api/ntt-100.034/`), give it a `README.md` in the same shape as the current one, point the generator at it, and rerun `pnpm gen`. Old version directories stay; `api/ntt-100.022-reference/` in particular is still needed, because it is the only source of `default.gml`'s 57 built-in instance variables and it fills argument-type gaps that the live dump leaves.
 
-CI runs lint, test, and package on Ubuntu and Windows for every push to `main` and every pull request.
+CI runs lint, a `pnpm gen` diff check, test, and package on Ubuntu and Windows for every push to `main` and every pull request, and uploads the built `.vsix` from each as `vsix-ubuntu-latest` and `vsix-windows-latest`. The diff check regenerates the tables and grammars on the runner and fails if anything in the working tree moved, so a commit that changes the generator or a vendored input without rerunning `pnpm gen` cannot land.
 
 ## Other documents
 

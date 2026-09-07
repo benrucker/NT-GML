@@ -2,6 +2,7 @@
 .vscode-test/**
 .github/**
 .git/**
+.claude/**
 out/test/**
 out/tools/**
 out/src/**

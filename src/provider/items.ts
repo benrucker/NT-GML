@@ -38,7 +38,8 @@ import { docFor } from '../generated/docs';
 import { functions } from '../generated/functions';
 import { variables } from '../generated/variables';
 import { buttons } from '../tables/buttons';
-import { customObjects, fieldsFor } from '../tables/custom-objects';
+import { customObject, customObjects, fieldsFor } from '../tables/custom-objects';
+import { declaringObject, fieldsFor as objectFieldsFor } from '../tables/object-fields';
 import { eventsFor } from '../tables/events';
 import {
 	builtinConstants,
@@ -54,6 +55,7 @@ import {
 	FunctionInfo,
 	KeywordInfo,
 	ModType,
+	ObjectFieldInfo,
 } from '../tables/types';
 import { CursorContext } from './context';
 import {
@@ -66,6 +68,7 @@ import {
 	fieldDocumentation,
 	functionDocumentation,
 	keywordDocumentation,
+	objectFieldDocumentation,
 	pragmaDocumentation,
 	renderConstant,
 	renderEvent,
@@ -402,28 +405,82 @@ function fieldItem(field: CustomObjectField): ItemData {
 	};
 }
 
+/**
+ * One instance variable from the generated per-object table.
+ *
+ * Unlike `fieldItem` this does not look for other objects that have the same
+ * name: with 489 objects in the table that scan would be quadratic, and the
+ * answer ("271 of the 489 objects have `team`, 35 of them declaring it") would
+ * not help anyone. The detail line names the receiver and, when the name is
+ * inherited, the object that actually declares it.
+ *
+ * `labelDescription` is set so the item stays distinguishable from a function
+ * or constant of the same name when both are offered in a `with (Obj)` body.
+ * That is rarer than it sounds: no field name in the table collides with a
+ * function, and exactly one collides with anything at all - `Crown.new`, which
+ * is also the modern-dialect keyword.
+ */
+function objectFieldItem(field: ObjectFieldInfo, objectName: string, declaredBy: string): ItemData {
+	const detail = 'instance variable of ' + objectName
+		+ (declaredBy === objectName ? '' : ' (inherited from ' + declaredBy + ')')
+		+ (field.type === undefined ? '' : ' : ' + field.type);
+	return {
+		name: field.name,
+		kind: 'field',
+		detail: detail,
+		labelDescription: 'field',
+		insertText: field.name,
+		snippet: false,
+		documentation: objectFieldDocumentation(field, objectName, declaredBy),
+		sortText: sortText(TIER_CONTEXT, RANK_NORMAL, field.name),
+		deprecated: false,
+	};
+}
+
+/**
+ * Cache key. A real object name can never be `*`, but spell the two cases out
+ * so the unresolved-receiver union cannot collide with an object.
+ */
+function fieldCacheKey(objectName?: string): string {
+	return objectName === undefined ? '*' : 'o:' + objectName;
+}
+
 const fieldCache: { [key: string]: ItemData[] } = {};
 
 /**
- * Callback fields of one custom object, or the union of every custom object's
- * fields when the receiver could not be resolved. A name the tables do not
- * know has no fields.
+ * Fields of one object, or - when the receiver could not be resolved - the
+ * union of the hand-written `Custom*` table only. The union stays hand-only on
+ * purpose: it is what an `on_` prefix with no receiver in sight asks for, and
+ * merging 489 objects' instance variables into it would bury the callbacks.
+ *
+ * For a named object the two tables are unioned: the `Custom*` entry's
+ * callback fields (which carry their own prose) win over a same-named entry in
+ * the generated table. A name neither table knows has no fields.
  */
 export function fieldItems(objectName?: string): ItemData[] {
-	const key = objectName ?? '*';
+	const key = fieldCacheKey(objectName);
 	if (Object.prototype.hasOwnProperty.call(fieldCache, key)) { return fieldCache[key]; }
-	const fields: CustomObjectField[] = [];
+	const items: ItemData[] = [];
 	const seen: { [n: string]: true } = {};
 	const sources = objectName === undefined ? customObjects.map((o) => o.name) : [objectName];
 	for (const source of sources) {
+		if (customObject(source) === undefined) { continue; }
 		for (const field of fieldsFor(source)) {
 			if (seen[field.name] === true) { continue; }
 			seen[field.name] = true;
-			fields.push(field);
+			items.push(fieldItem(field));
 		}
 	}
-	fields.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
-	fieldCache[key] = fields.map(fieldItem);
+	if (objectName !== undefined) {
+		for (const field of objectFieldsFor(objectName)) {
+			if (seen[field.name] === true) { continue; }
+			seen[field.name] = true;
+			items.push(objectFieldItem(
+				field, objectName, declaringObject(objectName, field.name) ?? objectName));
+		}
+	}
+	items.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+	fieldCache[key] = items;
 	return fieldCache[key];
 }
 

@@ -93,16 +93,58 @@
 20all	builtin-constant	all	all
 20and	keyword	and	and
 
-## on_ prefix with a resolved receiver (5487 items)
+## on_ prefix with a resolved receiver (5499 items)
 10candie	field	candie	candie
+10canfly	field	canfly	canfly
+10canmelee	field	canmelee	canmelee
+10corpse	field	corpse	corpse
 10hitid	field	hitid	hitid
+10kills	field	kills	kills
 10maxhealth	field	maxhealth	maxhealth
 10meleedamage	field	meleedamage	meleedamage
 10my_health	field	my_health	my_health
 10nexthurt	field	nexthurt	nexthurt
 10on_begin_step	field	on_begin_step	on_begin_step
 10on_cleanup	field	on_cleanup	on_cleanup
-10on_death	field	on_death	on_death
-10on_destroy	field	on_destroy	on_destroy
-10on_draw	field	on_draw	on_draw
-10on_end_step	field	on_end_step	on_end_step
+
+## inside a with (Player) body (5587 items)
+10accuracy	field	accuracy	accuracy
+10aimDirection	field	aimDirection	aimDirection
+10alias	field	alias	alias
+10ammo	field	ammo	ammo
+10angle	field	angle	angle
+10aotDirection	field	aotDirection	aotDirection
+10back	field	back	back
+10bcan_shoot	field	bcan_shoot	bcan_shoot
+10bcurse	field	bcurse	bcurse
+10binterfacepop	field	binterfacepop	binterfacepop
+10bleed	field	bleed	bleed
+10boilcap	field	boilcap	boilcap
+
+## inside a with (Crown) body, modern dialect (5474 items)
+10maxspeed	field	maxspeed	maxspeed
+10new	field	new	new
+10spr_idle	field	spr_idle	spr_idle
+10spr_shadow	field	spr_shadow	spr_shadow
+10spr_shadow_x	field	spr_shadow_x	spr_shadow_x
+10spr_shadow_y	field	spr_shadow_y	spr_shadow_y
+10spr_walk	field	spr_walk	spr_walk
+10walking	field	walking	walking
+20#define	preprocessor	#define	#define
+20#endregion	preprocessor	#endregion	#endregion
+20#macro	preprocessor	#macro	#macro
+20#pragma	preprocessor	#pragma	#pragma
+
+## on_ after a CustomEnemy creation, past a closed with (Player) block (37 items)
+10candie	field	candie	candie
+10canfly	field	canfly	canfly
+10canmelee	field	canmelee	canmelee
+10corpse	field	corpse	corpse
+10hitid	field	hitid	hitid
+10kills	field	kills	kills
+10maxhealth	field	maxhealth	maxhealth
+10meleedamage	field	meleedamage	meleedamage
+10my_health	field	my_health	my_health
+10nexthurt	field	nexthurt	nexthurt
+10on_begin_step	field	on_begin_step	on_begin_step
+10on_cleanup	field	on_cleanup	on_cleanup

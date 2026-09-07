@@ -216,6 +216,7 @@ field	sprite_visible	10sprite_visible	available on CustomObject
 ## fields CustomHitme
 field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
 field	my_health	10my_health	available on CustomHitme, CustomEnemy, CustomProp
+field	nexthurt	10nexthurt	instance variable of CustomHitme (inherited from hitme) : number
 field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
@@ -231,12 +232,18 @@ field	spr_dead	10spr_dead	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
+field	spr_shadow_x	10spr_shadow_x	instance variable of CustomHitme (inherited from hitme) : number
+field	spr_shadow_y	10spr_shadow_y	instance variable of CustomHitme (inherited from hitme) : number
 field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
 field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
 
 ## fields CustomEnemy
 field	candie	10candie	available on CustomEnemy
+field	canfly	10canfly	instance variable of CustomEnemy (inherited from enemy)
+field	canmelee	10canmelee	instance variable of CustomEnemy (inherited from enemy)
+field	corpse	10corpse	instance variable of CustomEnemy (inherited from enemy)
 field	hitid	10hitid	available on CustomEnemy
+field	kills	10kills	instance variable of CustomEnemy (inherited from enemy)
 field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
 field	meleedamage	10meleedamage	available on CustomEnemy
 field	my_health	10my_health	available on CustomHitme, CustomEnemy, CustomProp
@@ -250,32 +257,51 @@ field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEn
 field	on_hurt	10on_hurt	available on CustomHitme, CustomEnemy
 field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
 field	raddrop	10raddrop	available on CustomHitme, CustomEnemy
+field	right	10right	instance variable of CustomEnemy (inherited from enemy)
 field	size	10size	available on CustomHitme, CustomEnemy, CustomProp
 field	snd_dead	10snd_dead	available on CustomHitme, CustomEnemy
 field	snd_hurt	10snd_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_mele	10snd_mele	instance variable of CustomEnemy (inherited from enemy)
+field	spr_chrg	10spr_chrg	instance variable of CustomEnemy (inherited from enemy)
 field	spr_dead	10spr_dead	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_fire	10spr_fire	instance variable of CustomEnemy (inherited from enemy)
 field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
+field	spr_shadow_x	10spr_shadow_x	instance variable of CustomEnemy (inherited from hitme) : number
+field	spr_shadow_y	10spr_shadow_y	instance variable of CustomEnemy (inherited from hitme) : number
 field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
+field	target	10target	instance variable of CustomEnemy (inherited from enemy)
 field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
+field	wepseed	10wepseed	instance variable of CustomEnemy (inherited from enemy)
 field	wkick	10wkick	available on CustomEnemy
 
 ## fields CustomProp
 field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
 field	my_health	10my_health	available on CustomHitme, CustomEnemy, CustomProp
+field	nexthurt	10nexthurt	instance variable of CustomProp (inherited from hitme) : number
 field	on_death	10on_death	available on CustomEnemy, CustomProp
 field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
 field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	raddrop	10raddrop	instance variable of CustomProp (inherited from prop)
 field	size	10size	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_dead	10snd_dead	instance variable of CustomProp (inherited from hitme) : sound
 field	snd_hurt	10snd_hurt	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_dead	10spr_dead	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
 field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_shadow	10spr_shadow	instance variable of CustomProp (inherited from hitme) : sprite
+field	spr_shadow_x	10spr_shadow_x	instance variable of CustomProp (inherited from hitme) : number
+field	spr_shadow_y	10spr_shadow_y	instance variable of CustomProp (inherited from hitme) : number
+field	spr_walk	10spr_walk	instance variable of CustomProp (inherited from hitme) : sprite
+field	team	10team	instance variable of CustomProp (inherited from hitme) : number
 
 ## fields CustomProjectile
+field	creator	10creator	instance variable of CustomProjectile (inherited from projectile)
 field	damage	10damage	available on CustomProjectile, CustomSlash
+field	deflected	10deflected	instance variable of CustomProjectile (inherited from projectile)
 field	force	10force	available on CustomProjectile, CustomSlash
+field	hitid	10hitid	instance variable of CustomProjectile (inherited from projectile)
 field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
 field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
@@ -286,11 +312,15 @@ field	on_hit	10on_hit	available on CustomProjectile, CustomSlash
 field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
 field	on_wall	10on_wall	available on CustomProjectile, CustomSlash
 field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
+field	typ	10typ	instance variable of CustomProjectile (inherited from projectile)
 
 ## fields CustomSlash
 field	candeflect	10candeflect	available on CustomSlash
+field	creator	10creator	instance variable of CustomSlash (inherited from projectile)
 field	damage	10damage	available on CustomProjectile, CustomSlash
+field	deflected	10deflected	instance variable of CustomSlash (inherited from projectile)
 field	force	10force	available on CustomProjectile, CustomSlash
+field	hitid	10hitid	instance variable of CustomSlash (inherited from projectile)
 field	on_anim	10on_anim	available on CustomProjectile, CustomSlash, CustomChest
 field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
 field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
@@ -345,6 +375,414 @@ field	script	10script	available on CustomScript, CustomBeginStep, CustomStep, Cu
 
 ## fields CustomDraw
 field	script	10script	available on CustomScript, CustomBeginStep, CustomStep, CustomEndStep, CustomDraw
+
+## fields Player
+field	accuracy	10accuracy	instance variable of Player : number
+field	aimDirection	10aimDirection	instance variable of Player : number
+field	alias	10alias	instance variable of Player
+field	ammo	10ammo	instance variable of Player : array<number>
+field	angle	10angle	instance variable of Player : number
+field	aotDirection	10aotDirection	instance variable of Player : number
+field	back	10back	instance variable of Player : number
+field	bcan_shoot	10bcan_shoot	instance variable of Player : number
+field	bcurse	10bcurse	instance variable of Player : number
+field	binterfacepop	10binterfacepop	instance variable of Player : number
+field	bleed	10bleed	instance variable of Player : number
+field	boilcap	10boilcap	instance variable of Player : number
+field	breload	10breload	instance variable of Player : number
+field	bskin	10bskin	instance variable of Player
+field	bwep	10bwep	instance variable of Player
+field	bwepangle	10bwepangle	instance variable of Player : number
+field	bwepflip	10bwepflip	instance variable of Player : number
+field	bwkick	10bwkick	instance variable of Player : number
+field	calc_pickup_attract_distance	10calc_pickup_attract_distance	instance variable of Player : calc_pickup_attract_distance()
+field	calc_rad_attract_distance	10calc_rad_attract_distance	instance variable of Player : calc_rad_attract_distance()
+field	calc_reload_speed	10calc_reload_speed	instance variable of Player : calc_reload_speed()
+field	can_shoot	10can_shoot	instance variable of Player : number
+field	canaim	10canaim	instance variable of Player : bool
+field	candie	10candie	instance variable of Player : bool
+field	canfeet	10canfeet	instance variable of Player : bool
+field	canfire	10canfire	instance variable of Player : bool
+field	canpick	10canpick	instance variable of Player : bool
+field	canrogue	10canrogue	instance variable of Player : number
+field	canscope	10canscope	instance variable of Player : bool
+field	canspec	10canspec	instance variable of Player : bool
+field	canspirit	10canspirit	instance variable of Player : number
+field	canswap	10canswap	instance variable of Player : bool
+field	canwalk	10canwalk	instance variable of Player : bool
+field	chickencorpse	10chickencorpse	instance variable of Player : Corpse
+field	chickendeaths	10chickendeaths	instance variable of Player : number
+field	clicked	10clicked	instance variable of Player : number
+field	curse	10curse	instance variable of Player : number
+field	dogammo	10dogammo	instance variable of Player : number
+field	drawempty	10drawempty	instance variable of Player : number
+field	drawemptyb	10drawemptyb	instance variable of Player : number
+field	drawlowhp	10drawlowhp	instance variable of Player : number
+field	footextra	10footextra	instance variable of Player : number
+field	footkind	10footkind	instance variable of Player : number
+field	footstep	10footstep	instance variable of Player : number
+field	frogcharge	10frogcharge	instance variable of Player : number
+field	grant_ammo	10grant_ammo	instance variable of Player : grant_ammo(type, amount, slot, source)
+field	grant_health	10grant_health	instance variable of Player : grant_health(amount, source)
+field	gunangle	10gunangle	instance variable of Player : number
+field	gunshine	10gunshine	instance variable of Player : number
+field	hammerhead	10hammerhead	instance variable of Player : number
+field	hammering	10hammering	instance variable of Player : number
+field	horrorcharge	10horrorcharge	instance variable of Player : number
+field	horrornorad	10horrornorad	instance variable of Player : number
+field	horrorstopsnd	10horrorstopsnd	instance variable of Player : number
+field	index	10index	instance variable of Player : int
+field	infammo	10infammo	instance variable of Player : number
+field	interfacepop	10interfacepop	instance variable of Player : number
+field	joyaimx	10joyaimx	instance variable of Player : number
+field	joyaimy	10joyaimy	instance variable of Player : number
+field	joyx	10joyx	instance variable of Player : number
+field	joyy	10joyy	instance variable of Player : number
+field	lasthit	10lasthit	instance variable of Player : number
+field	lsthealth	10lsthealth	instance variable of Player
+field	maxhealth	10maxhealth	instance variable of Player (inherited from hitme) : number
+field	maxspeed	10maxspeed	instance variable of Player : number
+field	maxwep	10maxwep	instance variable of Player : number
+field	my_health	10my_health	instance variable of Player (inherited from hitme)
+field	nearwep	10nearwep	instance variable of Player
+field	nexthurt	10nexthurt	instance variable of Player (inherited from hitme) : number
+field	notoxic	10notoxic	instance variable of Player : bool
+field	p	10p	instance variable of Player
+field	prepareScoreGet	10prepareScoreGet	instance variable of Player : number
+field	race	10race	instance variable of Player : string
+field	race_id	10race_id	instance variable of Player
+field	racemax	10racemax	instance variable of Player
+field	raddrop	10raddrop	instance variable of Player : number
+field	reload	10reload	instance variable of Player : number
+field	reloadspeed	10reloadspeed	instance variable of Player : number
+field	right	10right	instance variable of Player : number
+field	rogueammo	10rogueammo	instance variable of Player : number
+field	roll	10roll	instance variable of Player : number
+field	safeheadloss	10safeheadloss	instance variable of Player : number
+field	showhp	10showhp	instance variable of Player : number
+field	size	10size	instance variable of Player (inherited from hitme) : number
+field	smoke	10smoke	instance variable of Player : number
+field	snd_chst	10snd_chst	instance variable of Player : sound
+field	snd_cptn	10snd_cptn	instance variable of Player : sound
+field	snd_crwn	10snd_crwn	instance variable of Player : sound
+field	snd_dead	10snd_dead	instance variable of Player (inherited from hitme) : sound
+field	snd_hurt	10snd_hurt	instance variable of Player (inherited from hitme) : sound
+field	snd_idpd	10snd_idpd	instance variable of Player : sound
+field	snd_lowa	10snd_lowa	instance variable of Player : sound
+field	snd_lowh	10snd_lowh	instance variable of Player : sound
+field	snd_spch	10snd_spch	instance variable of Player : sound
+field	snd_thrn	10snd_thrn	instance variable of Player : sound
+field	snd_valt	10snd_valt	instance variable of Player : sound
+field	snd_wrld	10snd_wrld	instance variable of Player : sound
+field	specfiring	10specfiring	instance variable of Player : bool
+field	spiriteffect	10spiriteffect	instance variable of Player : number
+field	spr_dead	10spr_dead	instance variable of Player (inherited from hitme) : sprite
+field	spr_fire	10spr_fire	instance variable of Player : sprite
+field	spr_hurt	10spr_hurt	instance variable of Player (inherited from hitme) : sprite
+field	spr_idle	10spr_idle	instance variable of Player (inherited from hitme) : sprite
+field	spr_shadow	10spr_shadow	instance variable of Player (inherited from hitme) : sprite
+field	spr_shadow_x	10spr_shadow_x	instance variable of Player (inherited from hitme) : number
+field	spr_shadow_y	10spr_shadow_y	instance variable of Player (inherited from hitme) : number
+field	spr_sit1	10spr_sit1	instance variable of Player : sprite
+field	spr_sit2	10spr_sit2	instance variable of Player : sprite
+field	spr_walk	10spr_walk	instance variable of Player (inherited from hitme) : sprite
+field	sprite_angle	10sprite_angle	instance variable of Player : number
+field	stream_submit	10stream_submit	instance variable of Player : number
+field	stuckfor	10stuckfor	instance variable of Player : number
+field	swapmove	10swapmove	instance variable of Player : number
+field	team	10team	instance variable of Player (inherited from hitme) : number
+field	turn	10turn	instance variable of Player
+field	typ_amax	10typ_amax	instance variable of Player : int[]
+field	typ_ammo	10typ_ammo	instance variable of Player : int[]
+field	typ_name	10typ_name	instance variable of Player : string[]
+field	usespec	10usespec	instance variable of Player : bool
+field	wave	10wave	instance variable of Player : number
+field	wep	10wep	instance variable of Player
+field	wepangle	10wepangle	instance variable of Player : number
+field	wepflip	10wepflip	instance variable of Player : number
+field	wepright	10wepright	instance variable of Player : number
+field	wkick	10wkick	instance variable of Player : number
+
+## fields hitme
+field	maxhealth	10maxhealth	instance variable of hitme : number
+field	my_health	10my_health	instance variable of hitme
+field	nexthurt	10nexthurt	instance variable of hitme : number
+field	size	10size	instance variable of hitme : number
+field	snd_dead	10snd_dead	instance variable of hitme : sound
+field	snd_hurt	10snd_hurt	instance variable of hitme : sound
+field	spr_dead	10spr_dead	instance variable of hitme : sprite
+field	spr_hurt	10spr_hurt	instance variable of hitme : sprite
+field	spr_idle	10spr_idle	instance variable of hitme : sprite
+field	spr_shadow	10spr_shadow	instance variable of hitme : sprite
+field	spr_shadow_x	10spr_shadow_x	instance variable of hitme : number
+field	spr_shadow_y	10spr_shadow_y	instance variable of hitme : number
+field	spr_walk	10spr_walk	instance variable of hitme : sprite
+field	team	10team	instance variable of hitme : number
+
+## fields UberCont
+field	achievementsList	10achievementsList	instance variable of UberCont : array<?>
+field	achievementsSet	10achievementsSet	instance variable of UberCont : number
+field	active_dailyseq	10active_dailyseq	instance variable of UberCont : number
+field	anniversary	10anniversary	instance variable of UberCont
+field	aprilfools	10aprilfools	instance variable of UberCont
+field	area_d	10area_d	instance variable of UberCont : number
+field	boss	10boss	instance variable of UberCont : number
+field	bossintro	10bossintro	instance variable of UberCont : number
+field	bossnamex	10bossnamex	instance variable of UberCont : number
+field	bossx	10bossx	instance variable of UberCont : number
+field	but_big	10but_big	instance variable of UberCont : sprite
+field	but_small	10but_small	instance variable of UberCont : sprite
+field	canweekly	10canweekly	instance variable of UberCont : number
+field	cbgt	10cbgt	instance variable of UberCont : Array<bool>
+field	cbst_area	10cbst_area	instance variable of UberCont : Array<int>
+field	cbst_fast	10cbst_fast	instance variable of UberCont : Array<int>
+field	cbst_kill	10cbst_kill	instance variable of UberCont : Array<int>
+field	cbst_loop	10cbst_loop	instance variable of UberCont : Array<int>
+field	cbst_race	10cbst_race	instance variable of UberCont : Array<int>
+field	cbst_strk	10cbst_strk	instance variable of UberCont : Array<int>
+field	cbst_suba	10cbst_suba	instance variable of UberCont : Array<int>
+field	cena	10cena	instance variable of UberCont : Array<bool>
+field	cgld	10cgld	instance variable of UberCont : Array<int>
+field	cgot	10cgot	instance variable of UberCont : Array<bool>
+field	char_d	10char_d	instance variable of UberCont : number
+field	charsplat	10charsplat	instance variable of UberCont : number
+field	checkupdate	10checkupdate	instance variable of UberCont : number
+field	clickeddaily	10clickeddaily	instance variable of UberCont : number
+field	clickedweekly	10clickedweekly	instance variable of UberCont : bool
+field	console	10console	instance variable of UberCont
+field	coop	10coop	instance variable of UberCont : number
+field	crown	10crown	instance variable of UberCont : int[]
+field	crown_got	10crown_got	instance variable of UberCont : Array<Array<int>>
+field	crownmax	10crownmax	instance variable of UberCont : number
+field	ctot_days	10ctot_days	instance variable of UberCont : Array<int>
+field	ctot_dead	10ctot_dead	instance variable of UberCont : Array<int>
+field	ctot_hard	10ctot_hard	instance variable of UberCont : Array<int>
+field	ctot_kill	10ctot_kill	instance variable of UberCont : Array<int>
+field	ctot_loop	10ctot_loop	instance variable of UberCont : Array<int>
+field	ctot_runs	10ctot_runs	instance variable of UberCont : Array<int>
+field	ctot_strk	10ctot_strk	instance variable of UberCont : Array<int>
+field	ctot_time	10ctot_time	instance variable of UberCont : Array<int>
+field	ctot_uniq	10ctot_uniq	instance variable of UberCont : Array<int>
+field	ctot_wins	10ctot_wins	instance variable of UberCont : Array<int>
+field	custom	10custom	instance variable of UberCont
+field	customMode	10customMode	instance variable of UberCont
+field	customRaceMap	10customRaceMap	instance variable of UberCont : ds_map
+field	cwep	10cwep	instance variable of UberCont : Array<int>
+field	daily	10daily	instance variable of UberCont : bool
+field	dailyjson	10dailyjson	instance variable of UberCont : ds_map
+field	dailyloaded	10dailyloaded	instance variable of UberCont : number
+field	dailyseq	10dailyseq	instance variable of UberCont : number
+field	dailytimer	10dailytimer	instance variable of UberCont : number
+field	dbst_area	10dbst_area	instance variable of UberCont : Array<int>
+field	dbst_kill	10dbst_kill	instance variable of UberCont : Array<int>
+field	dbst_loop	10dbst_loop	instance variable of UberCont : Array<int>
+field	dbst_race	10dbst_race	instance variable of UberCont : Array<int>
+field	dbst_suba	10dbst_suba	instance variable of UberCont : Array<int>
+field	donedaily	10donedaily	instance variable of UberCont : bool
+field	donedailyLBCheck	10donedailyLBCheck	instance variable of UberCont : bool
+field	drawhud	10drawhud	instance variable of UberCont : number
+field	drawsaving	10drawsaving	instance variable of UberCont : number
+field	drawx	10drawx	instance variable of UberCont : number
+field	drawy	10drawy	instance variable of UberCont : number
+field	get	10get	instance variable of UberCont : number
+field	get2	10get2	instance variable of UberCont : number
+field	getpauseimg	10getpauseimg	instance variable of UberCont : number
+field	getweekly	10getweekly	instance variable of UberCont : number
+field	halloween	10halloween	instance variable of UberCont
+field	hardgot	10hardgot	instance variable of UberCont : number
+field	hardmode	10hardmode	instance variable of UberCont : number
+field	hbst_area	10hbst_area	instance variable of UberCont : Array<int>
+field	hbst_kill	10hbst_kill	instance variable of UberCont : Array<int>
+field	hbst_loop	10hbst_loop	instance variable of UberCont : Array<int>
+field	hbst_race	10hbst_race	instance variable of UberCont : Array<int>
+field	hbst_suba	10hbst_suba	instance variable of UberCont : Array<int>
+field	height	10height	instance variable of UberCont : number
+field	kill_d	10kill_d	instance variable of UberCont : number
+field	kill_w	10kill_w	instance variable of UberCont : number
+field	last_ps_eth_counter	10last_ps_eth_counter	instance variable of UberCont : number
+field	lastarea	10lastarea	instance variable of UberCont : number
+field	lb_data	10lb_data	instance variable of UberCont : number
+field	lb_index	10lb_index	instance variable of UberCont : number
+field	lb_postPending	10lb_postPending	instance variable of UberCont : bool
+field	lb_score	10lb_score	instance variable of UberCont : number
+field	letterbox	10letterbox	instance variable of UberCont : number
+field	letterimg	10letterimg	instance variable of UberCont : number
+field	lisDestroyWalls	10lisDestroyWalls	instance variable of UberCont : ds_list
+field	lisNewFloorExplos	10lisNewFloorExplos	instance variable of UberCont : ds_list
+field	lisTopsVis	10lisTopsVis	instance variable of UberCont : ds_list
+field	lisWallsUpdate	10lisWallsUpdate	instance variable of UberCont : number
+field	lisWallsUpdateBounds	10lisWallsUpdateBounds	instance variable of UberCont : number
+field	lisWallsVis	10lisWallsVis	instance variable of UberCont : ds_list
+field	lisWallsVisUpdate	10lisWallsVisUpdate	instance variable of UberCont : number
+field	loop_d	10loop_d	instance variable of UberCont : number
+field	mainsound	10mainsound	instance variable of UberCont : audio_emitter
+field	mainvol	10mainvol	instance variable of UberCont : number
+field	maxselect	10maxselect	instance variable of UberCont : number
+field	menu	10menu	instance variable of UberCont : cmn_menu
+field	opt	10opt	instance variable of UberCont
+field	opt_ambvol	10opt_ambvol	instance variable of UberCont : number
+field	opt_autoaim	10opt_autoaim	instance variable of UberCont : number
+field	opt_borderless	10opt_borderless	instance variable of UberCont : number
+field	opt_bossintros	10opt_bossintros	instance variable of UberCont : number
+field	opt_controls	10opt_controls	instance variable of UberCont : ctrControls[]
+field	opt_coop	10opt_coop	instance variable of UberCont : number
+field	opt_crosshair	10opt_crosshair	instance variable of UberCont : number
+field	opt_fitscrn	10opt_fitscrn	instance variable of UberCont : number
+field	opt_freeze	10opt_freeze	instance variable of UberCont : number
+field	opt_fulscrn	10opt_fulscrn	instance variable of UberCont : number
+field	opt_gamepad	10opt_gamepad	instance variable of UberCont : number
+field	opt_gamepad_with_keyboard	10opt_gamepad_with_keyboard	instance variable of UberCont : bool
+field	opt_gamepad_with_mouse	10opt_gamepad_with_mouse	instance variable of UberCont : bool
+field	opt_gamepadstyle	10opt_gamepadstyle	instance variable of UberCont
+field	opt_gamepadstyle_deck	10opt_gamepadstyle_deck	instance variable of UberCont
+field	opt_lfthand	10opt_lfthand	instance variable of UberCont : number
+field	opt_mousecp	10opt_mousecp	instance variable of UberCont : number
+field	opt_musvol	10opt_musvol	instance variable of UberCont : number
+field	opt_nicedrk	10opt_nicedrk	instance variable of UberCont : number
+field	opt_niceshd	10opt_niceshd	instance variable of UberCont : number
+field	opt_nohud	10opt_nohud	instance variable of UberCont : bool
+field	opt_rumble	10opt_rumble	instance variable of UberCont : number
+field	opt_scaling	10opt_scaling	instance variable of UberCont : number
+field	opt_sep_controls	10opt_sep_controls	instance variable of UberCont : bool
+field	opt_sfxvol	10opt_sfxvol	instance variable of UberCont : number
+field	opt_shake	10opt_shake	instance variable of UberCont : number
+field	opt_sideart	10opt_sideart	instance variable of UberCont : number
+field	opt_sond2d	10opt_sond2d	instance variable of UberCont : number
+field	opt_streamid	10opt_streamid	instance variable of UberCont : number
+field	opt_streamkey	10opt_streamkey	instance variable of UberCont : number
+field	opt_timer	10opt_timer	instance variable of UberCont : number
+field	paused	10paused	instance variable of UberCont : number
+field	pauseimg	10pauseimg	instance variable of UberCont : sprite
+field	player	10player	instance variable of UberCont : Player[]
+field	playerPersonaName	10playerPersonaName	instance variable of UberCont : string
+field	prepareScoreGet	10prepareScoreGet	instance variable of UberCont : number
+field	prepareScoreGetWeekly	10prepareScoreGetWeekly	instance variable of UberCont : number
+field	protowep	10protowep	instance variable of UberCont : number
+field	public	10public	instance variable of UberCont : number
+field	race	10race	instance variable of UberCont : string[]
+field	race_id	10race_id	instance variable of UberCont : int[]
+field	raceidpick	10raceidpick	instance variable of UberCont : string[]
+field	racemax	10racemax	instance variable of UberCont
+field	racepick	10racepick	instance variable of UberCont : int[]
+field	rank_d	10rank_d	instance variable of UberCont : number
+field	rank_w	10rank_w	instance variable of UberCont : number
+field	retryLBPost	10retryLBPost	instance variable of UberCont : bool
+field	saveday	10saveday	instance variable of UberCont : number
+field	score_get	10score_get	instance variable of UberCont : number
+field	score_get_weekly	10score_get_weekly	instance variable of UberCont : number
+field	select	10select	instance variable of UberCont : number
+field	showtutorial	10showtutorial	instance variable of UberCont : number
+field	sonyversion	10sonyversion	instance variable of UberCont
+field	startcrown	10startcrown	instance variable of UberCont : Array<int>
+field	startskin	10startskin	instance variable of UberCont : Array<int>
+field	suba_d	10suba_d	instance variable of UberCont : number
+field	switchContTimer	10switchContTimer	instance variable of UberCont : int
+field	tips	10tips	instance variable of UberCont : TipsStruct
+field	tot_time	10tot_time	instance variable of UberCont : number
+field	update	10update	instance variable of UberCont : number
+field	upinfo	10upinfo	instance variable of UberCont : string
+field	version	10version	instance variable of UberCont : number
+field	vita	10vita	instance variable of UberCont : number
+field	wave	10wave	instance variable of UberCont : number
+field	weekly	10weekly	instance variable of UberCont : number
+field	weekly_bcur	10weekly_bcur	instance variable of UberCont : number
+field	weekly_bskn	10weekly_bskn	instance variable of UberCont : number
+field	weekly_bwep	10weekly_bwep	instance variable of UberCont : number
+field	weekly_char	10weekly_char	instance variable of UberCont : number
+field	weekly_creq	10weekly_creq	instance variable of UberCont : number
+field	weekly_creq_0	10weekly_creq_0	instance variable of UberCont : number
+field	weekly_creq_1	10weekly_creq_1	instance variable of UberCont : number
+field	weekly_crwn	10weekly_crwn	instance variable of UberCont : number
+field	weekly_curl	10weekly_curl	instance variable of UberCont : string
+field	weekly_hash	10weekly_hash	instance variable of UberCont : string
+field	weekly_scur	10weekly_scur	instance variable of UberCont : number
+field	weekly_swep	10weekly_swep	instance variable of UberCont : number
+field	weeklyjson	10weeklyjson	instance variable of UberCont : ds_map
+field	weeklyloaded	10weeklyloaded	instance variable of UberCont : number
+field	weeklytimer	10weeklytimer	instance variable of UberCont : number
+field	width	10width	instance variable of UberCont : number
+field	window_height	10window_height	instance variable of UberCont : int
+field	window_width	10window_width	instance variable of UberCont : int
+field	xmas	10xmas	instance variable of UberCont
+
+## fields GmlMod
+field	cansideload	10cansideload	instance variable of GmlMod : bool
+field	files	10files	instance variable of GmlMod : ds_map<path:string, contents:buffer>
+field	fonts	10fonts	instance variable of GmlMod : ds_map<font, bool>
+field	home	10home	instance variable of GmlMod
+field	ident	10ident	instance variable of GmlMod
+field	main_path_prefix	10main_path_prefix	instance variable of GmlMod : string
+field	name	10name	instance variable of GmlMod
+field	noerror	10noerror	instance variable of GmlMod : bool
+field	notrace	10notrace	instance variable of GmlMod : bool
+field	owner	10owner	instance variable of GmlMod
+field	path	10path	instance variable of GmlMod
+field	program	10program	instance variable of GmlMod : gml_program
+field	save_path_prefix	10save_path_prefix	instance variable of GmlMod : string
+field	scope	10scope	instance variable of GmlMod
+field	scope_map	10scope_map	instance variable of GmlMod : ds_map
+field	shaders	10shaders	instance variable of GmlMod : ds_map<shader, struct>
+field	sounds	10sounds	instance variable of GmlMod : ds_map
+field	sprites	10sprites	instance variable of GmlMod : ds_map<sprite, bool>
+field	sprites_l	10sprites_l	instance variable of GmlMod : ds_map<load_id, sprite>
+field	sprites_n	10sprites_n	instance variable of GmlMod : number
+field	type	10type	instance variable of GmlMod
+field	unload	10unload	instance variable of GmlMod : bool
+field	wantsideload	10wantsideload	instance variable of GmlMod : bool
+
+## fields WepPickup
+field	ammo	10ammo	instance variable of WepPickup : number
+field	creator	10creator	instance variable of WepPickup
+field	curse	10curse	instance variable of WepPickup : number
+field	maxwep	10maxwep	instance variable of WepPickup : number
+field	name	10name	instance variable of WepPickup
+field	roll	10roll	instance variable of WepPickup : number
+field	rotation	10rotation	instance variable of WepPickup
+field	rotspeed	10rotspeed	instance variable of WepPickup
+field	typ_amax	10typ_amax	instance variable of WepPickup : int[]
+field	typ_ammo	10typ_ammo	instance variable of WepPickup : int[]
+field	typ_name	10typ_name	instance variable of WepPickup : string[]
+field	type	10type	instance variable of WepPickup : number
+field	wep	10wep	instance variable of WepPickup : number
+
+## fields CustomEnemy
+field	candie	10candie	available on CustomEnemy
+field	canfly	10canfly	instance variable of CustomEnemy (inherited from enemy)
+field	canmelee	10canmelee	instance variable of CustomEnemy (inherited from enemy)
+field	corpse	10corpse	instance variable of CustomEnemy (inherited from enemy)
+field	hitid	10hitid	available on CustomEnemy
+field	kills	10kills	instance variable of CustomEnemy (inherited from enemy)
+field	maxhealth	10maxhealth	available on CustomHitme, CustomEnemy, CustomProp
+field	meleedamage	10meleedamage	available on CustomEnemy
+field	my_health	10my_health	available on CustomHitme, CustomEnemy, CustomProp
+field	nexthurt	10nexthurt	available on CustomEnemy
+field	on_begin_step	10on_begin_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_cleanup	10on_cleanup	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_death	10on_death	available on CustomEnemy, CustomProp
+field	on_destroy	10on_destroy	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_draw	10on_draw	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	on_end_step	10on_end_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProjectile, CustomSlash, CustomChest
+field	on_hurt	10on_hurt	available on CustomHitme, CustomEnemy
+field	on_step	10on_step	available on CustomObject, CustomHitme, CustomEnemy, CustomProp, CustomProjectile, CustomSlash, CustomChest, CustomPickup
+field	raddrop	10raddrop	available on CustomHitme, CustomEnemy
+field	right	10right	instance variable of CustomEnemy (inherited from enemy)
+field	size	10size	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_dead	10snd_dead	available on CustomHitme, CustomEnemy
+field	snd_hurt	10snd_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	snd_mele	10snd_mele	instance variable of CustomEnemy (inherited from enemy)
+field	spr_chrg	10spr_chrg	instance variable of CustomEnemy (inherited from enemy)
+field	spr_dead	10spr_dead	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_fire	10spr_fire	instance variable of CustomEnemy (inherited from enemy)
+field	spr_hurt	10spr_hurt	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_idle	10spr_idle	available on CustomHitme, CustomEnemy, CustomProp
+field	spr_shadow	10spr_shadow	available on CustomHitme, CustomEnemy
+field	spr_shadow_x	10spr_shadow_x	instance variable of CustomEnemy (inherited from hitme) : number
+field	spr_shadow_y	10spr_shadow_y	instance variable of CustomEnemy (inherited from hitme) : number
+field	spr_walk	10spr_walk	available on CustomHitme, CustomEnemy
+field	target	10target	instance variable of CustomEnemy (inherited from enemy)
+field	team	10team	available on CustomHitme, CustomEnemy, CustomProjectile, CustomSlash
+field	wepseed	10wepseed	instance variable of CustomEnemy (inherited from enemy)
+field	wkick	10wkick	available on CustomEnemy
 
 ## fields (unresolved receiver)
 field	attract_speed	10attract_speed	available on CustomPickup

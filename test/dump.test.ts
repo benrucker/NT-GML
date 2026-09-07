@@ -153,6 +153,34 @@ test('cleanup: no Rivals-of-Aether identifiers in shipped code', () => {
 			' `ca12c65`, and lives on in the git history.',
 	];
 
+	// Matches inside the GENERATED tables that are NTT's own vocabulary rather
+	// than an RoA leftover, keyed by '<path>:<lower-cased match>'. The tables
+	// are machine-written from api/ (which is not scanned) and one entry is a
+	// 20 KB line, so pinning whole lines here would be unreadable and would
+	// churn on every regeneration; the matched token is pinned instead. A line
+	// is only skipped when EVERY match on it is listed. `rx` is untouched.
+	//   hitbox - the NTT docs' own word, in the prose for `Player.sprite_angle`
+	//            ("rotate the sprite without rotating the hitbox"),
+	//            api/ntt-docs/objects/Player.html.
+	//   ps_    - inside `UberCont.last_ps_eth_counter`, an NTT field name from
+	//            api/ntt-fields-2025-07-16/fields.gml.
+	const allowedMatches = [
+		'src/generated/object-fields.ts:hitbox',
+		'src/generated/object-fields.ts:ps_',
+	];
+	const rxAll = new RegExp(rx.source, rx.flags + 'g');
+	const allMatchesAllowed = (rel: string, line: string): boolean => {
+		rxAll.lastIndex = 0;
+		let m = rxAll.exec(line);
+		let any = false;
+		while (m !== null) {
+			any = true;
+			if (allowedMatches.indexOf(rel + ':' + m[0].toLowerCase()) < 0) { return false; }
+			m = rxAll.exec(line);
+		}
+		return any;
+	};
+
 	// Read as text; everything else counts as binary. Dotfiles such as
 	// `.vscodeignore` are text; any other extensionless file (a LICENSE dropped
 	// into resources/, say) is judged by name like a binary rather than read.
@@ -175,6 +203,7 @@ test('cleanup: no Rivals-of-Aether identifiers in shipped code', () => {
 		}
 		read(p).split(/\r?\n/).forEach((line, i) => {
 			if (!rx.test(line) || allowed.indexOf(rel + ':' + line.trim()) >= 0) { return; }
+			if (allMatchesAllowed(rel, line)) { return; }
 			hits.push(rel + ':' + (i + 1) + ': ' + line.trim());
 		});
 	};

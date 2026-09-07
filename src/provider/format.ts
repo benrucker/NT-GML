@@ -21,6 +21,7 @@ import {
 	KeywordInfo,
 	ModEventInfo,
 	ModType,
+	ObjectFieldInfo,
 	PragmaInfo,
 	VariableInfo,
 } from '../tables/types';
@@ -332,6 +333,39 @@ export function fieldDocumentation(field: CustomObjectField, owners: string[]): 
 		? []
 		: ['Available on ' + owners.map((o) => '`' + o + '`').join(', ') + '.'];
 	return blocks([codeBlock(field.name), bullets(notes), field.doc ?? '']);
+}
+
+/** Where a generated instance variable was read from, one line for the hover. */
+const FIELD_PROVENANCE: { [source: string]: string } = {
+	docs: 'From the `api/ntt-docs/objects/` page; not in the 2025-07-16 `fields.gml`.',
+	hand: 'From `api/fields-overrides.gml`, citing `api/ntt-docs/Changelog.md`.',
+};
+
+/**
+ * A game object's instance variable. `objectName` is the receiver the user
+ * typed; `declaredBy` is the object in its parent chain that declares the
+ * name, which is the same thing unless the field is inherited.
+ */
+export function objectFieldDocumentation(
+	field: ObjectFieldInfo,
+	objectName: string,
+	declaredBy: string,
+): string {
+	const notes: string[] = [
+		declaredBy === objectName
+			? 'Instance variable of `' + objectName + '`.'
+			: 'Instance variable of `' + objectName + '`, inherited from `' + declaredBy + '`.',
+	];
+	if (field.type !== undefined) { notes.push('Type: `' + field.type + '`.'); }
+	// A field with no `source` came from the dump; if it also carries a type
+	// or prose, that half was merged in from the object's docs page.
+	notes.push(field.source !== undefined
+		? FIELD_PROVENANCE[field.source]
+		: field.type === undefined && field.doc === undefined
+			? 'From the 2025-07-16 `fields.gml` dump.'
+			: 'From the 2025-07-16 `fields.gml` dump, annotated from the'
+				+ ' `api/ntt-docs/objects/` page.');
+	return blocks([codeBlock(declaredBy + '.' + field.name), bullets(notes), field.doc ?? '']);
 }
 
 export function buttonDocumentation(name: string, doc: string): string {

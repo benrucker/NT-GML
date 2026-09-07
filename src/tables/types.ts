@@ -158,6 +158,43 @@ export interface CustomObjectField {
 	doc?: string;
 }
 
+/**
+ * Where a generated object field came from, when it is not the `fields.gml`
+ * dump. `docs` = only the `api/ntt-docs/objects/*.html` pages list it;
+ * `hand` = only `api/fields-overrides.gml` does. Omitted for dump fields,
+ * which are the overwhelming majority.
+ */
+export type FieldSource = 'docs' | 'hand';
+
+/** One instance variable of a game object. */
+export interface ObjectFieldInfo {
+	name: string;
+	/** Declared type, where a docs page gives one. */
+	type?: string;
+	/** Prose, where a docs page gives some. */
+	doc?: string;
+	source?: FieldSource;
+}
+
+/**
+ * The instance variables one game object DECLARES. Inherited ones are reached
+ * by walking `parent`; see `fieldsFor` in `src/tables/object-fields.ts`.
+ */
+export interface ObjectFieldsInfo {
+	name: string;
+	/**
+	 * Parent object, as `fields.gml` writes it. Five entries name a parent
+	 * that has no entry of its own; those are treated as chain roots.
+	 */
+	parent?: string;
+	/** The `default` marker: the object supports built-in instance variables. */
+	builtin: boolean;
+	/** The `*` marker: the object supports mod-defined variables. */
+	modFields: boolean;
+	/** Fields this object declares itself, not counting inherited ones. */
+	fields: ObjectFieldInfo[];
+}
+
 export interface KeywordInfo {
 	name: string;
 	/** Which dialect accepts the keyword (NTGML-SPEC.md §2.5). */

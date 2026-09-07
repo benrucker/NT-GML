@@ -98,6 +98,17 @@ test('items: context-only families as one line each', () => {
 	for (const object of customObjects) {
 		sections.push('## fields ' + object.name + '\n' + summarise(fieldItems(object.name)));
 	}
+	// Six of the 489 generated entries, not all of them: every object would
+	// be tens of thousands of golden lines that nobody reads, and these six
+	// are the shapes that can break. `Player` is a deep chain (and the object
+	// mods touch most), `hitme` is the base it inherits from, `UberCont`
+	// carries the docs-only and hand-added fields, `GmlMod` is `{ * }` with
+	// nothing but a docs page, `WepPickup` is a page whose built-in was
+	// dropped, and `CustomEnemy` is a hand-written object that also has a
+	// fields.gml entry, so it shows the two tables merged.
+	for (const name of ['Player', 'hitme', 'UberCont', 'GmlMod', 'WepPickup', 'CustomEnemy']) {
+		sections.push('## fields ' + name + '\n' + summarise(fieldItems(name)));
+	}
 	sections.push('## fields (unresolved receiver)\n' + summarise(fieldItems()));
 	sections.push('## buttons (outside a string)\n' + summarise(buttonItems(false)));
 	sections.push('## buttons (inside a string)\n' + summarise(buttonItems(true)));
@@ -251,7 +262,16 @@ test('documentation: one sample per annotation form', () => {
 	const field = fieldItems('CustomHitme').find((f) => f.name === 'on_hurt');
 	const pragma = pragmaItems().find((p) => p.name === 'using');
 	const button = buttonItems(false).find((b) => b.name === 'nort');
-	for (const item of [event, areaEvent, field, pragma, button]) {
+	// The generated field table has four renderings: a plain fields.gml
+	// name inherited from a parent, one the docs page gave a type and
+	// prose, one that only the docs page knows about, and one added by
+	// hand from the changelog. Each carries its own provenance line.
+	const inherited = fieldItems('Player').find((f) => f.name === 'my_health');
+	const typed = fieldItems('Player').find((f) => f.name === 'ammo');
+	const docsOnly = fieldItems('Player').find((f) => f.name === 'stuckfor');
+	const handField = fieldItems('UberCont').find((f) => f.name === 'opt');
+	for (const item of [event, areaEvent, field, pragma, button,
+		inherited, typed, docsOnly, handField]) {
 		assert.ok(item !== undefined);
 		render(item);
 	}
@@ -374,6 +394,41 @@ const OFFERED: { label: string; input: CursorInput }[] = [
 			precedingText: 'with (CustomEnemy) {\n    on_',
 		},
 	},
+	{
+		// The 125 fields a `Player` has, own and inherited, sort above the
+		// whole built-in table. Exactly one generated field name collides
+		// with a base item anywhere in the table (`Crown.new`, the modern
+		// keyword), which is why `labelDescription` marks the field items.
+		label: 'inside a with (Player) body',
+		input: {
+			languageId: 'ntgml-legacy', fileName: 'a.mod.gml',
+			linePrefix: '    ',
+			precedingText: 'with (Player) {\n    ',
+		},
+	},
+	{
+		// The one place in the whole table where a field name collides with a
+		// base item: `Crown.new` against the modern `new` keyword. Both are
+		// offered here, which is what `labelDescription` is for - without it the
+		// duplicate check below would fail on this list.
+		label: 'inside a with (Crown) body, modern dialect',
+		input: {
+			languageId: 'ntgml', fileName: 'a.mod.ntgml',
+			linePrefix: '    ',
+			precedingText: 'with (Crown) {\n    ',
+		},
+	},
+	{
+		// A closed `with (Player)` block between the creation and the callback
+		// must not steal the receiver: `Player` has no `on_` names, so the
+		// `CustomEnemy` callbacks would simply vanish from the list.
+		label: 'on_ after a CustomEnemy creation, past a closed with (Player) block',
+		input: {
+			languageId: 'ntgml-legacy', fileName: 'a.mod.gml',
+			linePrefix: 'e.on_',
+			precedingText: 'var e = instance_create(x, y, CustomEnemy);\nwith (Player) { speed = 1; }\n',
+		},
+	},
 ];
 
 test('items: the top of the list per context', () => {
@@ -431,8 +486,24 @@ test('hover: resolves the word in its context', () => {
 	assert.equal(hover('a.mod.gml', 'on_step'), 'field on_step');
 	assert.equal(hover('a.mod.gml', 'obj.on_step'), 'field on_step');
 	assert.equal(hover('a.mod.gml', 'x = Player'), 'object Player');
+	// The game's own objects resolve through the generated table, including
+	// names they inherit; an object the vendored fields.gml never saw is
+	// not a receiver at all, so nothing after its dot resolves.
+	assert.equal(hover('a.mod.gml', 'Player.wep'), 'field wep');
+	assert.equal(hover('a.mod.gml', 'Player.my_health'), 'field my_health');
+	assert.equal(hover('a.mod.gml', 'Player.nonsense'), undefined);
+	assert.equal(hover('a.mod.gml', 'MultiMenu.wep'), undefined);
 	assert.equal(hover('a.mod.gml', 'global.frac'), undefined);
 	assert.equal(hover('a.mod.gml', '// abs'), undefined);
+
+	// A hovered field says which object in the chain declares it.
+	const inherited = lookupItem(detectContext({
+		languageId: 'ntgml-legacy', fileName: 'a.mod.gml',
+		linePrefix: 'Player.my_health', precedingText: 'Player.my_health',
+	}));
+	assert.ok(inherited !== undefined);
+	assert.equal(inherited.detail,
+		'instance variable of Player (inherited from hitme)');
 });
 
 // --- signature help ------------------------------------------------------

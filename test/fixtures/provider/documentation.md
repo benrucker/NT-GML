@@ -472,6 +472,58 @@ insert: "nort"
 
 Move up.
 
+=== field my_health ===
+detail: instance variable of Player (inherited from hitme)
+insert: my_health
+
+```ntgml
+hitme.my_health
+```
+
+- Instance variable of `Player`, inherited from `hitme`.
+- From the 2025-07-16 `fields.gml` dump, annotated from the `api/ntt-docs/objects/` page.
+
+Current health Current health
+
+=== field ammo ===
+detail: instance variable of Player : array<number>
+insert: ammo
+
+```ntgml
+Player.ammo
+```
+
+- Instance variable of `Player`.
+- Type: `array<number>`.
+- From the 2025-07-16 `fields.gml` dump, annotated from the `api/ntt-docs/objects/` page.
+
+An array with ammo per weapon type. Order is: melee (unused), bullets, shells, bolts, explosives, energy.
+
+=== field stuckfor ===
+detail: instance variable of Player : number
+insert: stuckfor
+
+```ntgml
+Player.stuckfor
+```
+
+- Instance variable of `Player`.
+- Type: `number`.
+- From the `api/ntt-docs/objects/` page; not in the 2025-07-16 `fields.gml`.
+
+=== field opt ===
+detail: instance variable of UberCont
+insert: opt
+
+```ntgml
+UberCont.opt
+```
+
+- Instance variable of `UberCont`.
+- From `api/fields-overrides.gml`, citing `api/ntt-docs/Changelog.md`.
+
+Settings struct added in 100r1; the existing settings are kept as `opt_*` for backwards compatibility (api/ntt-docs/Changelog.md:225-226).
+
 (synthetic entry: the dump has no deprecated function)
 
 === function not_a_real_function ===

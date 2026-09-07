@@ -41,6 +41,26 @@ The language claims `main.txt`, `main.cfg`, and `main<digits>...txt` - the `main
 
 It is highlighting only: no completions, no hovers, and nothing in the extension activates for it. Commands are matched case-sensitively in lower case, which is how every documented and every observed one is written. A command the grammar does not know - `/lodmod`, or a command from a newer NTT - is coloured as invalid, and so is an argument after a command that takes none (`/gmlapi x`) or a non-numeric `/timeout`. The command list is the NTT 100.034 binary's own: 122 names, being every `chat_cmd_<name>` handler in its string pool plus every alias its `/help` table registers, which is a superset of both [NTGML-SPEC.md](NTGML-SPEC.md) section 9 and the NTT FAQ's 49-name chat-command list. 38 of them are the mod, command-file and locale commands - loading, unloading, saving, allowing and silencing, with their aliases - plus `/timeout`, `/gml`, `/gml2`, `/gmlapi` and the sideloading vote, so what follows one is a path, a duration, a line of GML, or nothing at all; the other 84 are the rest of the chat commands - the sprite, image and save-file ones among them - which `/load` will run from a command file just the same. `syntaxes/ntt-main.tmLanguage.json` is hand-maintained and records where each name came from. The argument of `/gml` is marked as embedded GML but is *not* tokenised by the NTGML grammars, so an unterminated `/*` on a `/gml` line cannot swallow the rest of the file.
 
+## Object instance variables
+
+Inside a `with (Player)` body, or after `Player.`, the completion list starts with the instance variables that object actually has - `wep`, `ammo`, `gunangle`, `my_health` - ranked above the whole built-in table, and hovering one says what it is:
+
+```
+instance variable of Player (inherited from hitme)
+```
+
+Inheritance is followed: `Player` extends `hitme`, so its 125 fields are its own 111 plus `hitme`'s 14, and the hover names whichever object in the chain declares the one you are looking at. `UberCont` is the largest at 184.
+
+The names come from three vendored sources, merged in this order and never guessed at:
+
+1. `api/ntt-fields-2025-07-16/fields.gml`, the game's own dump of per-object variable lists. It covers **489 of the 564 objects** in the 100.034 API dump;
+2. the six object pages under `api/ntt-docs/objects/`, which are the only source of *types* and prose, and which also know a few names the dump does not;
+3. `api/fields-overrides.gml`, three names added by hand from the documented changelog.
+
+Built-in instance variables (`x`, `sprite_index`, `speed`) are deliberately **not** offered as fields of an object - they are already in the general list, and offering them twice would bury the object's own names.
+
+73 of the 75 objects with no entry get no fields at all, and are not treated as receivers: after `MultiMenu.` the extension offers nothing rather than guessing. The other two, `CustomChest` and `CustomPickup`, are covered by the hand-written `Custom*` table instead. See [api/ntt-fields-2025-07-16/README.md](api/ntt-fields-2025-07-16/README.md) for why, and for how to refresh the dump.
+
 ## Known limitations
 
 - **`#pragma gml 2` does not change the highlighting.** VS Code picks one grammar per file extension, so a `.gml` file that opts into the modern dialect is still coloured as legacy: `function`, `new` and `$"..."` will look wrong even though the game accepts them. Completions *do* follow the pragma, but only when it is within the first 40 lines *and* the first ~2 KB (2,048 characters) of the file, which is as far as the scan reads. Save the file as `.ntgml` if you want the modern colours.
@@ -51,6 +71,8 @@ It is highlighting only: no completions, no hovers, and nothing in the extension
 - **Completions read a ~4 KB window** (4,000 characters) ending at the cursor and snapped back to the enclosing `#define` / `function`. In a very long script the context rules can see a truncated view and offer the wrong list.
 - **A name after a `.` is coloured as a member, not as the built-in of the same name**, so `global.frac` is not coloured like the `frac` function. The one exception is the call form: `inst.alarm_set(0, 30)` really is an API call, so it keeps the function colouring. Reading the same field without calling it does not.
 - **The "NTT-specific" sort tier comes from a hand-written list** (`src/tables/ntt-names.ts`) of NTT-only function families. The dump carries no flag for this, so functions added by a newer NTT release may sort as generic GameMaker names until that list is updated.
+- **Instance variables are missing for 73 of the game's 564 objects.** They come from a `fields.gml` dump that the game no longer regenerates, and 75 of the 564 objects have no entry in it. The file names no game version, and what it does and does not list places the build that wrote it before 100.013 - or before 100.007, on an upstream docs page this repo does not vendor - so each of the 75 is either newer than that build or was skipped by the game's `/gmlapi` command, and nothing in the file says which. Both really happen: `button`, `menubutton` and `loadbutton` were skipped, since the dump itself names them as the parents of entries it did write, while `CustomChest` arrived in 100.025 and is genuinely newer. Two of the 75, `CustomChest` and `CustomPickup`, are covered by the hand-written `Custom*` table; completing after any of the other 73 objects' dot offers nothing at all.
+- **A `with` receiver is bounded by braces; an `on_` word is not.** Inside `with (Obj) { ... }` the object's instance variables are offered until the matching `}`, and a brace-less `with (Obj) stmt` counts only as far as the next `;` or the end of that line, so a brace-less `with` whose statement is on the *next* line loses the object. A word starting with `on_` is bounded differently on purpose: a callback is normally assigned *outside* any `with` body (`e.on_step = ...`, a few lines after creating `e`), so that path takes the last `Custom*` object named anywhere in the window - a `with` head or an `instance_create` argument - even when its block has already closed, and falls back to the union of every `Custom*` callback when the window names none. It ignores the game's own objects entirely, because only `Custom*` objects have `on_` names. Neither form is seen at all when its head is above the ~4 KB completion window, and strings and comments are masked out first, so a `with (Player)` written in a comment is not a receiver.
 - **Argument types cover about half the API.** Measured against the shipped tables, 476 of the 984 functions have at least one typed argument in hovers and signature help. Most of those types come from the live dump; the older hand-annotated 100.022 reference fills in the rest. The other functions show argument names only.
 
 ## What is in the repo
@@ -65,6 +87,9 @@ It is highlighting only: no completions, no hovers, and nothing in the extension
 | `api/ntt-100.034/`                              | The vendored `/gmlapi` dump this build is generated from. Source of truth.                                                                           |
 | `api/ntt-100.022-reference/`                    | An older, hand-annotated dump. Fills argument-type gaps the live dump leaves, and supplies `default.gml`'s built-in instance variables.              |
 | `api/ntt-docs/`                                 | A copy of the [bits-of-nuclear-throne](https://github.com/YAL-Game-Tools/bits-of-nuclear-throne) docs sources.                                       |
+| `api/ntt-fields-2025-07-16/`                    | The game's own per-object instance-variable dump, vendored under its own header date because the game no longer regenerates it. Always read from here, never from `%LOCALAPPDATA%`. |
+| `api/ntt-docs/objects/`                         | Six rendered object pages from the same docs repo. The only source of instance-variable types and prose.                                              |
+| `api/fields-overrides.gml`                      | Instance variables added by hand from the documented changelog, merged after both of the above.                                                       |
 | `api/overrides.gml`                             | Hand-written corrections merged last.                                                                                                                |
 | `api/reference/`                                | GMEdit's parser for the dump's annotation format, kept as a reference for `tools/parse-api.ts`. Not compiled.                                        |
 | `docs/`                                         | Community reference material. Not shipped in the `.vsix`.                                                                                            |

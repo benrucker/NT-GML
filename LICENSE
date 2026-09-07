@@ -31,10 +31,11 @@ third-party material described below. In short:
 - The generated tables under `src/generated/` and the two generated grammars
   under `syntaxes/` are MIT as to their arrangement, but their contents are
   third-party: they carry the game's names and signatures, argument types from
-  the 100.022 reference, and documentation prose from the sources described
-  below. So do the hand tables `src/tables/buttons.ts` and
-  `src/tables/custom-objects.ts`, whose text is worded from those docs, and
-  `src/tables/ntt-names.ts`, a list of name prefixes assembled from them.
+  the 100.022 reference, the game's own per-object instance-variable lists,
+  and documentation prose from the sources described below. So do the hand
+  tables `src/tables/buttons.ts` and `src/tables/custom-objects.ts`, whose
+  text is worded from those docs, and `src/tables/ntt-names.ts`, a list of
+  name prefixes assembled from them.
 - `data/gml-configuration.json` descends from the original extension, as
   described below.
 - The vendored dumps and documentation under `api/` and the community
@@ -83,6 +84,14 @@ extension, in more than one file:
   but their docstrings are worded from `api/ntt-docs/scripting/NTT-Input.dmd`
   and their field lists come from `api/ntt-docs/ref/Custom*.gml`; some of that
   wording is close to verbatim.
+- `out/generated/object-fields.js` carries instance-variable types and prose
+  taken from the six object pages in `api/ntt-docs/objects/` — 226 of its
+  1,493 fields are known only to those pages, and a further 191 that the
+  game's own dump names get their type or their description from them. The
+  descriptions are the pages' wording, shortened.
+- `api/fields-overrides.gml` is one hand-written entry line, adding three
+  fields to `UberCont`, under two notes that quote and paraphrase
+  `api/ntt-docs/Changelog.md`.
 
 (The generator also writes `src/generated/docs.json`, which is a build
 artifact for inspection: nothing imports it and `.vscodeignore` keeps all of
@@ -91,17 +100,19 @@ those strings and types, should treat them as YellowAfterlife's work.
 
 ## Nuclear Throne Together API dump
 
-`api/ntt-100.034/` is a machine-generated dump produced by Nuclear Throne
-Together itself (the in-game `/gmlapi` command). The names, signatures and
-argument types in it are the game's own output and are likewise third-party
-material outside the MIT grant above; Nuclear Throne is by Vlambeer and
-Nuclear Throne Together is by YellowAfterlife. The dump is vendored so the
-extension can be rebuilt without a copy of the game.
+`api/ntt-100.034/` and `api/ntt-fields-2025-07-16/` are machine-generated
+dumps produced by Nuclear Throne Together itself (the in-game `/gmlapi`
+command); the second is the per-object instance-variable list, kept under its
+own header date because the game no longer regenerates it. The names,
+signatures, argument types and field lists in them are the game's own output
+and are likewise third-party material outside the MIT grant above; Nuclear
+Throne is by Vlambeer and Nuclear Throne Together is by YellowAfterlife. The
+dumps are vendored so the extension can be rebuilt without a copy of the game.
 
 Every generated table in the `.vsix` — `out/generated/functions.js`,
-`constants.js`, `variables.js`, `assets.js`, `meta.js` — and both grammars in
-`syntaxes/` are built from that dump and so reproduce the game's own names and
-signatures.
+`constants.js`, `variables.js`, `assets.js`, `object-fields.js`, `meta.js` —
+and both grammars in `syntaxes/` are built from those dumps and so reproduce
+the game's own names and signatures.
 
 ## GMEdit (YellowAfterlife)
 

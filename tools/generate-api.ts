@@ -25,6 +25,17 @@
  *   api/ntt-100.022-reference/default.gml  built-in instance variables
  *   api/overrides.gml                      hand-written fixes, merged last
  *   api/ntt-docs/scripting/*.dmd           prose documentation
+ *   api/ntt-fields-2025-07-16/fields.gml   per-object instance variables
+ *   api/ntt-docs/objects/*.html            instance-variable types and prose
+ *   api/fields-overrides.gml               hand-written field additions
+ *
+ * `fields.gml` is ALWAYS read from the vendored folder, never from the live
+ * `%LOCALAPPDATA%\nuclearthrone\api\` dump directory, unlike `api.gml`. Two
+ * reasons: the file carries no `game_version` line, so there is nothing to
+ * gate a "is the local copy newer?" decision on; and the 100.034 `/gmlapi`
+ * no longer writes it at all, so a local dump directory either has the same
+ * stale 2025-07-16 file or none. To refresh it, copy a newer `fields.gml`
+ * into a new `api/ntt-fields-<date>/` and repoint FIELDS_FILE below.
  *
  * Output is deterministic: everything is sorted by name and the header records
  * the dump's own `Generated at` stamp rather than the time this ran, so
@@ -45,6 +56,13 @@ import {
 	parseRawNames,
 } from './parse-api';
 import { DocMap, DocSource, parseDocs } from './parse-docs';
+import {
+	FieldsModel,
+	ObjectFieldInfo,
+	ObjectFieldsInfo,
+	parseFields,
+} from './parse-fields';
+import { ObjectDocPage, parseObjectDocs } from './parse-object-docs';
 
 // --- paths ---------------------------------------------------------------
 
@@ -54,6 +72,24 @@ const REFERENCE_DIR = path.join(ROOT, 'api', 'ntt-100.022-reference');
 const OVERRIDES_FILE = path.join(ROOT, 'api', 'overrides.gml');
 const DOCS_DIR = path.join(ROOT, 'api', 'ntt-docs', 'scripting');
 const OUT_DIR = path.join(ROOT, 'src', 'generated');
+/** Vendored on purpose - see the note at the top of this file. */
+const FIELDS_FILE = path.join(ROOT, 'api', 'ntt-fields-2025-07-16', 'fields.gml');
+const OBJECT_DOCS_DIR = path.join(ROOT, 'api', 'ntt-docs', 'objects');
+const FIELD_OVERRIDES_FILE = path.join(ROOT, 'api', 'fields-overrides.gml');
+
+/**
+ * Prose for the fields `api/fields-overrides.gml` adds. The overrides file has
+ * no slot for it (it is `fields.gml` syntax), and the changelog lines it cites
+ * are the only description these fields have.
+ */
+const HAND_FIELD_DOCS: { [key: string]: string } = {
+	'UberCont.opt': 'Settings struct added in 100r1; the existing settings are kept as'
+		+ ' `opt_*` for backwards compatibility (api/ntt-docs/Changelog.md:225-226).',
+	'UberCont.custom': 'Custom Mode toggle; mods change it dynamically'
+		+ ' (api/ntt-docs/Changelog.md:215).',
+	'UberCont.customMode': 'Custom Mode struct; mods change it dynamically'
+		+ ' (api/ntt-docs/Changelog.md:215).',
+};
 
 /** Minimum `game_version` for a local dump to be preferred over the vendored one. */
 const MIN_LOCAL_VERSION = 100000;
@@ -423,6 +459,290 @@ function classifyAssets(dir: string): AssetReport {
 	return { tables: tables, dropped: dropped, total: total };
 }
 
+// --- object fields -------------------------------------------------------
+
+interface PageReport {
+	page: string;
+	object: string;
+	variables: number;
+	/** Names the fields.gml dump does not have, added as `source: 'docs'`. */
+	added: number;
+	/** Names it does have, which only gained a type and/or prose. */
+	enriched: number;
+	/** Names dropped because `variables.ts` already has them as built-ins. */
+	droppedBuiltins: string[];
+	/** Text on the page that is neither a group nor a variable. */
+	notes: number;
+}
+
+interface FieldsReport {
+	stamp: string;
+	parsed: number;
+	withParent: number;
+	/** Parents named by an entry that has no entry of its own. */
+	missingParents: string[];
+	/** 100.034 objects with no fields.gml entry at all. */
+	objectsWithoutEntry: number;
+	listed: number;
+	/** Own fields straight after de-flattening, before docs and hand merges. */
+	ownFromDump: number;
+	/** Distinct field names at the same point. */
+	distinctFromDump: number;
+	own: number;
+	maxOwn: { name: string; count: number };
+	distinct: number;
+	pages: PageReport[];
+	handAdded: number;
+	handEnriched: number;
+	handObjectsAdded: string[];
+}
+
+/** Ancestors of `name`, nearest first, following only objects that have an entry. */
+function ancestorsOf(name: string, index: { [n: string]: ObjectFieldsInfo }): ObjectFieldsInfo[] {
+	const out: ObjectFieldsInfo[] = [];
+	const walked: { [n: string]: true } = { [name]: true };
+	let cur = index[name];
+	while (cur !== undefined && cur.parent !== undefined && walked[cur.parent] === undefined) {
+		walked[cur.parent] = true;
+		cur = index[cur.parent];
+		if (cur === undefined) { break; }
+		out.push(cur);
+	}
+	return out;
+}
+
+/** The entry in `name`'s chain that declares `field`, or undefined. */
+function declaringEntry(
+	name: string,
+	field: string,
+	index: { [n: string]: ObjectFieldsInfo },
+): ObjectFieldsInfo | undefined {
+	const chain = [index[name]].concat(ancestorsOf(name, index));
+	for (const entry of chain) {
+		if (entry === undefined) { continue; }
+		if (entry.fields.some((f) => f.name === field)) { return entry; }
+	}
+	return undefined;
+}
+
+/**
+ * De-flatten `fields.gml`, merge the docs pages over it and the hand overrides
+ * over that. `fields.gml` repeats every inherited name on every child, so an
+ * entry's own fields are its listed names minus everything any ancestor WITH
+ * AN ENTRY lists.
+ */
+function buildObjectFields(
+	fields: FieldsModel,
+	pages: { file: string; page: ObjectDocPage }[],
+	handOverrides: FieldsModel,
+	objectNames: string[],
+	builtinNames: { [n: string]: true },
+	problems: string[],
+): { objects: ObjectFieldsInfo[]; report: FieldsReport } {
+	const objectSet = nameSet(objectNames.map((n) => ({ name: n })));
+	const index: { [n: string]: ObjectFieldsInfo } = {};
+	const listedByName: { [n: string]: string[] } = {};
+	const order: string[] = [];
+
+	for (const entry of fields.entries) {
+		if (index[entry.name] !== undefined) {
+			problems.push('fields.gml: duplicate entry: ' + entry.name);
+			continue;
+		}
+		const info: ObjectFieldsInfo = {
+			name: entry.name,
+			builtin: entry.builtin,
+			modFields: entry.modFields,
+			fields: [],
+		};
+		if (entry.parent !== undefined) { info.parent = entry.parent; }
+		index[entry.name] = info;
+		listedByName[entry.name] = entry.fields;
+		order.push(entry.name);
+		if (!objectSet[entry.name]) {
+			problems.push('fields.gml: entry is not a 100.034 object: ' + entry.name);
+		}
+	}
+
+	// Cycle check before any chain walk relies on the parents being a forest.
+	for (const name of order) {
+		const walked: { [n: string]: true } = { [name]: true };
+		let cur: string | undefined = index[name].parent;
+		while (cur !== undefined && index[cur] !== undefined) {
+			if (walked[cur]) { problems.push('fields.gml: parent cycle at ' + name); break; }
+			walked[cur] = true;
+			cur = index[cur].parent;
+		}
+	}
+
+	// De-flatten.
+	for (const name of order) {
+		const inherited: { [n: string]: true } = {};
+		for (const ancestor of ancestorsOf(name, index)) {
+			for (const field of listedByName[ancestor.name]) { inherited[field] = true; }
+		}
+		for (const field of listedByName[name]) {
+			if (inherited[field]) { continue; }
+			if (builtinNames[field]) {
+				problems.push('fields.gml: ' + name + ' lists the built-in variable ' + field);
+				continue;
+			}
+			index[name].fields.push({ name: field });
+		}
+	}
+
+	// Built here, before the docs and hand merges, deliberately: `parsed`,
+	// `withParent`, `objectsWithoutEntry`, `listed`, `ownFromDump` and
+	// `distinctFromDump` are all statements about the dump as parsed, and the
+	// README's staleness table quotes them as such. An override that named a
+	// new object would therefore not move `objectsWithoutEntry`; it is reported
+	// separately, by name, in `handObjectsAdded` below.
+	const report: FieldsReport = {
+		stamp: fields.generatedAt,
+		parsed: order.length,
+		withParent: order.filter((n) => index[n].parent !== undefined).length,
+		missingParents: [],
+		objectsWithoutEntry: objectNames.filter((n) => index[n] === undefined).length,
+		listed: order.reduce((sum, n) => sum + listedByName[n].length, 0),
+		ownFromDump: order.reduce((sum, n) => sum + index[n].fields.length, 0),
+		distinctFromDump: Object.keys(
+			order.reduce((set: { [n: string]: true }, n) => {
+				for (const f of index[n].fields) { set[f.name] = true; }
+				return set;
+			}, {}),
+		).length,
+		own: 0,
+		maxOwn: { name: '', count: -1 },
+		distinct: 0,
+		pages: [],
+		handAdded: 0,
+		handEnriched: 0,
+		handObjectsAdded: [],
+	};
+	for (const name of order) {
+		const parent = index[name].parent;
+		if (parent !== undefined && index[parent] === undefined) {
+			report.missingParents.push(name + ' : ' + parent);
+			if (!objectSet[parent]) {
+				problems.push('fields.gml: ' + name + ' names a parent that is not a 100.034 '
+					+ 'object either: ' + parent);
+			}
+		}
+	}
+
+	// --- docs pages, in file order so the result is deterministic
+	for (const source of pages) {
+		const page = source.page;
+		const entry: PageReport = {
+			page: source.file,
+			object: page.name,
+			variables: page.variables.length,
+			added: 0,
+			enriched: 0,
+			droppedBuiltins: [],
+			notes: page.notes.length,
+		};
+		for (const variable of page.variables) {
+			// `from hitme` on the Player page means hitme declares it. A group
+			// that is a script (`scrSkills`) or that has no entry falls back to
+			// the page's own object.
+			const target = index[variable.group] !== undefined ? variable.group : page.name;
+			const into = index[target];
+			if (into === undefined) {
+				problems.push('object docs: ' + source.file + ' has no fields.gml entry for '
+					+ target);
+				continue;
+			}
+			if (builtinNames[variable.name]) {
+				entry.droppedBuiltins.push(target + '.' + variable.name);
+				continue;
+			}
+			const declared = declaringEntry(target, variable.name, index);
+			if (declared !== undefined) {
+				const field = declared.fields.filter((f) => f.name === variable.name)[0];
+				let touched = false;
+				if (field.type === undefined && variable.type !== undefined) {
+					field.type = variable.type;
+					touched = true;
+				}
+				if (field.doc === undefined && variable.doc !== undefined) {
+					field.doc = variable.doc;
+					touched = true;
+				}
+				if (touched) { entry.enriched++; }
+				continue;
+			}
+			const added: ObjectFieldInfo = { name: variable.name };
+			if (variable.type !== undefined) { added.type = variable.type; }
+			if (variable.doc !== undefined) { added.doc = variable.doc; }
+			added.source = 'docs';
+			into.fields.push(added);
+			entry.added++;
+		}
+		report.pages.push(entry);
+	}
+
+	// --- hand additions, merged last
+	for (const entry of handOverrides.entries) {
+		let into = index[entry.name];
+		if (into === undefined) {
+			if (!objectSet[entry.name]) {
+				problems.push('api/fields-overrides.gml: not a 100.034 object: ' + entry.name);
+				continue;
+			}
+			into = { name: entry.name, builtin: entry.builtin, modFields: entry.modFields, fields: [] };
+			index[entry.name] = into;
+			order.push(entry.name);
+			report.handObjectsAdded.push(entry.name);
+		}
+		for (const name of entry.fields) {
+			if (builtinNames[name]) {
+				problems.push('api/fields-overrides.gml: ' + entry.name + '.' + name
+					+ ' is a built-in variable');
+				continue;
+			}
+			const doc = HAND_FIELD_DOCS[entry.name + '.' + name];
+			const declared = declaringEntry(entry.name, name, index);
+			if (declared !== undefined) {
+				const field = declared.fields.filter((f) => f.name === name)[0];
+				if (field.doc === undefined && doc !== undefined) { field.doc = doc; }
+				report.handEnriched++;
+				continue;
+			}
+			const field: ObjectFieldInfo = { name: name };
+			if (doc !== undefined) { field.doc = doc; }
+			field.source = 'hand';
+			into.fields.push(field);
+			report.handAdded++;
+		}
+	}
+
+	const objects = order.map((n) => index[n]).sort(byName);
+
+	// --- self-checks on the merged table
+	const distinct: { [n: string]: true } = {};
+	for (const info of objects) {
+		const seen: { [n: string]: true } = {};
+		for (const field of info.fields) {
+			if (seen[field.name]) {
+				problems.push('object fields: ' + info.name + ' declares ' + field.name + ' twice');
+			}
+			seen[field.name] = true;
+			distinct[field.name] = true;
+			if (builtinNames[field.name]) {
+				problems.push('object fields: ' + info.name + '.' + field.name
+					+ ' is a built-in variable');
+			}
+		}
+		report.own += info.fields.length;
+		if (info.fields.length > report.maxOwn.count) {
+			report.maxOwn = { name: info.name, count: info.fields.length };
+		}
+	}
+	report.distinct = Object.keys(distinct).length;
+	return { objects: objects, report: report };
+}
+
 // --- emit ----------------------------------------------------------------
 
 function header(gameVersion: number, generatedAt: string): string[] {
@@ -698,6 +1018,84 @@ function emitDocs(docs: DocMap, head: string[]): string {
 	return head.concat(DOCS_PROLOGUE, body, DOCS_EPILOGUE).join('\n');
 }
 
+const OBJECT_FIELDS_PROLOGUE = [
+	"import { ObjectFieldInfo, ObjectFieldsInfo } from '../tables/types';",
+	'',
+	'type RawField = Partial<ObjectFieldInfo> & { name: string };',
+	"type RawObject = Omit<Partial<ObjectFieldsInfo>, 'fields'>",
+	'\t& { name: string; fields: RawField[] };',
+	'',
+	'function field(f: RawField): ObjectFieldInfo {',
+	'\tconst out: ObjectFieldInfo = { name: f.name };',
+	'\tif (f.type !== undefined) { out.type = f.type; }',
+	'\tif (f.doc !== undefined) { out.doc = f.doc; }',
+	'\tif (f.source !== undefined) { out.source = f.source; }',
+	'\treturn out;',
+	'}',
+	'',
+	'function object(o: RawObject): ObjectFieldsInfo {',
+	'\tconst out: ObjectFieldsInfo = {',
+	'\t\tname: o.name,',
+	'\t\tbuiltin: o.builtin === true,',
+	'\t\tmodFields: o.modFields === true,',
+	'\t\tfields: o.fields.map(field),',
+	'\t};',
+	'\tif (o.parent !== undefined) { out.parent = o.parent; }',
+	'\treturn out;',
+	'}',
+	'',
+	'const raw: RawObject[] = [',
+];
+
+const OBJECT_FIELDS_EPILOGUE = [
+	'];',
+	'',
+	'/**',
+	' * Instance variables per game object, sorted by object name. `fields` holds',
+	' * only what the object DECLARES; inherited ones are reached by walking',
+	' * `parent`. Use `fieldsFor` in `src/tables/object-fields.ts` for the full',
+	' * list, which also knows which entry in the chain declares a name.',
+	' */',
+	'export const objectFields: ObjectFieldsInfo[] = raw.map(object);',
+	'',
+	'const index: { [name: string]: ObjectFieldsInfo } = {};',
+	'for (const o of objectFields) { index[o.name] = o; }',
+	'',
+	'export function objectFieldsByName(name: string): ObjectFieldsInfo | undefined {',
+	'\treturn index[name];',
+	'}',
+	'',
+];
+
+/**
+ * Header for `object-fields.ts`: the inputs are not the `/gmlapi` dump, so it
+ * records the `fields.gml` stamp rather than `api.gml`'s.
+ */
+function objectFieldsHeader(stamp: string): string[] {
+	return [
+		'// GENERATED by tools/generate-api.ts from api/ntt-fields-2025-07-16/fields.gml,',
+		'// api/ntt-docs/objects/*.html and api/fields-overrides.gml. Do not edit.',
+		'// fields.gml stamp: ' + (stamp || 'unstamped') + '.',
+		'// Objects are sorted by name; within an object, fields keep the order',
+		'// fields.gml lists them in, then docs-only fields in page order, then',
+		'// hand-added ones.',
+		'// Regenerate with `pnpm gen`.',
+		'',
+	];
+}
+
+function emitObjectFields(objects: ObjectFieldsInfo[], head: string[]): string {
+	const body = objects.map((o) => {
+		const bag: Bag = { name: o.name };
+		if (o.parent !== undefined) { bag.parent = o.parent; }
+		if (o.builtin) { bag.builtin = true; }
+		if (o.modFields) { bag.modFields = true; }
+		bag.fields = o.fields;
+		return '\t' + line(bag) + ',';
+	});
+	return head.concat(OBJECT_FIELDS_PROLOGUE, body, OBJECT_FIELDS_EPILOGUE).join('\n');
+}
+
 function emitMeta(gameVersion: number, generatedAt: string, source: string, head: string[]): string {
 	const meta = { gameVersion: gameVersion, generatedAt: generatedAt, source: source };
 	return head
@@ -849,6 +1247,24 @@ function main(): void {
 	const constNames = nameSet(constants);
 	const varNames = nameSet(variables);
 
+	// --- per-object instance variables (vendored fields.gml + docs + hand)
+	if (!exists(FIELDS_FILE)) { fail('no fields.gml at ' + FIELDS_FILE); }
+	const fieldsModel = parseFields(read(FIELDS_FILE));
+	const objectDocPages: { file: string; page: ObjectDocPage }[] = exists(OBJECT_DOCS_DIR)
+		? fs
+			.readdirSync(OBJECT_DOCS_DIR)
+			.filter((f) => f.toLowerCase().endsWith('.html'))
+			.sort()
+			.map((f) => ({ file: f, page: parseObjectDocs(read(path.join(OBJECT_DOCS_DIR, f))) }))
+		: [];
+	const fieldOverrides = exists(FIELD_OVERRIDES_FILE)
+		? parseFields(read(FIELD_OVERRIDES_FILE))
+		: { generatedAt: '', entries: [] };
+	const objectFields = buildObjectFields(
+		fieldsModel, objectDocPages, fieldOverrides,
+		assets.tables.objects, varNames, problems,
+	);
+
 	const rawFunctions = parseRawNames(read(path.join(source.dir, 'raw-functions.gml')));
 	const rawConstants = parseRawNames(read(path.join(source.dir, 'raw-constants.gml')));
 	const rawVariables = parseRawNames(read(path.join(source.dir, 'raw-variables.gml')));
@@ -914,6 +1330,8 @@ function main(): void {
 		['variables.ts', emitVariables(variables, head)],
 		['assets.ts', emitAssets(assets.tables, head)],
 		['docs.ts', emitDocs(docs, head)],
+		['object-fields.ts', emitObjectFields(
+			objectFields.objects, objectFieldsHeader(objectFields.report.stamp))],
 		['meta.ts', emitMeta(model.gameVersion, model.generatedAt, dumpSource, head)],
 		['docs.json', JSON.stringify(sortedDocs, null, '\t') + '\n'],
 	];
@@ -944,6 +1362,28 @@ function main(): void {
 		(assets.dropped.length > 0 ? ': ' + assets.dropped.join(', ') : ''));
 	console.log('docs:         ' + docNames.length + ' entries from ' +
 		path.relative(ROOT, DOCS_DIR).replace(/\\/g, '/'));
+	const fr = objectFields.report;
+	console.log('');
+	console.log('object fields from api/ntt-fields-2025-07-16/fields.gml (' + fr.stamp + '):');
+	console.log('  objects:      ' + fr.parsed + ' parsed, ' + fr.withParent + ' with a parent');
+	console.log('  missing parents: ' + fr.missingParents.length +
+		(fr.missingParents.length > 0 ? ' -> ' + fr.missingParents.join('; ') : ''));
+	console.log('  100.034 objects with no entry: ' + fr.objectsWithoutEntry +
+		' of ' + assets.tables.objects.length);
+	console.log('  fields:       ' + fr.listed + ' listed -> ' + fr.ownFromDump +
+		' own after de-flattening (' + fr.distinctFromDump + ' distinct name(s))');
+	console.log('  after merges: ' + fr.own + ' own (' + fr.distinct + ' distinct name(s))');
+	console.log('  most fields:  ' + fr.maxOwn.name + ' (' + fr.maxOwn.count + ')');
+	for (const page of fr.pages) {
+		console.log('  ' + page.page + ': ' + page.variables + ' variable(s), ' +
+			page.added + ' added, ' + page.enriched + ' typed/documented, ' +
+			page.droppedBuiltins.length + ' built-in(s) dropped' +
+			(page.droppedBuiltins.length > 0 ? ' (' + page.droppedBuiltins.join(', ') + ')' : '') +
+			', ' + page.notes + ' note(s)');
+	}
+	console.log('  hand additions (api/fields-overrides.gml): ' + fr.handAdded + ' added, ' +
+		fr.handEnriched + ' already present, ' + fr.handObjectsAdded.length + ' new object(s)' +
+		(fr.handObjectsAdded.length > 0 ? ': ' + fr.handObjectsAdded.join(', ') : ''));
 	console.log('');
 	console.log('hints merged from api/ntt-100.022-reference/api.gml:');
 	console.log('  arg types:    ' + hints.argHints + ' on ' + hints.functionsTouched + ' function(s)');

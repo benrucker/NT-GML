@@ -39,6 +39,22 @@ a `.vsix` with `pnpm package` to use it.
   `Custom*` object callback fields, button names inside `button_check` and
   friends, object names where an object argument is expected, and pragma names
   after `#pragma`.
+- Instance variables of the game's own objects, in `with (Obj)` bodies and
+  after `Obj.`: 1,493 fields over 489 of the 564 objects, offered with their
+  inherited names (`Player` has 125 - its own 111 plus `hitme`'s 14) and
+  hovering with the object in the chain that declares each one. Merged from
+  three vendored sources: the game's 2025-07-16 `fields.gml` dump, which is
+  bare names; six object pages from the documentation repo, the only source of
+  types and prose; and three names added by hand from the documented
+  changelog. Built-in instance variables are excluded, since the general list
+  already has them. The 75 objects with no entry in the dump get no fields from
+  it; two of them, `CustomChest` and `CustomPickup`, are covered by the hand
+  table, and the other 73 are not treated as receivers at all. A `with` body is
+  bounded by its braces - or, brace-less, by the end of its statement - so the
+  object goes back out of scope at the closing `}`. A word starting with `on_`
+  is deliberately not bounded that way: it takes the last `Custom*` object
+  named anywhere in the window, since callbacks are assigned outside the body
+  and no other object has `on_` names.
 - A third language, `ntt-main`, for the `main.txt` / `main.cfg` command files
   that tell NTT what to load: `//` comments; 38 loader-side names, being the
   32 mod, command-file and locale commands (loading, unloading, saving,

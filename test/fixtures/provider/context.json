@@ -984,5 +984,295 @@
 			"word": "",
 			"wordStart": 11
 		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | Player.<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "Player",
+			"word": "",
+			"wordStart": 7
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | Player.we<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "Player",
+			"word": "we",
+			"wordStart": 7
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | MultiMenu.<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "none",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "",
+			"wordStart": 10
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     wep = <> | with (Player) {\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "Player",
+			"word": "",
+			"wordStart": 10
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     my_heal<> | with (Player) {\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "Player",
+			"word": "my_heal",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | var o = instance_create(x, y, Player); o.on_<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "on_",
+			"wordStart": 41
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     maxh<> | with (MultiMenu) {\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "maxh",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | ammo<> | with (Player) {\\n    wep = 1;\\n}\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "ammo",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | with (Player) my_heal<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "Player",
+			"word": "my_heal",
+			"wordStart": 14
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | with Player my_heal<>",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "Player",
+			"word": "my_heal",
+			"wordStart": 12
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | ammo<> | with (Player) my_health = 5;\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "ammo",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     ammo<> | with Player\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "ammo",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |         maxh<> | with (Player) {\\n    with (CustomEnemy) {\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomEnemy",
+			"word": "maxh",
+			"wordStart": 8
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     wep<> | with (Player) {\\n    with (CustomEnemy) {\\n    }\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "Player",
+			"word": "wep",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | ammo<> | // with (Player) {\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "ammo",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | ammo<> | trace(\"with (Player) {\");\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "ammo",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | ammo<> | /* with (Player) {\\n*/\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "general",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "ammo",
+			"wordStart": 0
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | e.on_<> | var e = instance_create(x, y, CustomEnemy);\\nwith (Player) { speed = 1; }\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": true,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomEnemy",
+			"word": "on_",
+			"wordStart": 2
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy |     on_ste<> | with (CustomEnemy) {\\n    with (Player) { speed = 1; }\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"objectName": "CustomEnemy",
+			"word": "on_ste",
+			"wordStart": 4
+		}
+	},
+	{
+		"case": "thing.mod.gml | ntgml-legacy | on_<> | with (Player) {\\n    speed = 1;\\n}\\n",
+		"context": {
+			"dialect": "legacy",
+			"inComment": false,
+			"inString": false,
+			"kind": "field",
+			"member": false,
+			"modType": "mod",
+			"objectArg": false,
+			"word": "on_",
+			"wordStart": 0
+		}
 	}
 ]

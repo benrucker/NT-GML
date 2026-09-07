@@ -16,6 +16,7 @@
 
 import { functions } from '../generated/functions';
 import { customObject } from '../tables/custom-objects';
+import { knownFieldObject } from '../tables/object-fields';
 import { modTypeFromFileName } from '../tables/events';
 import { ModType } from '../tables/types';
 
@@ -156,8 +157,19 @@ interface TextScan {
  * Backslash escapes the next character inside a string. Legacy NTGML has no
  * escape sequences (NTGML-SPEC.md section 2.3), but treating `\` that way
  * costs nothing and keeps modern `"\""` from swallowing the rest of the line.
+ *
+ * `mask`, when given, is filled with one entry per character: the character
+ * itself where it is live code, a space where it belongs to a string or a
+ * comment (newlines survive, so nothing moves between lines). Callers that
+ * run a pattern over the window use it so the pattern cannot match quoted or
+ * commented-out code, and offsets in the mask are offsets in the window.
  */
-function scanText(text: string): TextScan {
+function scanText(text: string, mask?: string[]): TextScan {
+	if (mask !== undefined) {
+		for (let i = 0; i < text.length; i++) {
+			mask[i] = text.charAt(i) === '\n' ? '\n' : ' ';
+		}
+	}
 	const calls: CallFrame[] = [];
 	let quote = '';
 	let block = false;
@@ -181,6 +193,7 @@ function scanText(text: string): TextScan {
 		if (c === '/' && next === '/') { lineComment = true; i++; continue; }
 		if (c === '/' && next === '*') { block = true; i++; continue; }
 		if (c === '"' || c === '\'' || c === '`') { quote = c; continue; }
+		if (mask !== undefined) { mask[i] = c; }
 		if (c === '(') {
 			calls.push({ name: identifierBefore(text, i), argIndex: 0, brackets: 0 });
 			continue;
@@ -326,23 +339,102 @@ const WITH_RECEIVER = /(?:^|[^A-Za-z0-9_.])with\s*\(?\s*[A-Za-z0-9_]*$/;
 /**
  * The nearest `Custom*` object named before the cursor, in `with (CustomX)`,
  * `with CustomX` or `instance_create*(x, y, CustomX)`.
+ *
+ * Deliberately narrow. `on_*` callbacks exist on the `Custom*` objects and
+ * nowhere else, so widening this to all 489 objects buys nothing and costs a
+ * lot: any `with (Player)` earlier in the window - even one whose body has
+ * closed again - would shadow the `CustomEnemy` the callback belongs to, and
+ * `Player` has no `on_` names to offer in its place.
  */
-const CUSTOM_RECEIVER = /(?:with\s*\(\s*|with\s+|instance_create\w*\s*\((?:[^()]*,)?\s*)(Custom[A-Za-z]*)/g;
+const CUSTOM_RECEIVER =
+	/(?:^|[^A-Za-z0-9_.])(?:with\s*\(\s*|with\s+|instance_create\w*\s*\((?:[^()]*,)?\s*)(Custom[A-Za-z]*)/g;
 
 /**
- * The same, but `with` only. A `with` body really does put the object's whole
- * field set in scope; naming an object in an `instance_create` argument does
- * not, so the two receivers are not interchangeable.
+ * Any known object, but in a `with` head only. A `with` body really does put
+ * the object's whole field set in scope; naming an object in an
+ * `instance_create` argument does not, so the two receivers are not
+ * interchangeable.
  */
-const WITH_CUSTOM_RECEIVER = /(?:with\s*\(\s*|with\s+)(Custom[A-Za-z]*)/g;
+const WITH_OBJECT_RECEIVER = /(?:^|[^A-Za-z0-9_.])(?:with\s*\(\s*|with\s+)([A-Za-z_]\w*)/g;
 
-function lastCustomObject(window: string, pattern: RegExp): string | undefined {
+/**
+ * An object whose instance variables we can offer: one of the 13 hand-written
+ * `Custom*` entries, or one of the objects the 2025-07-16 `fields.gml` lists.
+ */
+export function knownObject(name: string): boolean {
+	return customObject(name) !== undefined || knownFieldObject(name);
+}
+
+/** The last `Custom*` receiver in the masked window, `with` or created. */
+function lastCustomReceiver(masked: string): string | undefined {
 	let found: string | undefined;
-	pattern.lastIndex = 0;
-	let match = pattern.exec(window);
+	CUSTOM_RECEIVER.lastIndex = 0;
+	let match = CUSTOM_RECEIVER.exec(masked);
 	while (match !== null) {
 		if (customObject(match[1]) !== undefined) { found = match[1]; }
-		match = pattern.exec(window);
+		match = CUSTOM_RECEIVER.exec(masked);
+	}
+	return found;
+}
+
+/**
+ * The window with every string and comment blanked out, so a receiver pattern
+ * run over it cannot match a `with (Player)` that is only mentioned in prose
+ * or quoted in a string. One extra walk of the (at most 4 KB) window.
+ */
+function maskWindow(window: string): string {
+	const mask: string[] = new Array(window.length);
+	scanText(window, mask);
+	return mask.join('');
+}
+
+/**
+ * Whether the `with` body whose head ends at `from` is still open at the end
+ * of the masked window - that is, at the cursor.
+ *
+ * `from` is the offset just past the object name, so the `)` of the
+ * parenthesised form is stepped over first. `with (Obj) { ... }` then runs
+ * until its brace closes: count from the `{` and stop when the depth returns
+ * to zero. `with (Obj) stmt;` governs a single statement, so it ends at the
+ * first `;` or line break. Braces, semicolons and quotes inside strings and
+ * comments are already blanked, so this needs no tokenizer of its own.
+ */
+function withBodyOpen(masked: string, from: number): boolean {
+	let start = from;
+	while (start < masked.length && isSpace(masked.charAt(start))) { start++; }
+	if (masked.charAt(start) === ')') {
+		start++;
+		while (start < masked.length && isSpace(masked.charAt(start))) { start++; }
+	}
+	if (masked.charAt(start) !== '{') {
+		for (let i = from; i < masked.length; i++) {
+			const c = masked.charAt(i);
+			if (c === ';' || c === '\n') { return false; }
+		}
+		return true;
+	}
+	let depth = 0;
+	for (let i = start; i < masked.length; i++) {
+		const c = masked.charAt(i);
+		if (c === '{') { depth++; continue; }
+		if (c === '}' && --depth === 0) { return false; }
+	}
+	return true;
+}
+
+/**
+ * The object of the innermost `with` body the cursor is still inside, or
+ * `undefined` outside every one of them. Later matches win, so a `with` nested
+ * inside another reports the inner object while both are open.
+ */
+function openWithReceiver(masked: string): string | undefined {
+	let found: string | undefined;
+	WITH_OBJECT_RECEIVER.lastIndex = 0;
+	let match = WITH_OBJECT_RECEIVER.exec(masked);
+	while (match !== null) {
+		const end = match.index + match[0].length;
+		if (knownObject(match[1]) && withBodyOpen(masked, end)) { found = match[1]; }
+		match = WITH_OBJECT_RECEIVER.exec(masked);
 	}
 	return found;
 }
@@ -402,43 +494,54 @@ const buttonRule: Rule = ({ ctx }) =>
 		: undefined);
 
 /**
- * Member access. A `Custom*` receiver resolves to that object's fields; on any
- * other receiver an `on_` prefix is still specific enough for the field list,
- * and anything else is not ours to complete.
+ * Member access. A known object receiver resolves to that object's instance
+ * variables; on any other receiver an `on_` prefix is still specific enough
+ * for the field list, and anything else is not ours to complete.
  */
 const memberRule: Rule = ({ input, ctx }) => {
 	if (!ctx.member) { return undefined; }
 	const receiver = identifierBefore(input.linePrefix, ctx.wordStart - 1);
-	if (customObject(receiver) !== undefined) {
+	if (knownObject(receiver)) {
 		return { ...ctx, kind: 'field', objectName: receiver };
 	}
 	return ctx.word.indexOf('on_') === 0 ? undefined : { ...ctx, kind: 'none' };
 };
 
 /**
- * Custom-object fields.
+ * Object fields: the `Custom*` callbacks and the game's own instance variables.
  *
- * An `on_` prefix asks for the callback fields anywhere, of whichever object
- * was last named nearby - a `with` receiver or an `instance_create` argument,
- * since `inst.on_step = ...` right after creating `inst` is the usual way a
- * callback gets assigned.
+ * The two prefixes are bounded differently, on purpose.
  *
- * A word with no prefix only asks for fields inside a `with (CustomX)` body,
- * where the object's plain fields (`maxhealth`, `candie`, `hitid`) really are
- * in scope. An `instance_create` argument does not put them in scope, so it
- * does not count here.
+ * An `on_` prefix asks for the callback fields anywhere in the window, of
+ * whichever `Custom*` object was last named in it - a `with` receiver or an
+ * `instance_create` argument, since `inst.on_step = ...` a few lines after
+ * creating `inst` is the usual way a callback gets assigned. That reach is
+ * unbounded by design: the assignment is normally OUTSIDE any `with` body,
+ * and there is nothing to confuse it with, because only `Custom*` objects
+ * have `on_` names. With no receiver in the window the word still resolves,
+ * to the union of every `Custom*` callback.
+ *
+ * A word with no prefix only asks for fields inside a `with (Obj)` body, where
+ * the object's plain fields (`maxhealth`, `candie`, `hitid`, or `Player`'s
+ * `wep` and `my_health`) really are in scope. An `instance_create` argument
+ * does not put them in scope, so it does not count here, and here the body IS
+ * bounded: the receiver is dropped once its `{ ... }` has closed, or - for a
+ * brace-less `with (Obj) stmt` - at the first `;` or line break, so one
+ * `with (Player)` near the top of the window does not tilt every completion
+ * below it.
  *
  * Either way `itemsFor` merges the fields into the general list at the
  * context tier rather than replacing it.
  */
 const fieldRule: Rule = ({ ctx, window }) => {
+	const masked = maskWindow(window);
 	if (ctx.word.indexOf('on_') === 0) {
-		const objectName = lastCustomObject(window, CUSTOM_RECEIVER);
+		const objectName = lastCustomReceiver(masked);
 		const out: CursorContext = { ...ctx, kind: 'field' };
 		if (objectName !== undefined) { out.objectName = objectName; }
 		return out;
 	}
-	const receiver = lastCustomObject(window, WITH_CUSTOM_RECEIVER);
+	const receiver = openWithReceiver(masked);
 	if (receiver === undefined) { return undefined; }
 	return { ...ctx, kind: 'field', objectName: receiver };
 };

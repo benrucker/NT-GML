@@ -1,0 +1,50 @@
+{
+	"chain": [
+		"GameObject",
+		"Parent",
+		"Sample"
+	],
+	"groups": [
+		"Parent",
+		"Sample",
+		"scrSample"
+	],
+	"name": "Sample",
+	"notes": [
+		"Sample lead-in: A lead-in paragraph that belongs to no variable.",
+		"tail: Alarms: alarm[0] : something"
+	],
+	"variables": [
+		{
+			"group": "Parent",
+			"name": "plain"
+		},
+		{
+			"group": "Parent",
+			"name": "typed",
+			"type": "number"
+		},
+		{
+			"doc": "Whether the thing is a thing",
+			"group": "Parent",
+			"name": "documented",
+			"type": "bool"
+		},
+		{
+			"group": "Sample",
+			"name": "generic",
+			"type": "ds_map<path:string, contents:buffer>"
+		},
+		{
+			"group": "Sample",
+			"name": "grant_health",
+			"type": "grant_health(amount, source)"
+		},
+		{
+			"doc": "Declared by a script rather than by an object, so it is attributed to the page's own object. This sentence exists only to run the prose past the 300-character bound that the parser truncates at, which it now comfortably does by simply going on and on for a while longer, well past three hundred…",
+			"group": "scrSample",
+			"name": "from_script",
+			"type": "int[]"
+		}
+	]
+}

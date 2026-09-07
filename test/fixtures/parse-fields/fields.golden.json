@@ -1,0 +1,81 @@
+{
+	"entries": [
+		{
+			"builtin": true,
+			"fields": [
+				"alpha",
+				"beta"
+			],
+			"modFields": true,
+			"name": "Root"
+		},
+		{
+			"builtin": true,
+			"fields": [
+				"alpha",
+				"beta",
+				"gamma"
+			],
+			"modFields": true,
+			"name": "Child",
+			"parent": "Root"
+		},
+		{
+			"builtin": true,
+			"fields": [
+				"alpha",
+				"beta",
+				"gamma",
+				"delta"
+			],
+			"modFields": true,
+			"name": "Grandchild",
+			"parent": "Child"
+		},
+		{
+			"builtin": true,
+			"fields": [
+				"alpha"
+			],
+			"modFields": true,
+			"name": "Loner"
+		},
+		{
+			"builtin": true,
+			"fields": [
+				"alpha",
+				"beta",
+				"epsilon"
+			],
+			"modFields": true,
+			"name": "Odd",
+			"parent": "Root"
+		},
+		{
+			"builtin": false,
+			"fields": [
+				"zeta"
+			],
+			"modFields": true,
+			"name": "NoDefault"
+		},
+		{
+			"builtin": true,
+			"fields": [
+				"eta"
+			],
+			"modFields": false,
+			"name": "NoStar"
+		},
+		{
+			"builtin": true,
+			"fields": [
+				"theta"
+			],
+			"modFields": true,
+			"name": "Orphan",
+			"parent": "NotHere"
+		}
+	],
+	"generatedAt": "Generated at 1/2/2003 4:05:06 AM"
+}

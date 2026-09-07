@@ -93,3 +93,47 @@ thing.mod.gml | ntgml-legacy | o.on_<> | var o = instance_create(x, y, CustomChe
 thing.mod.gml | ntgml-legacy | draw_clear(<> | /* junk\n#define fake(a)\n   still comment\n
 thing.mod.gml | ntgml-legacy | draw_clear(<> | trace("junk\n#define fake(a)\n   still string\n
 thing.mod.gml | ntgml-legacy | draw_clear(<> | /* junk\n#define fake(a)\n*/\n
+
+# --- the game's own objects, from the generated field table ---------------
+# `Player` has an entry in the vendored fields.gml; `MultiMenu` is one of the
+# 75 objects the dump does not list, so it is not a known receiver and
+# completing after its dot offers nothing.
+thing.mod.gml | ntgml-legacy | Player.<>
+thing.mod.gml | ntgml-legacy | Player.we<>
+thing.mod.gml | ntgml-legacy | MultiMenu.<>
+thing.mod.gml | ntgml-legacy |     wep = <> | with (Player) {\n
+thing.mod.gml | ntgml-legacy |     my_heal<> | with (Player) {\n
+# `on_` after a non-`Custom*` creation resolves to no object at all, not to
+# `Player`: only `Custom*` objects have `on_` names, so naming `Player` here
+# can only take fields away. The union of every `Custom*` callback is left.
+thing.mod.gml | ntgml-legacy | var o = instance_create(x, y, Player); o.on_<>
+thing.mod.gml | ntgml-legacy |     maxh<> | with (MultiMenu) {\n
+
+# --- how far a `with` receiver reaches ------------------------------------
+# The object is in scope for its body and no longer: to the matching `}`, or,
+# for the brace-less form, to the end of that one statement. The window is
+# masked first, so a `with` written in a comment or a string is not a receiver.
+# 1. the block has closed again
+thing.mod.gml | ntgml-legacy | ammo<> | with (Player) {\n    wep = 1;\n}\n
+# 2. brace-less, cursor still on the statement's own line
+thing.mod.gml | ntgml-legacy | with (Player) my_heal<>
+thing.mod.gml | ntgml-legacy | with Player my_heal<>
+# 3. brace-less, and the statement is over (a `;`, then a new line)
+thing.mod.gml | ntgml-legacy | ammo<> | with (Player) my_health = 5;\n
+thing.mod.gml | ntgml-legacy |     ammo<> | with Player\n
+# 4. nested: the inner object wins while both are open, the outer one is back
+#    in scope once the inner block closes
+thing.mod.gml | ntgml-legacy |         maxh<> | with (Player) {\n    with (CustomEnemy) {\n
+thing.mod.gml | ntgml-legacy |     wep<> | with (Player) {\n    with (CustomEnemy) {\n    }\n
+# 5. only mentioned in a comment or a string
+thing.mod.gml | ntgml-legacy | ammo<> | // with (Player) {\n
+thing.mod.gml | ntgml-legacy | ammo<> | trace("with (Player) {");\n
+thing.mod.gml | ntgml-legacy | ammo<> | /* with (Player) {\n*/\n
+
+# --- an `on_` word looks only for `Custom*` receivers, and looks far ------
+# The callback is normally assigned outside any `with` body, so this path is
+# deliberately unbounded - but for that to be safe it must ignore the game's
+# own objects, which have no `on_` names to offer.
+thing.mod.gml | ntgml-legacy | e.on_<> | var e = instance_create(x, y, CustomEnemy);\nwith (Player) { speed = 1; }\n
+thing.mod.gml | ntgml-legacy |     on_ste<> | with (CustomEnemy) {\n    with (Player) { speed = 1; }\n
+thing.mod.gml | ntgml-legacy | on_<> | with (Player) {\n    speed = 1;\n}\n

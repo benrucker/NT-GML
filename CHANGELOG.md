@@ -39,5 +39,22 @@ a `.vsix` with `pnpm package` to use it.
   `Custom*` object callback fields, button names inside `button_check` and
   friends, object names where an object argument is expected, and pragma names
   after `#pragma`.
+- A third language, `ntt-main`, for the `main.txt` / `main.cfg` command files
+  that tell NTT what to load: `//` comments; 38 loader-side names, being the
+  32 mod, command-file and locale commands (loading, unloading, saving,
+  allowing and silencing, with their aliases) together with `/timeout`,
+  `/gml`, `/gml2`, `/gmlapi` and the sideloading vote; the other 84 chat
+  commands (the sprite, image and save-file ones among them); and an invalid
+  scope for a command name the grammar does not know. The 122 names are the
+  100.034 binary's own - every `chat_cmd_<name>` handler plus every alias its
+  `/help` table registers - which covers both the spec's list and the FAQ's.
+  Highlighting only: it contributes no completions and does not activate the
+  extension. It claims `main.txt`, `main.cfg` and `main<digits>...txt`.
+- An extension icon, so the Extensions view no longer shows a placeholder.
+  `tools/render-icon.ts` draws it from analytic shapes with no dependencies;
+  `pnpm gen:icon` re-renders it. The committed PNG is checked by decoding it
+  and comparing pixels with a fresh render, not by comparing file bytes, so
+  zlib changing its output between Node releases cannot fail the build; the
+  small per-channel tolerance covers rounding, not a changed picture.
 - `pnpm gen` regenerates the tables and grammars from a fresh dump, so a new
   NTT release can be picked up without hand-editing anything.

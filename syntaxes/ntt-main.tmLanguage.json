@@ -1,0 +1,120 @@
+{
+	"comment": "NTT command files (main.txt / main.cfg): one chat command per line. HAND-MAINTAINED - unlike syntaxes/ntgml.tmLanguage.json and syntaxes/ntgml-legacy.tmLanguage.json this file is not written by tools/generate-grammar.ts, and there is nothing to regenerate. SOURCES, in decreasing authority. (1) The NTT 100.034 data.win, which is what the game actually dispatches: 122 command names, being every `chat_cmd_<name>` script in its string pool (the dispatcher builds that script name from the typed word - the literal `chat_cmd_` sits just past the table) plus every alias registered in its `/help` table at byte offsets 1492476-1495280, less the nine argument labels that share the region (code framerate milliseconds mode object seconds value variable where). (2) The NTT FAQ chat-command list (NTT-FAQ.dmd in YellowAfterlife's bits-of-nuclear-throne, which is not part of the api/ntt-docs copy vendored here), 49 names, every one of them confirmed by the binary. (3) NTGML-SPEC.md section 9, whose names the binary also all confirms; the ones the FAQ does not list are allowmod gml2 loadarea loadcfg loaddir loadloc loadskill loadtxt sideload - the FAQ does document /loadtext and /loadconf, inside its /load entry. (4) The local corpus, 25 `main*.txt` under `mods/` plus an empty `main.txt` at the game root, where /load /loadmod /loadwep /loadskin /loadrace /loadcrown /loadskill /loadtext /timeout /allowmod /unloadmod were seen in real use. THREE THINGS THIS GRAMMAR ASSUMES, none of them documented anywhere. Commands are matched in lower case only, so `/LoadMod` is flagged: no source says whether the dispatcher folds case, but every tabled, documented and observed name is lower case. `//` line comments are not described by NTT anywhere; they are inferred from shipped files (mods/vagabonds/main.txt, `mods/vagabonds/custom options/main.txt`) and from NTGML-SPEC.md section 9. Leading whitespace is tolerated on purpose, to keep the highlighter lenient, although no corpus line is indented and nothing says the game strips it. A non-blank line that is neither a comment nor a slash command is left unscoped - what the game does with such a line is not documented.",
+	"name": "NTT command file",
+	"scopeName": "source.ntt-main",
+	"fileTypes": [],
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#timeout-seconds"
+		},
+		{
+			"include": "#timeout-invalid"
+		},
+		{
+			"include": "#gml-command"
+		},
+		{
+			"include": "#bare-command"
+		},
+		{
+			"include": "#path-command"
+		},
+		{
+			"include": "#chat-command"
+		},
+		{
+			"include": "#unknown-command"
+		}
+	],
+	"repository": {
+		"comment": {
+			"comment": "A whole-line comment. `//loadmod x` - no space after the slashes - is how a line is disabled, so this must win over every command rule.",
+			"name": "comment.line.double-slash.ntt-main",
+			"match": "^\\s*//.*$"
+		},
+		"timeout-seconds": {
+			"comment": "The network timeout, in seconds. Integer or decimal is an assumption: the FAQ says only \"Time is in seconds\" and the binary \"[number of seconds]\", and `/timeout 600` is the only form anyone has been observed to write.",
+			"match": "^\\s*(/timeout)(?:\\s+([0-9]+(?:\\.[0-9]+)?))?\\s*$",
+			"captures": {
+				"1": {
+					"name": "keyword.control.command.ntt-main"
+				},
+				"2": {
+					"name": "constant.numeric.ntt-main"
+				}
+			}
+		},
+		"timeout-invalid": {
+			"comment": "Anything else after /timeout is not a duration. Must follow #timeout-seconds.",
+			"match": "^\\s*(/timeout)\\s+(\\S.*?)\\s*$",
+			"captures": {
+				"1": {
+					"name": "keyword.control.command.ntt-main"
+				},
+				"2": {
+					"name": "invalid.illegal.argument.ntt-main"
+				}
+			}
+		},
+		"gml-command": {
+			"comment": "The argument is one line of NTGML. It is scoped as embedded GML but the ntgml grammars are deliberately NOT included: they carry begin/end rules (block comments, strings, macro continuations), and an unterminated one - `/gml /* x` - would push a rule stack that swallowed every following line of the command file. Nothing in this format spans lines, so every rule here is a single-line match.",
+			"match": "^\\s*(/(?:gml2|gml))(?:\\s+(\\S.*?))?\\s*$",
+			"captures": {
+				"1": {
+					"name": "keyword.control.command.ntt-main"
+				},
+				"2": {
+					"name": "meta.embedded.gml.ntt-main"
+				}
+			}
+		},
+		"bare-command": {
+			"comment": "Commands that take no argument; anything after one is a mistake.",
+			"match": "^\\s*(/(?:sideloading|sideload|gmlapi))(?:\\s+(\\S.*?))?\\s*$",
+			"captures": {
+				"1": {
+					"name": "keyword.control.command.ntt-main"
+				},
+				"2": {
+					"name": "invalid.illegal.argument.ntt-main"
+				}
+			}
+		},
+		"path-command": {
+			"comment": "Commands that load, unload, allow, silence or save a mod or a command file, with every alias the binary registers for them (`/race` for /loadrace, `/mut` and `/mutation` for /loadskill, `/livecode` for /loadlive, `/silentmod` for /silencemod, and so on). The argument is a mod, file or directory name and runs to the end of the line: it may contain spaces (`/loadmod fake crowns.mod.gml`, `/load custom options`) and slashes (`/loadskin skins/fish-hawaiian/hawaiian`), and the extension is optional (`/loadmod teloader`, `/loadmod baldi.race`). /savemod takes two paths and gets one path token for both; nothing here splits arguments. `/wep` is registered as an alias of /loadwep by the /help table even though a chat_cmd_wep script also exists for the per-player starting weapon; the table wins.",
+			"match": "^\\s*(/(?:loadmutation|loadweapon|silencemod|ignoremod|loadcrown|loadskill|silentmod|unloadmod|allowmod|livecode|loadarea|loadconf|loadlive|loadrace|loadskin|loadtext|mutation|loadcfg|loaddir|loadloc|loadmod|loadmut|loadtxt|loadwep|savemod|skill|area|load|race|skin|mut|wep))(?:\\s+(\\S.*?))?\\s*$",
+			"captures": {
+				"1": {
+					"name": "keyword.control.command.ntt-main"
+				},
+				"2": {
+					"name": "string.unquoted.path.ntt-main"
+				}
+			}
+		},
+		"chat-command": {
+			"comment": "Every other command the 100.034 binary answers to. /load runs any chat command, not only the loading ones, so all of these are legal in a command file even though no file in the corpus uses one. Includes the per-player variants the binary registers - `color`/`colour` bare or with 2-4, `gamepad` bare or 1-4, `cwep` and `bwep` bare or 1-4, and `pwep`, which has no numbered variants - and the handler-only names `getset`, `gml_impl`, `debugstack`, `rootdir` and the `gp*` gamepad tuning commands, which no documentation mentions but which the chat_cmd_<name> convention still makes reachable.",
+			"match": "^\\s*(/(?:nativecursor|unloadsprite|gpnormalize|copysprite|debugstack|gpdeadzone|gpexponent|loadsprite|savesprite|checkmods|copyimage|loadimage|mouselock|mousesens|saveimage|stopaudio|tracksync|unloadspr|dumpsync|gamepad1|gamepad2|gamepad3|gamepad4|gml_impl|hardmode|loadgame|outlines|portalfx|savegame|subpixel|autoaim|colour2|colour3|colour4|copyimg|copyspr|debugbc|gamepad|loadimg|loadspr|revmode|rootdir|saveimg|savespr|sepview|suicide|ccrown|color2|color3|color4|colour|getset|locate|musvol|sfxvol|stdout|ultras|wscale|bwep1|bwep2|bwep3|bwep4|color|cwep1|cwep2|cwep3|cwep4|delay|mtips|spawn|split|wtips|bwep|cwep|exit|goto|help|pwep|cwd|die|fps|get|set|q))(?:\\s+(\\S.*?))?\\s*$",
+			"captures": {
+				"1": {
+					"name": "support.function.command.ntt-main"
+				},
+				"2": {
+					"name": "string.unquoted.argument.ntt-main"
+				}
+			}
+		},
+		"unknown-command": {
+			"comment": "A slash word that is in none of the tables above - a typo, or a command from a newer NTT than 100.034. Only the word is scoped; the rest of the line is left alone, since there is no telling what it should have been.",
+			"match": "^\\s*(/[A-Za-z0-9_]+)",
+			"captures": {
+				"1": {
+					"name": "invalid.illegal.unknown-command.ntt-main"
+				}
+			}
+		}
+	}
+}

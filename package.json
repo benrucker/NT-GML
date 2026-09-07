@@ -5,6 +5,7 @@
 	"version": "0.1.0",
 	"publisher": "benrucker",
 	"license": "MIT",
+	"icon": "resources/icon.png",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/benrucker/NT-GML.git"
@@ -58,6 +59,21 @@
 					".ntgml"
 				],
 				"configuration": "./data/gml-configuration.json"
+			},
+			{
+				"id": "ntt-main",
+				"aliases": [
+					"NTT command file",
+					"NTT main.txt"
+				],
+				"filenames": [
+					"main.txt",
+					"main.cfg"
+				],
+				"filenamePatterns": [
+					"main[0-9]*.txt"
+				],
+				"configuration": "./data/ntt-main-configuration.json"
 			}
 		],
 		"grammars": [
@@ -70,6 +86,11 @@
 				"language": "ntgml",
 				"scopeName": "source.ntgml",
 				"path": "./syntaxes/ntgml.tmLanguage.json"
+			},
+			{
+				"language": "ntt-main",
+				"scopeName": "source.ntt-main",
+				"path": "./syntaxes/ntt-main.tmLanguage.json"
 			}
 		]
 	},
@@ -88,6 +109,7 @@
 		"gen:api": "pnpm run compile:tools && node out/tools/generate-api.js",
 		"gen:grammar": "pnpm run compile:tools && node out/tools/generate-grammar.js",
 		"gen": "pnpm run gen:api && pnpm run gen:grammar",
+		"gen:icon": "pnpm run compile:tools && node out/tools/render-icon.js",
 		"package": "vsce package --no-dependencies"
 	},
 	"devDependencies": {

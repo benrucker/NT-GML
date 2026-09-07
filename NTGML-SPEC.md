@@ -340,7 +340,7 @@ assigns it **on `self`** (shown below as `+ engine …`). Three exclusions bound
 - Chainable: `/load main2`, `/loadtext main2.txt`.
 - Commands: `/load /loadmod /loadwep /loadrace /loadskin /loadskill /loadcrown /loadarea /loadlive /allowmod /unloadmod /silencemod /ignoremod /loadloc /sideload /timeout /gml /gml2 /gmlapi`.
 - Extension on mod name optional (`/loadmod baldi.race`, `/loadmod x.mod.gml` both seen).
-- Zero `main.cfg` in the wild; 24 `main*.txt` in the local corpus.
+- Zero `main.cfg` in the wild; 25 `main*.txt` under `mods/` in the local corpus, plus an empty `main.txt` at the game root.
 - Blank `main.txt` marks a folder as an NTT project (GMEdit).
 - Distinct from `NuclearThroneTogether.ini`.
 

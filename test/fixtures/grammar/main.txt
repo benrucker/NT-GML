@@ -1,0 +1,34 @@
+// vagabonds - the library has to load before anything that uses it.
+//loadmod old example options.mod.gml
+
+/loadmod teloader
+/loadmod fake crowns.mod.gml
+/load custom options
+/loadwep Weapons/KirbyWeps/kirby.wep
+/loadskin Fish in wheelchair
+/loadskin skins/fish-hawaiian/hawaiian
+/loadrace baldi.race
+/loadcrown Crowns/crwn_vagabond
+/loadskill ColdSnap/coldsnap.skill
+/wep Weapons/KirbyWeps/kirby.wep
+/loadlive library/live.mod.gml
+	/allowmod teloader.mod
+/unloadmod teloader.mod
+/silencemod library
+/ignoremod library
+/savemod teloader teloader.copy.mod.gml
+/timeout 600
+/gml some_call(1)
+/gmlapi
+
+// Ordinary chat commands: /load runs these from a command file too.
+/wscale 2
+/colour red
+/cwep2 revolver
+
+// A typo the grammar cannot resolve.
+/lodmod typo.mod.gml
+
+// /loadtext loads a command file too; the FAQ lists it under /load, the
+// binary's alias table does not.
+/loadtext main2.txt

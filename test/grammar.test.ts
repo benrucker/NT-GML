@@ -1,8 +1,11 @@
 /**
- * The two generated TextMate grammars.
+ * The three TextMate grammars: the two generated NTGML ones and the
+ * hand-written `main.txt` command-file one.
  *
  * Three layers:
- *   1. the committed JSON is byte-identical to a fresh generator run;
+ *   1. the committed JSON is byte-identical to a fresh generator run - for the
+ *      generated files only; `ntt-main.tmLanguage.json` is maintained by hand
+ *      and the same test fails on any file in syntaxes/ that is neither;
  *   2. the JSON is structurally valid (includes resolve, begin/end pair up);
  *   3. real NTGML tokenises into the expected scopes - a full line-by-line
  *      dump per fixture as a golden, plus targeted assertions for the rules
@@ -26,10 +29,21 @@ const GENERATOR = path.join(ROOT, 'out', 'tools', 'generate-grammar.js');
 
 const LEGACY_SCOPE = 'source.ntgml.legacy';
 const MODERN_SCOPE = 'source.ntgml';
+const MAIN_SCOPE = 'source.ntt-main';
 
-const GRAMMAR_FILES: { scope: string; file: string }[] = [
-	{ scope: LEGACY_SCOPE, file: 'ntgml-legacy.tmLanguage.json' },
-	{ scope: MODERN_SCOPE, file: 'ntgml.tmLanguage.json' },
+interface GrammarFile {
+	scope: string;
+	file: string;
+	/** Written by `tools/generate-grammar.ts`, or maintained by hand? */
+	generated: boolean;
+	/** Every scope name in the file has to end in this. */
+	suffix: '.ntgml' | '.ntt-main';
+}
+
+const GRAMMAR_FILES: GrammarFile[] = [
+	{ scope: LEGACY_SCOPE, file: 'ntgml-legacy.tmLanguage.json', generated: true, suffix: '.ntgml' },
+	{ scope: MODERN_SCOPE, file: 'ntgml.tmLanguage.json', generated: true, suffix: '.ntgml' },
+	{ scope: MAIN_SCOPE, file: 'ntt-main.tmLanguage.json', generated: false, suffix: '.ntt-main' },
 ];
 
 /** Real mods to tokenise as a backtracking canary, when they are installed. */
@@ -139,9 +153,12 @@ test('grammar: committed syntaxes/ matches a fresh generator run', () => {
 		});
 		assert.match(summary, /self-checks:\s+ok/);
 
+		// Only the generated files come out of the generator. The hand-written
+		// ones are listed too, so a file in syntaxes/ that is neither still fails.
 		const fresh = fs.readdirSync(tmp).sort();
-		assert.deepEqual(fresh, GRAMMAR_FILES.map((g) => g.file).sort());
-		assert.deepEqual(fs.readdirSync(SYNTAXES).sort(), fresh, 'stale file in syntaxes/');
+		assert.deepEqual(fresh, GRAMMAR_FILES.filter((g) => g.generated).map((g) => g.file).sort());
+		assert.deepEqual(fs.readdirSync(SYNTAXES).sort(), GRAMMAR_FILES.map((g) => g.file).sort(),
+			'stale or unlisted file in syntaxes/');
 		for (const name of fresh) {
 			assert.equal(lf(read(path.join(tmp, name))), lf(read(path.join(SYNTAXES, name))),
 				name + ' differs from a fresh run; rerun `pnpm gen`');
@@ -217,13 +234,13 @@ for (const entry of GRAMMAR_FILES) {
 	});
 }
 
-test('grammar: every scope name ends in .ntgml', () => {
+test('grammar: every scope name ends in the grammar\'s own suffix', () => {
 	for (const entry of GRAMMAR_FILES) {
 		const text = read(path.join(SYNTAXES, entry.file));
 		const grammar: RawGrammar = JSON.parse(text);
 		const bad: string[] = [];
 		const check = (name: string | undefined): void => {
-			if (name !== undefined && !/\.ntgml$/.test(name)) { bad.push(name); }
+			if (name !== undefined && !name.endsWith(entry.suffix)) { bad.push(name); }
 		};
 		const walk = (rule: RawRule): void => {
 			check(rule.name);
@@ -237,7 +254,9 @@ test('grammar: every scope name ends in .ntgml', () => {
 		grammar.patterns.forEach(walk);
 		for (const key of Object.keys(grammar.repository)) { walk(grammar.repository[key]); }
 		assert.deepEqual(bad, [], entry.file);
-		assert.ok(!/\(\?i\)/.test(text), entry.file + ': NTGML is case sensitive');
+		// NTGML identifiers and NTT chat commands are both case sensitive, and
+		// every documented and observed command name is lower case.
+		assert.ok(!/\(\?i\)/.test(text), entry.file + ': must stay case sensitive');
 	}
 });
 
@@ -251,6 +270,50 @@ test('grammar: legacy fixture tokenises as expected', () => {
 test('grammar: modern fixture tokenises as expected', () => {
 	const source = read(path.join(FIXTURES, 'grammar', 'sample.mod.ntgml'));
 	expectGolden('grammar/sample.mod.ntgml.golden.txt', dump(MODERN_SCOPE, source));
+});
+
+test('grammar: main.txt fixture tokenises as expected', () => {
+	const source = read(path.join(FIXTURES, 'grammar', 'main.txt'));
+	expectGolden('grammar/main.txt.golden.txt', dump(MAIN_SCOPE, source));
+});
+
+/**
+ * Only the cases the golden cannot express: scopes a line must NOT get, input
+ * that would be wrong to ship in a fixture, and multi-line leakage. Everything
+ * a single well-formed line does get is in `main.txt` and its golden.
+ */
+test('grammar: main.txt cases the golden cannot show', () => {
+	const at = (code: string, needle: string): string[] => scopesOf(MAIN_SCOPE, code, needle);
+
+	// /timeout takes seconds; anything else after it is wrong.
+	assert.deepEqual(at('/timeout abc', 'abc'), ['invalid.illegal.argument.ntt-main']);
+	// Commands that take no argument flag whatever follows them.
+	assert.deepEqual(at('/gmlapi now', 'now'), ['invalid.illegal.argument.ntt-main']);
+	assert.deepEqual(at('/sideloading yes', 'yes'), ['invalid.illegal.argument.ntt-main']);
+
+	// `/gml2` is the same rule as `/gml`, and the embedded-GML scope must stay a
+	// label: an unterminated block comment in the argument must not leak into
+	// the following lines the way an included NTGML grammar would let it.
+	assert.deepEqual(at('/gml2 some_call(1)', '/gml2'), ['keyword.control.command.ntt-main']);
+	assert.ok(!hasScope(MAIN_SCOPE, '/gml /* unterminated\n/loadmod after.mod.gml',
+		'comment.block.ntgml'));
+	assert.deepEqual(at('/gml /* unterminated\n/loadmod after.mod.gml', '/loadmod'),
+		['keyword.control.command.ntt-main']);
+
+	// A command name has to be followed by whitespace or the end of the line, so
+	// the tier-1 `/load` cannot claim `/loadsprite`, which keeps its own tier.
+	assert.deepEqual(at('/loadsprite spr/thing.png', '/loadsprite'),
+		['support.function.command.ntt-main']);
+
+	// Commands are lower case; `/LoadMod` is not the same command.
+	assert.deepEqual(at('/LoadMod x', '/LoadMod'), ['invalid.illegal.unknown-command.ntt-main']);
+	// `//loadmod x` is the idiom for disabling a line. The golden shows it as a
+	// comment; only this can show that it is not also a command.
+	assert.ok(!hasScope(MAIN_SCOPE, '//loadmod old.mod.gml',
+		'keyword.control.command.ntt-main'));
+
+	// A line that is neither a comment nor a command makes no claim either way.
+	assert.deepEqual(at('teloader', 'teloader'), []);
 });
 
 test('grammar: identifier tables come through with the right scope', () => {
@@ -436,18 +499,20 @@ test('grammar: dialect gating', () => {
 	}
 });
 
-test('grammar: keeps up on real mods without backtracking', (t) => {
+test('grammar: keeps up on real mods, and knows every command they use', (t) => {
 	if (!fs.existsSync(REAL_MODS)) {
 		// Only present on a machine with the game installed.
 		t.skip('no mods dir at ' + REAL_MODS + ' (set NT_MODS_DIR)');
 		return;
 	}
 	const files: string[] = [];
+	const mains: string[] = [];
 	const walk = (dir: string): void => {
 		for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
 			const full = path.join(dir, entry.name);
 			if (entry.isDirectory()) { walk(full); }
 			else if (/\.(gml|ntgml)$/.test(entry.name)) { files.push(full); }
+			else if (/^main.*\.txt$/i.test(entry.name)) { mains.push(full); }
 		}
 	};
 	walk(REAL_MODS);
@@ -469,4 +534,25 @@ test('grammar: keeps up on real mods without backtracking', (t) => {
 	assert.ok(elapsed < 30000,
 		'tokenising ' + sample.length + ' real mod files took ' + elapsed + 'ms for ' +
 		lines + ' lines - suspect catastrophic backtracking');
+
+	// The command tables came out of the installed 100.034 binary, so nothing on
+	// this machine's disk should come back unknown. This deliberately depends on
+	// the contents of a developer's mods folder: a failure means either that the
+	// tables missed a name, or that a mod uses a command from a newer NTT than
+	// the one the tables were read from - and either way the fix is to re-read
+	// the binary and extend syntaxes/ntt-main.tmLanguage.json. With the game not
+	// installed the whole test skips, as above.
+	const unknown: string[] = [];
+	for (const file of mains.sort()) {
+		let text: string;
+		try { text = read(file); } catch { continue; }
+		for (const line of tokenizeLines(MAIN_SCOPE, text)) {
+			for (const token of line) {
+				if (token.scopes.indexOf('invalid.illegal.unknown-command.ntt-main') >= 0) {
+					unknown.push(path.relative(REAL_MODS, file) + ': ' + token.text);
+				}
+			}
+		}
+	}
+	assert.deepEqual(unknown, [], 'unknown commands in ' + mains.length + ' real main*.txt files');
 });

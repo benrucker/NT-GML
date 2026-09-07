@@ -122,8 +122,10 @@ test('tables: spot checks for each annotation form', () => {
 });
 
 test('cleanup: no Rivals-of-Aether identifiers in shipped code', () => {
-	// Scanned roots; a root that does not exist is skipped, so `resources/`
-	// may be absent. Deliberately NOT scanned, because they name RoA on purpose:
+	// Scanned roots. All of them are committed today; the existsSync filter is
+	// there so adding or removing a root here needs no other change, and so a
+	// checkout without `.vscode/` still runs. Deliberately NOT scanned, because
+	// they name RoA on purpose:
 	//   NTGML-PORT-SCOPE.md and NTGML-SPEC.md - reference documents about the port;
 	//   docs/ - `NTT Modding Cheat Sheet.md`, a community reference;
 	//   LICENSE - its third-party notices attribute the original extension;

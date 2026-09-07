@@ -15,7 +15,7 @@ code --install-extension ntgml-0.1.0.vsix
 
 ## The two dialects
 
-NTT picks the language version by file extension, so the extension contributes two languages.
+NTT picks the language version by file extension, so the extension contributes two languages. (A third, `ntt-main`, covers `main.txt` command files - see below.)
 
 | Language id    | Extension | What it is                                                                                                                  |
 | -------------- | --------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -33,16 +33,24 @@ or disable this extension for that workspace (Extensions view → the extension 
 
 Both dialects share the NTT-specific syntax that no other GML tooling knows about: `wait`, `fork()`, `"name" in inst`, `#macro`, `#pragma`, and `#define` with named arguments. [NTGML-SPEC.md](NTGML-SPEC.md) is the full language description.
 
+### `main.txt` command files
+
+A third language, `ntt-main`, covers the command files that tell NTT what to load. A `main.txt` (or `main.cfg`) is a list of chat commands, one per line - `/loadmod teloader`, `/loadwep Weapons/kirby.wep`, `/timeout 600` - which the game runs when you `/load` the folder that holds it. NTT documents no comment syntax at all; shipped mods disable a line by prefixing it with `//`, and the extension colours any `//` line as a comment. Files chain: a `main.txt` ending in `/load main2` or `/loadtext main2.txt` hands over to the next one.
+
+The language claims `main.txt`, `main.cfg`, and `main<digits>...txt` - the `main[0-9]*.txt` pattern, which picks up the chained `main2.txt` and `main3.txt` without claiming an unrelated `mainframe.txt` or `maintenance.txt` in some other workspace. As with `.gml`, `files.associations` overrides it.
+
+It is highlighting only: no completions, no hovers, and nothing in the extension activates for it. Commands are matched case-sensitively in lower case, which is how every documented and every observed one is written. A command the grammar does not know - `/lodmod`, or a command from a newer NTT - is coloured as invalid, and so is an argument after a command that takes none (`/gmlapi x`) or a non-numeric `/timeout`. The command list is the NTT 100.034 binary's own: 122 names, being every `chat_cmd_<name>` handler in its string pool plus every alias its `/help` table registers, which is a superset of both [NTGML-SPEC.md](NTGML-SPEC.md) section 9 and the NTT FAQ's 49-name chat-command list. 38 of them are the mod, command-file and locale commands - loading, unloading, saving, allowing and silencing, with their aliases - plus `/timeout`, `/gml`, `/gml2`, `/gmlapi` and the sideloading vote, so what follows one is a path, a duration, a line of GML, or nothing at all; the other 84 are the rest of the chat commands - the sprite, image and save-file ones among them - which `/load` will run from a command file just the same. `syntaxes/ntt-main.tmLanguage.json` is hand-maintained and records where each name came from. The argument of `/gml` is marked as embedded GML but is *not* tokenised by the NTGML grammars, so an unterminated `/*` on a `/gml` line cannot swallow the rest of the file.
+
 ## Known limitations
 
 - **`#pragma gml 2` does not change the highlighting.** VS Code picks one grammar per file extension, so a `.gml` file that opts into the modern dialect is still coloured as legacy: `function`, `new` and `$"..."` will look wrong even though the game accepts them. Completions *do* follow the pragma, but only when it is within the first 40 lines *and* the first ~2 KB (2,048 characters) of the file, which is as far as the scan reads. Save the file as `.ntgml` if you want the modern colours.
 - **`.gml` is claimed for every workspace**, which collides with other GameMaker extensions. See [The two dialects](#the-two-dialects) for how to opt out.
+- **`main.txt`, `main.cfg` and `main<digits>...txt` are claimed for every workspace too**, for the same reason: language contributions are global, so a `main.txt` that has nothing to do with NTT is coloured as a command file. The opt-out is the same - `"files.associations": { "main*.txt": "plaintext", "main.cfg": "plaintext" }`, or disabling the extension for that workspace.
 - **`delete` and `finally` are offered and highlighted in both dialects**, even though the spec lists `delete` as modern-only and leaves `finally`'s gating open. The extension does not gate either: nothing documents what the legacy parser really rejects, and guessing wrong in that direction would hide working code.
 - **Single-quoted strings are highlighted as strings in the modern dialect too**, although the modern parser most likely rejects them. The spec only says "likely", so the grammar does not encode the guess.
 - **Completions read a ~4 KB window** (4,000 characters) ending at the cursor and snapped back to the enclosing `#define` / `function`. In a very long script the context rules can see a truncated view and offer the wrong list.
 - **A name after a `.` is coloured as a member, not as the built-in of the same name**, so `global.frac` is not coloured like the `frac` function. The one exception is the call form: `inst.alarm_set(0, 30)` really is an API call, so it keeps the function colouring. Reading the same field without calling it does not.
 - **The "NTT-specific" sort tier comes from a hand-written list** (`src/tables/ntt-names.ts`) of NTT-only function families. The dump carries no flag for this, so functions added by a newer NTT release may sort as generic GameMaker names until that list is updated.
-- **No extension icon yet**, so the extension shows the default placeholder in the Extensions view.
 - **Argument types cover about half the API.** Measured against the shipped tables, 476 of the 984 functions have at least one typed argument in hovers and signature help. Most of those types come from the live dump; the older hand-annotated 100.022 reference fills in the rest. The other functions show argument names only.
 
 ## What is in the repo
@@ -53,7 +61,7 @@ Both dialects share the NTT-specific syntax that no other GML tooling knows abou
 | `src/provider/`                                 | What those providers actually do, in five modules that never import `vscode`: `model`, `format`, `items`, `context`, `signature`.                     |
 | `src/generated/`                                | Identifier tables generated from the API dump: functions, constants, variables, assets, and per-function docs. Never edit by hand.                   |
 | `src/tables/`                                   | Hand-maintained tables: mod events per mod type, `Custom*` object callbacks, button names, keywords, `ntt-names.ts` (the NTT-only families that drive the sort tier), and the shared types. |
-| `tools/`                                        | The generator. `parse-api.ts` reads the dump format, `parse-docs.ts` pulls prose out of the docs sources, `generate-api.ts` writes `src/generated/`. |
+| `tools/`                                        | The generators. `parse-api.ts` reads the dump format, `parse-docs.ts` pulls prose out of the docs sources, `generate-api.ts` writes `src/generated/`, `generate-grammar.ts` writes the two NTGML grammars, and `render-icon.ts` draws `resources/icon.png`. |
 | `api/ntt-100.034/`                              | The vendored `/gmlapi` dump this build is generated from. Source of truth.                                                                           |
 | `api/ntt-100.022-reference/`                    | An older, hand-annotated dump. Fills argument-type gaps the live dump leaves, and supplies `default.gml`'s built-in instance variables.              |
 | `api/ntt-docs/`                                 | A copy of the [bits-of-nuclear-throne](https://github.com/YAL-Game-Tools/bits-of-nuclear-throne) docs sources.                                       |
@@ -61,8 +69,10 @@ Both dialects share the NTT-specific syntax that no other GML tooling knows abou
 | `api/reference/`                                | GMEdit's parser for the dump's annotation format, kept as a reference for `tools/parse-api.ts`. Not compiled.                                        |
 | `docs/`                                         | Community reference material. Not shipped in the `.vsix`.                                                                                            |
 | `test/`                                         | Golden-file tests. See [test/README.md](test/README.md).                                                                                             |
-| `syntaxes/`                                     | The two generated TextMate grammars. Never edit by hand; they come out of `pnpm gen`.                                                                |
-| `data/gml-configuration.json`                   | Bracket pairs, comment tokens, and auto-closing for both languages.                                                                                  |
+| `syntaxes/`                                     | Three TextMate grammars. `ntgml.tmLanguage.json` and `ntgml-legacy.tmLanguage.json` come out of `pnpm gen` - never edit those by hand. `ntt-main.tmLanguage.json` is hand-maintained. |
+| `data/gml-configuration.json`                   | Bracket pairs, comment tokens, and auto-closing, shared by `ntgml` and `ntgml-legacy`.                                                               |
+| `data/ntt-main-configuration.json`              | The `ntt-main` language configuration: a `//` line comment and nothing else.                                                                         |
+| `resources/icon.png`                            | The extension icon. Rendered by `tools/render-icon.ts`; `pnpm gen:icon` rewrites it.                                                                 |
 
 ## Working on it
 
@@ -71,7 +81,8 @@ pnpm install
 pnpm build      # extension, generator, and tests
 pnpm test       # builds, then runs the golden-file suite
 pnpm lint
-pnpm gen        # regenerate src/generated from the dump
+pnpm gen        # regenerate src/generated and syntaxes/ntgml*.json from the dump
+pnpm gen:icon   # re-render resources/icon.png (not part of pnpm gen)
 pnpm package    # produces a .vsix
 ```
 

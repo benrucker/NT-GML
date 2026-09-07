@@ -1,0 +1,88 @@
+   1 | // vagabonds - the library has to load before anything that uses it.
+     | "// vagabonds - the library has to load before anything that uses it."  comment.line.double-slash.ntt-main
+   2 | //loadmod old example options.mod.gml
+     | "//loadmod old example options.mod.gml"  comment.line.double-slash.ntt-main
+   3 | 
+   4 | /loadmod teloader
+     | "/loadmod"  keyword.control.command.ntt-main
+     | "teloader"  string.unquoted.path.ntt-main
+   5 | /loadmod fake crowns.mod.gml
+     | "/loadmod"  keyword.control.command.ntt-main
+     | "fake crowns.mod.gml"  string.unquoted.path.ntt-main
+   6 | /load custom options
+     | "/load"  keyword.control.command.ntt-main
+     | "custom options"  string.unquoted.path.ntt-main
+   7 | /loadwep Weapons/KirbyWeps/kirby.wep
+     | "/loadwep"  keyword.control.command.ntt-main
+     | "Weapons/KirbyWeps/kirby.wep"  string.unquoted.path.ntt-main
+   8 | /loadskin Fish in wheelchair
+     | "/loadskin"  keyword.control.command.ntt-main
+     | "Fish in wheelchair"  string.unquoted.path.ntt-main
+   9 | /loadskin skins/fish-hawaiian/hawaiian
+     | "/loadskin"  keyword.control.command.ntt-main
+     | "skins/fish-hawaiian/hawaiian"  string.unquoted.path.ntt-main
+  10 | /loadrace baldi.race
+     | "/loadrace"  keyword.control.command.ntt-main
+     | "baldi.race"  string.unquoted.path.ntt-main
+  11 | /loadcrown Crowns/crwn_vagabond
+     | "/loadcrown"  keyword.control.command.ntt-main
+     | "Crowns/crwn_vagabond"  string.unquoted.path.ntt-main
+  12 | /loadskill ColdSnap/coldsnap.skill
+     | "/loadskill"  keyword.control.command.ntt-main
+     | "ColdSnap/coldsnap.skill"  string.unquoted.path.ntt-main
+  13 | /wep Weapons/KirbyWeps/kirby.wep
+     | "/wep"  keyword.control.command.ntt-main
+     | "Weapons/KirbyWeps/kirby.wep"  string.unquoted.path.ntt-main
+  14 | /loadlive library/live.mod.gml
+     | "/loadlive"  keyword.control.command.ntt-main
+     | "library/live.mod.gml"  string.unquoted.path.ntt-main
+  15 | 	/allowmod teloader.mod
+     | "/allowmod"  keyword.control.command.ntt-main
+     | "teloader.mod"  string.unquoted.path.ntt-main
+  16 | /unloadmod teloader.mod
+     | "/unloadmod"  keyword.control.command.ntt-main
+     | "teloader.mod"  string.unquoted.path.ntt-main
+  17 | /silencemod library
+     | "/silencemod"  keyword.control.command.ntt-main
+     | "library"  string.unquoted.path.ntt-main
+  18 | /ignoremod library
+     | "/ignoremod"  keyword.control.command.ntt-main
+     | "library"  string.unquoted.path.ntt-main
+  19 | /savemod teloader teloader.copy.mod.gml
+     | "/savemod"  keyword.control.command.ntt-main
+     | "teloader teloader.copy.mod.gml"  string.unquoted.path.ntt-main
+  20 | /timeout 600
+     | "/timeout"  keyword.control.command.ntt-main
+     | "600"  constant.numeric.ntt-main
+  21 | /gml some_call(1)
+     | "/gml"  keyword.control.command.ntt-main
+     | "some_call(1)"  meta.embedded.gml.ntt-main
+  22 | /gmlapi
+     | "/gmlapi"  keyword.control.command.ntt-main
+  23 | 
+  24 | // Ordinary chat commands: /load runs these from a command file too.
+     | "// Ordinary chat commands: /load runs these from a command file too."  comment.line.double-slash.ntt-main
+  25 | /wscale 2
+     | "/wscale"  support.function.command.ntt-main
+     | "2"  string.unquoted.argument.ntt-main
+  26 | /colour red
+     | "/colour"  support.function.command.ntt-main
+     | "red"  string.unquoted.argument.ntt-main
+  27 | /cwep2 revolver
+     | "/cwep2"  support.function.command.ntt-main
+     | "revolver"  string.unquoted.argument.ntt-main
+  28 | 
+  29 | // A typo the grammar cannot resolve.
+     | "// A typo the grammar cannot resolve."  comment.line.double-slash.ntt-main
+  30 | /lodmod typo.mod.gml
+     | "/lodmod"  invalid.illegal.unknown-command.ntt-main
+     | " typo.mod.gml"  -
+  31 | 
+  32 | // /loadtext loads a command file too; the FAQ lists it under /load, the
+     | "// /loadtext loads a command file too; the FAQ lists it under /load, the"  comment.line.double-slash.ntt-main
+  33 | // binary's alias table does not.
+     | "// binary's alias table does not."  comment.line.double-slash.ntt-main
+  34 | /loadtext main2.txt
+     | "/loadtext"  keyword.control.command.ntt-main
+     | "main2.txt"  string.unquoted.path.ntt-main
+  35 | 

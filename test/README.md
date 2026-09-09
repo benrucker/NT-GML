@@ -1,18 +1,30 @@
 # Tests
 
-Golden-file tests over the pure parts of the extension: the `/gmlapi` parser,
-the docs extractor, the generated tables, the hand-maintained tables, the three
-TextMate grammars, and the completion provider's model.
-No VS Code host is involved; the runner is Node's built-in `node:test`.
+There are two suites.
+
+`test/` is the main one: golden-file tests over the pure parts of the
+extension - the `/gmlapi` parser, the docs extractor, the generated tables, the
+hand-maintained tables, the three TextMate grammars, and the completion
+provider's model. No VS Code host is involved; the runner is Node's built-in
+`node:test`.
 
 ```
 pnpm test
 ```
 
 `pnpm test` first runs `pnpm build`, which compiles the extension (`tsc -p ./`),
-the generator (`tsc -p tools`) and this directory (`tsc -p test`). `test/tsconfig.json` compiles `src/`,
-`tools/` and `test/` together into `out/test/` so tests can import both the
-parser and the generated tables with full type checking.
+the generator (`tsc -p tools`), this directory (`tsc -p test`) and the
+integration suite (`tsc -p test-integration`). `test/tsconfig.json` compiles
+`src/`, `tools/` and `test/` together into `out/test/` so tests can import both
+the parser and the generated tables with full type checking.
+
+`test-integration/` is the second suite: it downloads a real VS Code, launches
+it with this extension loaded, and checks the wiring. See
+[Integration tests](#integration-tests) below.
+
+```
+pnpm test:integration
+```
 
 ## What is covered
 
@@ -27,8 +39,9 @@ parser and the generated tables with full type checking.
 | `dump.test.ts` | Every name in the vendored dump's `raw-*.gml` is in the tables (scope section 5.5); the same for a local dump in `%LOCALAPPDATA%/nuclearthrone/api` when it is the same `game_version` (skipped otherwise); names unique across kinds; tables sorted; GM placeholder assets dropped; spot checks per annotation form; no Rivals-of-Aether identifiers in `src/`, `tools/`, `data/`, `syntaxes/`, `package.json`, `resources/`, `README.md`, `CHANGELOG.md`, `.vscodeignore` and `.vscode/` (text files are scanned line by line; binary files such as `.png` are judged by file name only, and the test carries two short commented allowlists - one for whole lines that name RoA on purpose, one for single tokens in a named generated file, which is what keeps NTT's own `hitbox` and `last_ps_eth_counter` in `src/generated/object-fields.ts` from failing the scan without widening the pattern or allowlisting a 20 KB line) |
 | `grammar.test.ts` | The three `syntaxes/*.tmLanguage.json`: the two generated ones are byte-identical to a fresh `generate-grammar` run and the hand-written `ntt-main.tmLanguage.json` is listed as such, so a file in `syntaxes/` that is neither still fails; all three are structurally valid (includes resolve, `begin`/`end` pair up, every repository entry reachable, every scope ends in that grammar's own suffix - `.ntgml` or `.ntt-main` - and no `(?i)`); a line-by-line token dump of `fixtures/grammar/sample.mod.gml`, `sample.mod.ntgml` and `main.txt` as goldens; targeted scope assertions per identifier family, member access after a `.`, preprocessor form, number form, operator and string form, and dialect gating (`$"..."`, `[$`, `function`/`new`/`static`/`constructor`); and for `ntt-main`, only what the `main.txt` golden cannot show - a scope a line must *not* get (`//loadmod` is not a command, `/LoadMod` is not `/loadmod`), input too malformed to ship in a fixture (`/timeout abc`, `/gmlapi now`, `/sideloading yes`), the tier-1/tier-2 boundary at `/load` versus `/loadsprite`, and that a `/gml` line with an unterminated `/*` does not leak into the next line. Also tokenises up to 40 installed mods as a backtracking canary, and every installed `main*.txt` with the `ntt-main` grammar, asserting that none of their commands comes back unknown - that assertion depends on what is in the mods folder on purpose, and a failure means the table needs re-reading from the binary. Skips when the game is absent (override the path with `NT_MODS_DIR`). |
 | `provider.test.ts` | `src/provider`, the vscode-free half of the completion / hover / signature-help provider (scope section 5.4). Goldens: a one-line dump of every offered item (name, kind, `sortText`, detail) and of the context-only families (mod events, custom-object fields, six of the 489 generated field sets, buttons, pragmas), rendered documentation for one sample per annotation form, one cursor scenario per context rule (`fixtures/provider/context-cases.txt`), one call per signature scanner case (`fixtures/provider/signature-cases.txt`), and the top of the list per context (where the sort tiers show). Direct asserts: no duplicate item names; every hand-table entry (keywords, built-in constants, soft keywords, preprocessor directives) keeps its kind, tier and documentation through the merge with the dump, and `region`/`endregion` stay unoffered; the NTT-only families land in the NTT tier and plain GameMaker names do not; one snippet placeholder per required argument; dialect gating of `function`/`new`/`static`/`constructor`; the object-argument heuristic (`instance_create`, `instances_matching`, `collision_line`, the `object_*` family, and the `variable_struct_filter` non-match), which refines a kind rather than replacing it; a `with (CustomEnemy)` body offering the object's plain fields as well as its `on_` callbacks, where an `instance_create` receiver offers only the callbacks; the same mechanism over the game's own objects, so `Player.` and a `with (Player)` body offer its 125 own and inherited instance variables while `MultiMenu.` - one of the 75 objects the field dump does not list - offers nothing at all, and how far a `with` receiver reaches (closed block, brace-less on the same line and on the next, nested, and one written in a comment or a string), against the `on_` path, which is unbounded but looks only for `Custom*` objects so a closed `with (Player)` cannot shadow the `CustomEnemy` a callback belongs to; nothing offered in comments, strings or unknown member access, including a block comment or string opened on an earlier line and a `#define` line inside one; a preprocessor word owns its leading `#` and a colour literal does not; no offered list contains two entries a user cannot tell apart; hover resolution per context; every signature parameter range covers its rendered argument; and the layering rule in both directions - nothing reachable from `src/provider` imports `vscode`, and `src/generated` / `src/tables` never import `src/provider`. |
-| `packaging.test.ts` | `LICENSE` exists and says MIT; `package.json` declares `license: "MIT"`; every relative prose link in `README.md` and `CHANGELOG.md` resolves (one stripper for both: code spans and fenced blocks removed first), including `docs/NTT Modding Cheat Sheet.md`; `CHANGELOG.md` has a `## [x.y.z]` heading for the version `package.json` declares, and `README.md` hard-codes no `.vsix` file name that has drifted from it; `.gitignore` still ignores `out/` and `*.vsix`; `.github/workflows/ci.yml` still runs `pnpm gen` with a `git diff --exit-code` and still uploads a per-OS `vsix-${{ matrix.os }}` artifact from both runners with no `matrix.os` condition (literal substrings, like the `.vscodeignore` check); every `test/*.test.ts` file has a row in this table; `.vscodeignore` has no line literally excluding `LICENSE`/`README.md`/`CHANGELOG.md`/`package.json`/`syntaxes/`/`data/`/`out/`/`resources/`, and still has the lines excluding `api/`, `src/`, `tools/`, `test/`, `docs/`, `.claude/` and the non-shipped `out/` subtrees; the file named by `package.json` `icon` is a square 8-bit RGBA PNG of at least 128x128 (header bytes and the IHDR chunk, not a full decode), is 256x256, and has the pinned SHA-256 of the extraction from `nuclearthrone.exe` (it is the game's artwork, so there is nothing to re-render it from; a deliberate swap updates the hash and `LICENSE`); and every `contributes.languages[].configuration` and `contributes.grammars[].path` exists *and* parses as JSON, with the grammar and language lists naming the same ids. Literal line matching, not ignore semantics; `pnpm package` in CI is the real check. |
+| `packaging.test.ts` | `LICENSE` exists and says MIT; `package.json` declares `license: "MIT"`; every relative prose link in `README.md` and `CHANGELOG.md` resolves (one stripper for both: code spans and fenced blocks removed first), including `docs/NTT Modding Cheat Sheet.md`; `CHANGELOG.md` has a `## [x.y.z]` heading for the version `package.json` declares, and `README.md` hard-codes no `.vsix` file name that has drifted from it; `.gitignore` still ignores `out/` and `*.vsix`; `.github/workflows/ci.yml` still runs `pnpm gen` with a `git diff --exit-code` and still uploads a per-OS `vsix-${{ matrix.os }}` artifact from both runners with no `matrix.os` condition, and still runs `pnpm test:integration` on both, under `xvfb-run -a` on Linux, from a `.vscode-test` cache whose key names the version in `test-integration/vscode-version.txt` (literal substrings, like the `.vscodeignore` check); `package.json` declares exactly the two `onLanguage` activation events; every `*.test.ts` file in *both* suites has a row in this table, `test/` matched flat and `test-integration/` by relative path; `.vscodeignore` has no line literally excluding `LICENSE`/`README.md`/`CHANGELOG.md`/`package.json`/`syntaxes/`/`data/`/`out/`/`resources/`, and still has the lines excluding `api/`, `src/`, `tools/`, `test/`, `test-integration/`, `docs/`, `.claude/` and the non-shipped `out/` subtrees; the file named by `package.json` `icon` is a square 8-bit RGBA PNG of at least 128x128 (header bytes and the IHDR chunk, not a full decode), is 256x256, and has the pinned SHA-256 of the extraction from `nuclearthrone.exe` (it is the game's artwork, so there is nothing to re-render it from; a deliberate swap updates the hash and `LICENSE`); and every `contributes.languages[].configuration` and `contributes.grammars[].path` exists *and* parses as JSON, with the grammar and language lists naming the same ids. Literal line matching, not ignore semantics; `pnpm package` in CI is the real check. |
 | `tables.test.ts` | `src/tables`: every mod type has `init`/`cleanup`, no duplicate events, keywords disjoint from functions, unique buttons and custom-object fields, `modTypeFromFileName`. |
+| `suite/extension.test.ts` (in `test-integration/`) | The extension host: see [Integration tests](#integration-tests). |
 
 ## Updating goldens
 
@@ -52,12 +65,74 @@ Add the line to `fixtures/parse-api/api.gml` under the matching `//{ group`,
 run with `UPDATE_GOLDENS=1`, and check the new entry in `api.golden.json`
 says what you expect.
 
+## Integration tests
+
+`test-integration/` runs inside a real extension host. `runTests.ts` downloads
+the VS Code pinned in `test-integration/vscode-version.txt` - the one file that
+names the version, and `packaging.test.ts` fails if the CI cache key drifts from
+it - into `.vscode-test/` at the repository root, copies `test-integration/fixtures/`
+into a throwaway workspace under the system temp directory, and launches the
+editor on it with `--disable-extensions --disable-workspace-trust` and a
+`--user-data-dir` inside that same temp directory, so a run never touches your
+own VS Code profile. The temp directory is removed afterwards; `.vscode-test/`
+is kept, and is git-ignored.
+
+```
+pnpm test:integration
+```
+
+The download is about 332 MB and happens once (roughly a gigabyte on disk once
+unpacked). CI caches `.vscode-test/` on a key that names the pinned version, and
+runs the suite on both Ubuntu, under `xvfb-run -a` since that runner has no
+display, and Windows.
+
+The pin is the newest stable release at the time the suite was written
+(2026-09-08, the first entry of the update API's stable list). It is well above
+`engines.vscode` (`^1.75.0`), and nothing here exercises that floor: the newest
+API the suite touches is `CompletionItemLabel`, the object form of a completion
+label, finalised in 1.58, and `@types/vscode` resolves to 1.136.0 in the
+lockfile, so the types do not hold the floor either. Moving the pin forward is a
+one-line change in `vscode-version.txt` plus the CI cache key.
+
+`suite/index.ts` is the in-host entry point VS Code calls. It runs mocha, not
+the `node:test` the rest of this repository uses, because `node:test` cannot
+report that it has finished inside an extension host: run in process
+(`run({ isolation: 'none' })`, the only mode whose test files can
+`require('vscode')`) it emits every per-test event and then stops. Its root test
+is finalised on `process.on('beforeExit')`, and the host holds handles open for
+the life of the window, so the event loop never drains, `test:summary` never
+arrives and the stream never ends - measured on 1.136.2 (Node 24.18.1,
+Electron 42.10.0), where the run reported every test and then hung until a
+watchdog killed it at 120 s. It is not a VS Code quirk: a plain `node` script
+with one live `setInterval` reproduces it exactly, and clearing the interval
+makes the summary appear.
+
+`suite/extension.test.ts` is deliberately not a second copy of the provider
+goldens - every expectation in it cites the one golden line under
+`test/fixtures/provider/` it stands for, and what is being tested is that the
+registration in `src/extension.ts` and the conversion in
+`src/completionProvider.ts` carry that line out to the host at all.
+
+| Group | Checks |
+|---|---|
+| activation and language ids | The extension is loaded and *not* active before an NTGML document is opened; `maintenance.txt` stays `plaintext` (the pattern is `main[0-9]*.txt`) and does not activate it; `thing.mod.ntgml` is `ntgml` and `thing.mod.gml` is `ntgml-legacy`, and opening one activates the extension; `main.txt`, `main.cfg` and `main2.txt` are `ntt-main` and get no completions, and no hover even over the real function name on the fixture's `/gml` line, since the selector in `src/extension.ts` names only the two NTGML ids; the manifest contributes three languages and three grammars whose files exist. Note that since VS Code 1.74 a contributed language that also declares a `configuration` (all three of ours do) is an *implicit* activation event, so opening an `ntt-main` document activates the extension too - the tests run in an order that keeps the "not active yet" assertions honest. What `activationEvents` itself declares is asserted against `package.json` on disk, in `packaging.test.ts`. |
+| completions | Through `vscode.executeCompletionItemProvider`: `instance_cre` offers `instance_create`; a `#define ` line offers the `.mod` events `init` and `step`; `Player.we` offers `wep`; `    on_ste` inside a `with (CustomEnemy) {` body offers `on_step`; the `#define` item offered on a `#def` line carries an explicit range starting at the `#`, which is the one conversion bug `src/completionProvider.ts` exists to work around and is only visible in a host; and `function`/`new`/`static`/`constructor` are offered after `var a = ` in `.ntgml` and hidden in `.gml`. Items of kind `Text` are filtered out first: those are the editor's own word-based suggestions, harvested from the fixture text, and without that filter the assertions pass with the providers unregistered. |
+| hover and signature help | `vscode.executeHoverProvider` over `instance_create` renders `instance_create(x, y, obj, ?var_struct) -> value`; `vscode.executeSignatureHelpProvider` at `instance_create(x, y, ` reports that same label with `activeParameter` 2. |
+
+Colouring is not tested here: `vscode-textmate` is not reachable through the
+host API, so the grammars stay covered by the token-dump goldens in
+`grammar.test.ts`, which tokenise with the same library VS Code does.
+
 ## Not covered yet
 
 - Highlighting the modern dialect inside a `.gml` file that opts in with
   `#pragma gml 2`: VS Code picks one grammar per file type, so such a file is
   tokenised as legacy. `grammar.test.ts` asserts the current behaviour.
-- The thin VS Code layer in `src/completionProvider.ts` and `src/extension.ts`:
-  provider registration and the `vscode.CompletionItem` conversion need an
-  extension host. Keep logic out of them - it belongs in `src/provider/`,
-  which `provider.test.ts` covers here.
+- Colouring inside the editor, for the reason above: `grammar.test.ts`
+  tokenises with the same library, but nothing asserts that VS Code loads the
+  grammars and paints them.
+
+The thin VS Code layer in `src/completionProvider.ts` and `src/extension.ts`
+used to be listed here; the integration suite covers it now. Keep logic out of
+those two files anyway - it belongs in `src/provider/`, which `provider.test.ts`
+covers with far cheaper tests.

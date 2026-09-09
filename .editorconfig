@@ -18,3 +18,8 @@ trim_trailing_whitespace = false
 [api/**]
 insert_final_newline = unset
 trim_trailing_whitespace = false
+
+# Integration fixtures are opened by the editor under test and have to match
+# the provider goldens character for character, which use spaces.
+[test-integration/fixtures/**]
+indent_style = space

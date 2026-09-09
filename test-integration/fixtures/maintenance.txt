@@ -1,0 +1,2 @@
+Not a command file: the filename pattern is main[0-9]*.txt, and this
+file has to stay plain text.

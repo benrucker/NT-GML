@@ -1,0 +1,2 @@
+/loadmod thing.mod
+/gml instance_create(x, y, obj);

@@ -56,12 +56,12 @@ from a CI run.
   written `Custom*` table and the other 73 offer nothing at all.
 - A third language, `ntt-main`, for the `main.txt` / `main.cfg` command files
   that tell NTT what to load. Highlighting only — it contributes no
-  completions and does not activate the extension. `//` comments; 122 command
-  names taken from the 100.034 binary itself, split into the 38 loader-side
-  ones (loading, unloading, saving, allowing and silencing, with their aliases,
-  plus `/timeout`, `/gml`, `/gml2`, `/gmlapi` and the sideloading vote) and the
-  84 other chat commands; a command the list does not know is coloured as
-  invalid. It claims `main.txt`, `main.cfg` and `main<digits>...txt`.
+  completions and no hovers. `//` comments; 122 command names taken from the
+  100.034 binary itself, split into the 38 loader-side ones (loading,
+  unloading, saving, allowing and silencing, with their aliases, plus
+  `/timeout`, `/gml`, `/gml2`, `/gmlapi` and the sideloading vote) and the 84
+  other chat commands; a command the list does not know is coloured as invalid.
+  It claims `main.txt`, `main.cfg` and `main<digits>...txt`.
 - An extension icon, so the Extensions view no longer shows a placeholder:
   the game's own crown icon, extracted from `nuclearthrone.exe` by
   `tools/extract-icon.ps1` and pinned by hash in the packaging tests. It is
@@ -71,6 +71,12 @@ from a CI run.
   without hand-editing anything. Output is deterministic, and both the test
   suite and CI fail if the committed tables drift from what the generator
   produces.
+- An integration suite, `pnpm test:integration`, that downloads a pinned VS
+  Code, launches it with the extension loaded, and checks in the real editor
+  what the golden-file suite can only check in isolation: the three languages
+  are assigned to the right files, opening an NTGML file activates the
+  extension, and completions, hover and signature help come back through the
+  editor's own commands. It runs on both CI runners.
 
 ### Known limitations
 

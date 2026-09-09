@@ -1,6 +1,7 @@
 {
-	// Shared compiler options. The three projects (root = extension, tools/,
-	// test/) extend this and only set their own rootDir/outDir/includes.
+	// Shared compiler options. The four projects (root = extension, tools/,
+	// test/, test-integration/) extend this and only set their own
+	// rootDir/outDir/includes.
 	"compilerOptions": {
 		"module": "commonjs",
 		"target": "es2022",

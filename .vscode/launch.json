@@ -15,6 +15,30 @@
 			"preLaunchTask": "${defaultBuildTask}"
 		},
 		{
+			// The same suite `pnpm test:integration` runs, but attached to the
+			// debugger and opened on the tracked `test-integration/fixtures/`
+			// rather than on a throwaway copy: the suite applies edits, so the
+			// fixture documents go dirty here. Close them without saving.
+			// Run `pnpm build` first: the host needs out/extension.js as well
+			// as the compiled suite, and the default build task is the tsc
+			// watcher for the extension alone.
+			"name": "Integration Tests",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"${workspaceFolder}/test-integration/fixtures",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test-integration/test-integration/suite/index",
+				"--disable-extensions",
+				"--disable-workspace-trust",
+				"--user-data-dir=${workspaceFolder}/.vscode-test/user-data-debug"
+			],
+			"outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			]
+		},
+		{
 			"name": "Run Tests",
 			"type": "node",
 			"request": "launch",

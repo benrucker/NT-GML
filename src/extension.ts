@@ -11,7 +11,10 @@ import {
 /** Language ids contributed by this extension (legacy `.gml` and modern `.ntgml`). */
 const NTGML_SELECTOR: vscode.DocumentSelector = ['ntgml', 'ntgml-legacy'];
 
-// Called the first time an NTGML document is opened.
+// Called the first time a document in one of the contributed languages is
+// opened - ntt-main included, which registers nothing here: since VS Code 1.74
+// a contributed language that also declares a `configuration` is an implicit
+// activation event, and all three of ours do.
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.languages.registerCompletionItemProvider(

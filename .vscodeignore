@@ -4,11 +4,13 @@
 .git/**
 .claude/**
 out/test/**
+out/test-integration/**
 out/tools/**
 out/src/**
 src/**
 tools/**
 test/**
+test-integration/**
 api/**
 .editorconfig
 .gitattributes

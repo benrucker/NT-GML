@@ -1,0 +1,16 @@
+{
+	// The integration suite: test-integration/ -> out/test-integration.
+	// `rootDir` is the repository root so the compiled layout mirrors the
+	// source one (out/test-integration/test-integration/...), which keeps the
+	// runner's path back to the root a plain `../../..`.
+	//
+	// Deliberately outside `pnpm test`'s glob (out/test/test/**/*.test.js):
+	// these tests need a real editor and are run by `pnpm test:integration`.
+	"extends": "../tsconfig.base.json",
+	"compilerOptions": {
+		"outDir": "../out/test-integration",
+		"rootDir": "..",
+		"types": ["node", "mocha"]
+	},
+	"include": ["./**/*.ts"]
+}

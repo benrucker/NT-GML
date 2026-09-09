@@ -21,6 +21,7 @@ interface Manifest {
 	version: string;
 	license?: string;
 	icon?: string;
+	activationEvents?: string[];
 	contributes?: {
 		languages?: { id: string; configuration?: string }[];
 		grammars?: { language: string; scopeName: string; path: string }[];
@@ -112,14 +113,52 @@ test('packaging: CI regenerates and diffs, and uploads a .vsix from both runners
 		'a step is conditional on matrix.os again; both runners should upload');
 });
 
+test('packaging: CI runs the integration suite on both runners, from one cache', () => {
+	// Same literal-substring style as the check above. The version in the
+	// cache key is the one thing here that can drift silently, so it is read
+	// from the file the runner itself reads rather than written out twice.
+	const ci = read(path.join(ROOT, '.github/workflows/ci.yml'));
+	const version = read(path.join(ROOT, 'test-integration/vscode-version.txt')).trim();
+	assert.match(version, /^\d+\.\d+\.\d+$/, 'not a VS Code version: ' + version);
+	assert.ok(ci.includes('pnpm test:integration'), 'CI no longer runs the integration suite');
+	assert.ok(ci.includes('xvfb-run -a'),
+		'the Ubuntu runner has no display, so the editor needs xvfb');
+	assert.ok(ci.includes('path: .vscode-test'),
+		'CI no longer caches the downloaded editor');
+	assert.ok(ci.includes('key: vscode-test-${{ runner.os }}-' + version),
+		'the cache key does not name the version in test-integration/vscode-version.txt ('
+		+ version + '), so the two have drifted');
+});
+
+/** Every `*.test.ts` under `dir`, as paths relative to `dir`. */
+const testFiles = (dir: string, recursive = false): string[] => fs
+	.readdirSync(path.join(ROOT, dir), { recursive, encoding: 'utf8' })
+	.filter((f) => f.endsWith('.test.ts'))
+	.map((f) => f.split(path.sep).join('/'))
+	.sort();
+
 test('packaging: test/README.md names every test file', () => {
-	const files = fs.readdirSync(path.join(ROOT, 'test'))
-		.filter((f) => f.endsWith('.test.ts'))
-		.sort();
-	assert.ok(files.length > 0, 'no test files found');
+	// Both suites. test/ is flat and stays a flat listing, so a fixture that
+	// happens to end in .test.ts does not demand a row; test-integration/ is
+	// nested, and is matched on its relative path, so two files sharing a base
+	// name across the suites cannot share one row.
+	const unit = testFiles('test');
+	const integration = testFiles('test-integration', true);
+	assert.ok(unit.length > 0, 'no test files found in test/');
+	assert.ok(integration.length > 0, 'no test files found in test-integration/');
+	const files = [...unit, ...integration];
 	const readme = read(path.join(ROOT, 'test/README.md'));
 	const undocumented = files.filter((f) => !readme.includes(f));
 	assert.deepEqual(undocumented, [], 'test/README.md has no row for these');
+});
+
+test('packaging: package.json declares the two NTGML activation events', () => {
+	// Only the two dialects: `ntt-main` is highlighting only, and README.md
+	// says so. VS Code adds an implicit `onLanguage:` event for every
+	// contributed language that declares a `configuration` anyway, which is why
+	// this is asserted against the file rather than the host's copy of it.
+	assert.deepEqual(manifest().activationEvents,
+		['onLanguage:ntgml', 'onLanguage:ntgml-legacy']);
 });
 
 test('packaging: .vscodeignore has no line excluding a file the .vsix needs', () => {
@@ -136,7 +175,8 @@ test('packaging: .vscodeignore has no line excluding a file the .vsix needs', ()
 	// `.claude/**` is not a source directory: agent worktrees can appear under
 	// it, and vsce would otherwise sweep a whole second copy of the repo in.
 	for (const dropped of ['api/**', 'src/**', 'tools/**', 'test/**', 'docs/**',
-		'.claude/**', 'out/src/**', 'out/test/**', 'out/tools/**']) {
+		'.claude/**', 'test-integration/**', 'out/src/**', 'out/test/**',
+		'out/test-integration/**', 'out/tools/**']) {
 		assert.ok(lines.indexOf(dropped) >= 0, '.vscodeignore lost the line excluding ' + dropped);
 	}
 });

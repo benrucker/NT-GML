@@ -41,7 +41,7 @@ A third language, `ntt-main`, covers the command files that tell NTT what to loa
 
 The language claims `main.txt`, `main.cfg`, and `main<digits>...txt` - the `main[0-9]*.txt` pattern, which picks up the chained `main2.txt` and `main3.txt` without claiming an unrelated `mainframe.txt` or `maintenance.txt` in some other workspace. As with `.gml`, `files.associations` overrides it.
 
-It is highlighting only: no completions, no hovers, and nothing in the extension activates for it. Commands are matched case-sensitively in lower case, which is how every documented and every observed one is written. A command the grammar does not know - `/lodmod`, or a command from a newer NTT - is coloured as invalid, and so is an argument after a command that takes none (`/gmlapi x`) or a non-numeric `/timeout`. The command list is the NTT 100.034 binary's own: 122 names, being every `chat_cmd_<name>` handler in its string pool plus every alias its `/help` table registers, which is a superset of both [NTGML-SPEC.md](NTGML-SPEC.md) section 9 and the NTT FAQ's 49-name chat-command list. 38 of them are the mod, command-file and locale commands - loading, unloading, saving, allowing and silencing, with their aliases - plus `/timeout`, `/gml`, `/gml2`, `/gmlapi` and the sideloading vote, so what follows one is a path, a duration, a line of GML, or nothing at all; the other 84 are the rest of the chat commands - the sprite, image and save-file ones among them - which `/load` will run from a command file just the same. `syntaxes/ntt-main.tmLanguage.json` is hand-maintained and records where each name came from. The argument of `/gml` is marked as embedded GML but is *not* tokenised by the NTGML grammars, so an unterminated `/*` on a `/gml` line cannot swallow the rest of the file.
+It is highlighting only: no completions and no hovers. The extension does still activate when you open one, because since VS Code 1.74 a contributed language that declares a `configuration` is an implicit activation event, but it registers nothing for the id. Commands are matched case-sensitively in lower case, which is how every documented and every observed one is written. A command the grammar does not know - `/lodmod`, or a command from a newer NTT - is coloured as invalid, and so is an argument after a command that takes none (`/gmlapi x`) or a non-numeric `/timeout`. The command list is the NTT 100.034 binary's own: 122 names, being every `chat_cmd_<name>` handler in its string pool plus every alias its `/help` table registers, which is a superset of both [NTGML-SPEC.md](NTGML-SPEC.md) section 9 and the NTT FAQ's 49-name chat-command list. 38 of them are the mod, command-file and locale commands - loading, unloading, saving, allowing and silencing, with their aliases - plus `/timeout`, `/gml`, `/gml2`, `/gmlapi` and the sideloading vote, so what follows one is a path, a duration, a line of GML, or nothing at all; the other 84 are the rest of the chat commands - the sprite, image and save-file ones among them - which `/load` will run from a command file just the same. `syntaxes/ntt-main.tmLanguage.json` is hand-maintained and records where each name came from. The argument of `/gml` is marked as embedded GML but is *not* tokenised by the NTGML grammars, so an unterminated `/*` on a `/gml` line cannot swallow the rest of the file.
 
 ## Object instance variables
 
@@ -105,8 +105,9 @@ Built-in instance variables (`x`, `sprite_index`, `speed`) are deliberately **no
 
 ```
 pnpm install
-pnpm build      # extension, generator, and tests
+pnpm build      # extension, generator, and both test suites
 pnpm test       # builds, then runs the golden-file suite
+pnpm test:integration   # launches a real VS Code and tests the extension in it
 pnpm lint
 pnpm gen        # regenerate src/generated and syntaxes/ntgml*.json from the dump
 pnpm package    # produces a .vsix
@@ -120,7 +121,7 @@ You get a fresh dump by typing `/gmlapi` in the game's chat, which writes to `%L
 
 To move the repo to a newer NTT release, copy that folder into `api/` as a **new** version directory named after the game version (`api/ntt-100.035/`, alongside the existing `api/ntt-100.034/`), give it a `README.md` in the same shape as the current one, point the generator at it, and rerun `pnpm gen`. Old version directories stay; `api/ntt-100.022-reference/` in particular is still needed, because it is the only source of `default.gml`'s 57 built-in instance variables and it fills argument-type gaps that the live dump leaves.
 
-CI runs lint, a `pnpm gen` diff check, test, and package on Ubuntu and Windows for every push to `main` and every pull request, and uploads the built `.vsix` from each as `vsix-ubuntu-latest` and `vsix-windows-latest`. The diff check regenerates the tables and grammars on the runner and fails if anything in the working tree moved, so a commit that changes the generator or a vendored input without rerunning `pnpm gen` cannot land.
+CI runs lint, a `pnpm gen` diff check, test, and package on Ubuntu and Windows for every push to `main` and every pull request, and uploads the built `.vsix` from each as `vsix-ubuntu-latest` and `vsix-windows-latest`. The diff check regenerates the tables and grammars on the runner and fails if anything in the working tree moved, so a commit that changes the generator or a vendored input without rerunning `pnpm gen` cannot land. A second job runs `pnpm test:integration` on both of the same runners - under `xvfb-run -a` on Ubuntu, which has no display - against the VS Code version pinned in `test-integration/vscode-version.txt`, cached between runs on a key that names it.
 
 ## Other documents
 

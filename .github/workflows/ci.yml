@@ -41,3 +41,44 @@ jobs:
         with:
           name: vsix-${{ matrix.os }}
           path: '*.vsix'
+
+  # The editor half of the suite: `pnpm test` above is plain Node and never
+  # starts VS Code, so provider registration, the manifest wiring and
+  # activation are only exercised here. Separate job, so a flaky download or a
+  # missing display does not hide a unit-test failure.
+  integration:
+    name: integration (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    # A window that comes up but never finishes would otherwise sit here for
+    # the six-hour default. A green run is well under a minute.
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4 # version comes from package.json#packageManager
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # ~330 MB of editor per run otherwise. The version here is the one in
+      # test-integration/vscode-version.txt, which is what the runner reads;
+      # packaging.test.ts fails if the two ever drift apart.
+      - uses: actions/cache@v4
+        with:
+          path: .vscode-test
+          key: vscode-test-${{ runner.os }}-1.136.2
+      # One step for both runners: Ubuntu has no display, so the editor needs
+      # xvfb. A step conditional on matrix.os is what packaging.test.ts forbids,
+      # hence the branch on runner.os inside bash.
+      - name: pnpm test:integration
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            xvfb-run -a pnpm test:integration
+          else
+            pnpm test:integration
+          fi

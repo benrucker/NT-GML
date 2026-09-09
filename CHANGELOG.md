@@ -62,10 +62,10 @@ from a CI run.
   plus `/timeout`, `/gml`, `/gml2`, `/gmlapi` and the sideloading vote) and the
   84 other chat commands; a command the list does not know is coloured as
   invalid. It claims `main.txt`, `main.cfg` and `main<digits>...txt`.
-- An extension icon, so the Extensions view no longer shows a placeholder.
-  `pnpm gen:icon` re-renders it from analytic shapes with no dependencies, and
-  the committed PNG is checked by decoding it and comparing pixels rather than
-  bytes.
+- An extension icon, so the Extensions view no longer shows a placeholder:
+  the game's own crown icon, extracted from `nuclearthrone.exe` by
+  `tools/extract-icon.ps1` and pinned by hash in the packaging tests. It is
+  Vlambeer's artwork, not the extension's (see `LICENSE`).
 - A regeneration workflow: `pnpm gen` rebuilds the tables and both NTGML
   grammars from a fresh `/gmlapi` dump, so a new NTT release can be picked up
   without hand-editing anything. Output is deterministic, and both the test

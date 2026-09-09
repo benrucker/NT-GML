@@ -109,7 +109,6 @@
 		"gen:api": "pnpm run compile:tools && node out/tools/generate-api.js",
 		"gen:grammar": "pnpm run compile:tools && node out/tools/generate-grammar.js",
 		"gen": "pnpm run gen:api && pnpm run gen:grammar",
-		"gen:icon": "pnpm run compile:tools && node out/tools/render-icon.js",
 		"package": "vsce package --no-dependencies"
 	},
 	"devDependencies": {

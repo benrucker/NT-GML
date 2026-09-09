@@ -85,7 +85,7 @@ Built-in instance variables (`x`, `sprite_index`, `speed`) are deliberately **no
 | `src/provider/`                                 | What those providers actually do, in five modules that never import `vscode`: `model`, `format`, `items`, `context`, `signature`.                     |
 | `src/generated/`                                | Everything the generators write, never edited by hand: `functions.ts`, `constants.ts`, `variables.ts`, `assets.ts`, per-function prose in `docs.ts` (mirrored as `docs.json` for tools that cannot import TypeScript), per-object instance variables in `object-fields.ts`, and `meta.ts`, which records the dump's `game_version` and its generation stamp. |
 | `src/tables/`                                   | Hand-maintained tables and the lookups over the generated ones: mod events per mod type (`events.ts`), `Custom*` object callbacks (`custom-objects.ts`), button names, keywords, `ntt-names.ts` (the NTT-only families that drive the sort tier), the shared types, and `object-fields.ts`, which walks the generated object table's parent chain (`fieldsFor`, `declaringObject`, `knownFieldObject`). |
-| `tools/`                                        | The generators. `parse-api.ts` reads the dump format, `parse-docs.ts` pulls prose out of the docs sources, `parse-fields.ts` reads the per-object `fields.gml`, `parse-object-docs.ts` reads the six object pages; `generate-api.ts` merges all four into `src/generated/`, `generate-grammar.ts` writes the two NTGML grammars, and `render-icon.ts` draws `resources/icon.png`. |
+| `tools/`                                        | The generators. `parse-api.ts` reads the dump format, `parse-docs.ts` pulls prose out of the docs sources, `parse-fields.ts` reads the per-object `fields.gml`, `parse-object-docs.ts` reads the six object pages; `generate-api.ts` merges all four into `src/generated/`, `generate-grammar.ts` writes the two NTGML grammars. `extract-icon.ps1` pulls `resources/icon.png` out of the game's executable (Windows only, not compiled). |
 | `api/ntt-100.034/`                              | The vendored `/gmlapi` dump this build is generated from. Source of truth.                                                                           |
 | `api/ntt-100.022-reference/`                    | An older, hand-annotated dump. Fills argument-type gaps the live dump leaves, and supplies `default.gml`'s built-in instance variables.              |
 | `api/ntt-docs/`                                 | A copy of the [bits-of-nuclear-throne](https://github.com/YAL-Game-Tools/bits-of-nuclear-throne) docs sources.                                       |
@@ -99,7 +99,7 @@ Built-in instance variables (`x`, `sprite_index`, `speed`) are deliberately **no
 | `syntaxes/`                                     | Three TextMate grammars. `ntgml.tmLanguage.json` and `ntgml-legacy.tmLanguage.json` come out of `pnpm gen` - never edit those by hand. `ntt-main.tmLanguage.json` is hand-maintained. |
 | `data/gml-configuration.json`                   | Bracket pairs, comment tokens, and auto-closing, shared by `ntgml` and `ntgml-legacy`.                                                               |
 | `data/ntt-main-configuration.json`              | The `ntt-main` language configuration: a `//` line comment and nothing else.                                                                         |
-| `resources/icon.png`                            | The extension icon. Rendered by `tools/render-icon.ts`; `pnpm gen:icon` rewrites it.                                                                 |
+| `resources/icon.png`                            | The extension icon: the game's own 256x256 icon, extracted from `nuclearthrone.exe` by `tools/extract-icon.ps1`. Vlambeer's artwork, see [LICENSE](LICENSE). |
 
 ## Working on it
 
@@ -109,7 +109,6 @@ pnpm build      # extension, generator, and tests
 pnpm test       # builds, then runs the golden-file suite
 pnpm lint
 pnpm gen        # regenerate src/generated and syntaxes/ntgml*.json from the dump
-pnpm gen:icon   # re-render resources/icon.png (not part of pnpm gen)
 pnpm package    # produces a .vsix
 ```
 

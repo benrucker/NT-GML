@@ -41,6 +41,8 @@ third-party material described below. In short:
 - The vendored dumps and documentation under `api/` and the community
   reference under `docs/` are not covered at all, and are included here under
   no license of their own.
+- `resources/icon.png` is Vlambeer's Nuclear Throne icon, not the port's own
+  work; see "Nuclear Throne icon" below.
 
 ## The extension this repository grew out of
 
@@ -113,6 +115,16 @@ Every generated table in the `.vsix` — `out/generated/functions.js`,
 `constants.js`, `variables.js`, `assets.js`, `object-fields.js`, `meta.js` —
 and both grammars in `syntaxes/` are built from those dumps and so reproduce
 the game's own names and signatures.
+
+## Nuclear Throne icon (Vlambeer)
+
+`resources/icon.png`, the icon shown in the Extensions view and in the
+`.vsix`, is the 256x256 icon resource extracted verbatim from
+`nuclearthrone.exe` by `tools/extract-icon.ps1`. It is Vlambeer's copyrighted
+artwork for Nuclear Throne, used here to identify the game this extension
+supports; no permission for it has been sought or given, and it is not covered
+by the MIT grant above. Anyone redistributing this extension should treat the
+icon as Vlambeer's and replace it if that use is not acceptable to them.
 
 ## GMEdit (YellowAfterlife)
 

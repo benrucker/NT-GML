@@ -10,9 +10,8 @@ import * as assert from 'node:assert/strict';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { test } from 'node:test';
-import * as zlib from 'node:zlib';
+import { createHash } from 'node:crypto';
 
-import { buildScene, render } from '../tools/render-icon';
 import { ROOT, read } from './helpers';
 
 const exists = (rel: string) => fs.existsSync(path.join(ROOT, rel));
@@ -148,8 +147,7 @@ test('packaging: package.json ships an icon and it is a square PNG', () => {
 	assert.ok(exists(icon as string), 'no file at ' + icon);
 
 	// Enough of the header to catch a truncated, renamed or re-encoded file.
-	// tools/render-icon.ts writes exactly this shape; regenerate with
-	// `pnpm gen:icon` (it is deliberately not part of `pnpm gen`).
+	// The file is the game's own icon, extracted by tools/extract-icon.ps1.
 	const png = fs.readFileSync(path.join(ROOT, icon as string));
 	assert.deepEqual([...png.subarray(0, 8)], [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a],
 		'not a PNG');
@@ -165,58 +163,18 @@ test('packaging: package.json ships an icon and it is a square PNG', () => {
 });
 
 /**
- * The artwork, not the file. `tools/render-icon.ts` is deliberately outside
- * `pnpm gen` and nothing byte-compares its output, because the DEFLATE stream
- * is zlib's and zlib has changed its output between Node releases: a byte
- * compare would fail on the compressor without the picture having changed.
- * Inflating the IDAT and comparing decoded pixels is what sidesteps that.
- *
- * The +/-2 is for per-channel rounding, and for nothing else. It is not
- * headroom for the renderer to drift: a `Math.cos`/`sin`/`atan2`/`hypot`
- * last-bit difference between V8 builds only changes a pixel if it moves a
- * sample point across a boundary it was already within about 1e-14 of - the
- * spacing of doubles at the coordinates the shapes use - and at SAMPLES=4 one
- * flipped sample moves that pixel by at least about 8 levels in some channel
- * (8.4 at a brace edge, 12 at a trefoil edge, about 16 on the tile's outer
- * edge, where the alpha itself steps). So it would fail here - correctly,
- * since the drawn picture would have changed. Today the worst difference is 0.
+ * The committed icon is Vlambeer's artwork extracted from nuclearthrone.exe
+ * (LICENSE, "Nuclear Throne icon"), not something this repo draws, so there
+ * is nothing to re-render it from: pin the bytes instead. A deliberate swap
+ * updates the hash here; an accidental one (a re-save, a stray edit) fails.
  */
-test('packaging: resources/icon.png is what tools/render-icon.ts draws', () => {
+test('packaging: resources/icon.png is the pinned extraction from the game', () => {
 	const png = fs.readFileSync(path.join(ROOT, manifest().icon as string));
-	const width = png.readUInt32BE(16);
-	const height = png.readUInt32BE(20);
-
-	// Walk the chunks rather than assuming a layout, and concatenate every
-	// IDAT: the spec allows an image to be split across several of them.
-	const idat: Buffer[] = [];
-	for (let at = 8; at + 12 <= png.length;) {
-		const length = png.readUInt32BE(at);
-		const type = png.subarray(at + 4, at + 8).toString('latin1');
-		if (type === 'IDAT') { idat.push(png.subarray(at + 8, at + 8 + length)); }
-		if (type === 'IEND') { break; }
-		at += 12 + length;
-	}
-	assert.ok(idat.length > 0, 'no IDAT chunk');
-
-	const stride = width * 4;
-	const raw = zlib.inflateSync(Buffer.concat(idat));
-	assert.equal(raw.length, height * (stride + 1), 'unexpected raw size');
-
-	const fresh = render(buildScene());
-	assert.equal(fresh.length, height * stride, 'render() and the PNG disagree on size');
-
-	let worst = 0;
-	let where = '';
-	for (let y = 0; y < height; y++) {
-		assert.equal(raw[y * (stride + 1)], 0, 'scanline ' + y + ' is not filter type 0');
-		for (let x = 0; x < stride; x++) {
-			const diff = Math.abs(raw[y * (stride + 1) + 1 + x] - fresh[y * stride + x]);
-			if (diff > worst) { worst = diff; where = 'at ' + (x >> 2) + ',' + y; }
-		}
-	}
-	assert.ok(worst <= 2,
-		'committed icon differs from a fresh render by ' + worst + ' ' + where +
-		'; rerun `pnpm gen:icon` and look at the result');
+	assert.equal(png.readUInt32BE(16), 256, 'width');
+	assert.equal(png.readUInt32BE(20), 256, 'height');
+	assert.equal(createHash('sha256').update(png).digest('hex'),
+		'36e9c59ef2bfc7d72aabdb7efea1aab2d6bbfbb156303b1a5e6f8c09084961e2',
+		'resources/icon.png changed; if that was deliberate, update this hash and LICENSE');
 });
 
 test('packaging: every contributed configuration and grammar file exists and parses', () => {
